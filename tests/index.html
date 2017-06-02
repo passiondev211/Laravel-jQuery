@@ -1,0 +1,20 @@
+<html>
+   <head>
+      <title>Connecting MySQL Server</title>
+   </head>
+   <body>
+      <?php
+         $dbhost = '127.0.0.1:3306';
+         $dbuser = 'root';
+         $dbpass = '';
+         echo "huhuhu";
+         $conn = mysql_connect($dbhost, $dbuser, $dbpass);
+         if(! $conn ) {
+            echo "failed--------------";
+            die('Could not connect: ' . mysql_error());
+         }
+         echo 'Connected successfully';
+         mysql_close($conn);
+      ?>
+   </body>
+</html>
