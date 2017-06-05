@@ -633,7 +633,7 @@
         formData=formData+'&phonenum=' + localStorage.getItem('phonenum');
         formData=formData+'&verifycode=' + "verifycode";
         $.ajax({
-            url:'api/register',
+            url:'register',
             type:'POST',
             data:formData,
                 success:function(data){
