@@ -219,7 +219,7 @@
                         <h2>Sign up with Email</h2>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum eos illo fuga officiis aperiam.</p>
                         <form>
-                            <input type="text" #fullname name="fullname" id="fullname" placeholder="Full name">
+                            <input type="text" #fullname name="fullname1" id="fullname1" placeholder="Full name">
                             <input type="email" #email name="email1" id="email1" placeholder="Email">
                             <input type="text" #password name="password" id="password" placeholder="Create a password">
                             <input type="text" #username name="username" id="username" placeholder="User name">
@@ -2458,7 +2458,7 @@
           }
 
         function signupEmail() {
-            fullname=document.getElementById("fullname").value;
+            fullname=document.getElementById("fullname1").value;
             email=document.getElementById("email1").value;
             password=document.getElementById("password").value;
             username=document.getElementById("username").value;
@@ -2482,13 +2482,15 @@
                 success:function(data1){
                     var tokendata = data1['token'];
                     localStorage.setItem('Authorization',"Bearer {\""+tokendata+"\"}");
-                    localStorage.setItem('token',tokendata);                    
-                    console.log("token=========="+localStorage.getItem('token'));
-
+                    localStorage.setItem('token',tokendata);  
                     $.ajax({
+                        beforeSend: function(request){
+                            request.setRequestHeader('Authorization', "Bearer {\""+tokendata+"\"}");
+                        },
                         url:'authenticate/user',
                         type:'GET',
                         data:data1,
+                        processData: false,
                         success:function(data){
                             var userdata = data['user'];
                               localStorage.setItem('fullname',userdata['fullname']);

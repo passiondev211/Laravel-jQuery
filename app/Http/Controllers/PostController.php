@@ -9,24 +9,25 @@ use App\Http\Controllers\Controller;
 
 class PostController extends Controller
 {
-
     public function store(Request $request)
     {
         $data = $request->all();
-        $post = new Post;
-        $post->posttitle = $data['posttitle'];   
-        $post->author = $data['author'];    
-        $post->postcategory = $data['postcategory'];       
-        $post->postlocation = $data['postlocation'];
-        $post->postfilename = $data['postfilename'];
-        $post->postfile_encname = $data['postfile_encname'];
-        $post->type = $data['type'];
-        $post->note = $data['note'];
-        $post->save();
-        return Post::find($post->id);
+        $blog = new Post;
+        $blog->title = $data['title'];   
+        $blog->author = $data['author'];
+        $blog->content = $data['content'];    
+        $blog->category = $data['category'];
+        $blog->location = $data['location'];
+        $blog->price = $data['price'];
+        $blog->filename = $data['filename'];
+        $blog->file_encname = $data['file_encname'];
+        $blog->type = $data['type'];
+        $blog->note = $data['note'];
+        $blog->save();
+        return Post::find($blog->id);
     }
     public static function getArticles(){
-        return Post::selectRaw('*,DATEDIFF(NOW(),updated_at) as article_period')
+        return Post::selectRaw('*,HOUR(TIMEDIFF(NOW(),updated_at)) as article_period')
                 ->orderBy('updated_at','desc')
                 ->get();
     }

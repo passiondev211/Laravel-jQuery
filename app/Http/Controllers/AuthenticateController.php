@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
-
+use App;
+use View;
+use App\Http\Controllers\ProfileController;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use App\User;
@@ -13,6 +15,7 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthenticateController extends Controller
 {
+    
     public function authenticate(Request $request)
     {
         // grab credentials from the request
@@ -30,9 +33,9 @@ class AuthenticateController extends Controller
         }
         return response()->json(compact('token'));
     }
-
-    public function getAuthenticatedUser()
+    public static function getAuthenticatedUser()
 	{
+        //var_dump(JWTAuth::parseToken()->authenticate());exit(0);
 	    try {
 
 	        if (! $user = JWTAuth::parseToken()->authenticate()) {
@@ -53,9 +56,29 @@ class AuthenticateController extends Controller
 
 	    }
 
+        \Session::set('cur_user', $user);
+        ProfileController::getProfile();
+        //public static $cur_user=compact('user');
+        //\App::singleton('cur_user',$user->fullname);
+        //View::share('cur_user',"sdfsdf");
+        //View::share('cur_user',$user);
+        //var_dump(JWTAuth::user());
+        // \App::singleton('cur_user', function(){
+        //     return compact('user');
+        // });
+        //var_dump(App::make('cur_user'));exit(0);
+        //\Config::set('cur_user', "ddd");
+        //
+        //view()->share('cur_user',$cur_user);
+        //\View::share('cur_user',$cur_user);
 	    // the token is valid and we have found the user via the sub claim
+        
 	    return response()->json(compact('user'));
 	}
+    public function logout(){
+        \Session::clear();
+        return view('/home');
+    }
 	public function register(Request $request){ 
         $newuser= $request->all();
         $password=Hash::make($request->input('password'));

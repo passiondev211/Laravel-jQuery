@@ -36,6 +36,8 @@ class Advers extends Controller{
 		$adver->location = $data['location'];
 		$adver->date = $data['date'];
 		$adver->content = $data['content'];
+		$adver->filename = $data['filename'];
+		$adver->file_encname = $data['file_encname'];
 		$adver->type = $data['type'];
 		$adver->note = $data['note'];
 		$adver->save();

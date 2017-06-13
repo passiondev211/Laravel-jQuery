@@ -1,3 +1,9 @@
+function openAvatarFile(){
+    //alert('ddd');
+    $("#avatafile").click();
+  }
+
+
 // the list of our video elements
     var videos = document.querySelectorAll('video');
     // an array to store the top and bottom of each of our elements
@@ -148,23 +154,68 @@ var sc_project = 3967696;
   }
 
 
-    function uploadPost(){
-      var fullname=localStorage.getItem('fullname');
+    function updateMark(post_id,mark){
+        var formData;
+        formData='post_id=' + post_id;
+        formData=formData+'&mark=' + mark;
+        $.ajax({
+          url:'feed/updateMark',
+          type:'GET',
+          data:formData,
+          success:function(data){
+            //$(this).attr('src','ddd');
+            //alert("Succeeded.");
+          },
+          error: function (data) {
+              alert("Updating failed.");
+          }
+        });
+    }
 
+    function updateProfile(filename,file_encname,type){
+      var avatar=file_encname;
+      var description=localStorage.getItem('description');
+      var birthYear=localStorage.getItem('birthYear');
+      var birthMonth=localStorage.getItem('birthMonth');
+      var birthDate=localStorage.getItem('birthDate');
+      var location=localStorage.getItem('location');
+      var formData = "avatar="+avatar;
+      formData=formData+'&description=' + description;
+      formData=formData+'&birthYear=' + birthYear;
+      formData=formData+'&birthMonth=' + birthMonth;
+      formData=formData+'&birthDate=' + birthDate;
+      formData=formData+'&location=' + location;
+      $.ajax({
+          url:'profile/update_profile',
+          type:'POST',
+          data:formData,
+          success:function(data){
+
+          },
+          error: function (data) {
+              alert("Updating profile failed.");
+          }
+        });
+    }
+
+    function uploadPost(filename,file_encname,type){
       var fullname=localStorage.getItem('fullname');
+      var location="Moscow";
+      var category="category";
       var formData = $("#postForm").serialize();
       var title=$('[name="title"]').val();
       var content=$('[name="content"]').val();
       $('[name="title"]').val("");
       $('[name="content"]').val("");
-      formData=formData+'&author=' + fullname,
-      formData=formData+'&image_url=' + "image_upload_url",
-      formData=formData+'&location=' + "Moscow",
-      formData=formData+'&type=' + "letter",
-      formData=formData+'&note=' + "fdsfds",
-      formData=formData+'&date=' + "2017/06/02",
+      formData=formData+'&author=' + fullname;
+      formData=formData+'&location=' + location;
+      formData=formData+'&category=' + category;
+      formData=formData+'&filename=' + filename;
+      formData=formData+'&file_encname=' + file_encname;
+      formData=formData+'&type=' + type;
+      formData=formData+'&note=' + "testnotes`+newcontent.author+`";
       $.ajax({
-          url:'adver/register',
+          url:'post/register',
           type:'POST',
           data:formData,
           success:function(data){
@@ -184,7 +235,7 @@ var sc_project = 3967696;
                             <div class="rating-sec">
                                 <div class="clearfix">
                                     <div class="rating-left-sec">
-                                        <p><img src="img/article-img3.jpg"  onclick = "javascript:alert();" alt="jjjj"></p>
+                                        <p><img src="uploads/`+newcontent.file_encname+`"  onclick = "javascript:alert();" alt="jjjj"></p>
                                     </div>
                                     <div class="rating-right-sec">
                                         <div class="feed-top-sec clearfix">
@@ -282,6 +333,24 @@ var sc_project = 3967696;
       });
     }
 
+    $('.hide-block').click(function(){
+            //alert('asdfsdf');
+        $(this).parents('.block-add').css('display','none');
+    })
+
+    function HideMe(){
+      //alert('dfdf');
+      //$(this).toggle
+      // $(this).parents('.block-add').css('display','none');
+      // alert($(this).css('display'));
+    }
+
+    $(document).ready(function(){
+        $('.ffff').click(function(){
+            alert('asdfsdf');          
+        })
+    });
+
   
   function checkInputValues(title,content){
     if(title==null || title==""){
@@ -294,4 +363,6 @@ var sc_project = 3967696;
     }
     return true;
   }
+
+  
   //]]>

@@ -20,9 +20,10 @@
     <link type="text/css" rel="stylesheet" href="css/style.css" />
     <link type="text/css" rel="stylesheet" href="css/style2.css" />
     <link type="text/css" rel="stylesheet" href="css/today.css" />
-    
-
-
+    <link type="text/css" rel="stylesheet" href="css/rating.min.css" />
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+    <script async="" src="//www.google-analytics.com/analytics.js"></script>
+    <script type="text/javascript" src="js/rating.min.js"></script>
     <script type="text/javascript" src="js/modernizr.min.js"></script>
     
     <!--[if lte IE 9]>
@@ -35,7 +36,40 @@
         <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
     <![endif]-->    
     <style type="text/css">
+        div.stars {
+  width: 270px;
+  display: inline-block;
+}
 
+input.star { display: none; }
+
+label.star {
+  float: right;
+  padding: 3px;
+  font-size: 15px;
+  color: #444;
+  transition: all .2s;
+}
+
+input.star:checked ~ label.star:before {
+  content: '\f005';
+  color: #FB0;
+  transition: all .25s;
+}
+
+input.star-5:checked ~ label.star:before {
+  color: #FB0;
+  
+}
+
+input.star-1:checked ~ label.star:before { color: #FB0; }
+
+label.star:hover { transform: scale(1.3); }
+
+label.star:before {
+  content: '\f005';
+  font-family: FontAwesome;
+}
     </style>
 </head>
 
@@ -173,7 +207,7 @@
                 <h4>Michael<br><span>mykalmorton</span></h4>
             </div>
         </div>
-        <p><a href="/">Log Out</a></p>
+        <p><a href="/logout">Log Out</a></p>
     </div>
 </div>
 <!--login menu end -->
@@ -194,11 +228,12 @@
                     <a href="profile" class="tweet-banner"></a>
                     <div class="tweet-sec">
                         <div class="tweet-inner clearfix">
-                            <div class="tweet-fig"><a class="tweet-fig-link" data-toggle="tooltip" data-placement="top" title="Add an avatar" href="#"><img src="img/prof-img.png" alt=""></a>
-                                <div class="uploader-image"><span><a class="upload-btn" href="#">Upload photo</a></span><span><a class="cancel-btn" href="#">Cancel</a></span></div>
+                            <input type="file" name="avatafile" id="avatafile" onchange="" style="display:none"/>
+                            <div class="tweet-fig"><a class="tweet-fig-link" data-toggle="tooltip" data-placement="top" title="Add an avatar" href="#"><img src="uploads/avatar/{{Session::get('cur_user_profile')->avatar}}" name="avatar" id="avatar" alt=""></a>
+                                <div class="uploader-image"><span><a class="upload-btn" onclick="javascript:openAvatarFile()">Upload photo</a></span><span><a class="cancel-btn" href="#">Cancel</a></span></div>
                             </div>
                             <div class="tweet-info">
-                                <div><a href="#"><b>mykal</b></a></div>
+                                <div><a href="#"><b>{{Session::get('cur_user')->fullname}}</b></a></div>
                                 <a href="#"><span>@mykalmorton</span></a>
                             </div>
                         </div>
@@ -219,7 +254,7 @@
                         </div>
                         <span>48% Complete</span>
                         <br>
-                        <div class="loader-btn-sec"><button class="panding-btn" type="button">Skip</button><button type="button" class="add-photo-btn">Add a photo</button></div>
+                        <div class="loader-btn-sec"><button class="panding-btn" type="button">Skip2</button><button type="button" class="add-photo-btn">Add a photo</button></div>
                     </div>
                 </div>
                 <div class="uploader-sec uploader-sec2">
@@ -227,12 +262,12 @@
                     <div class="uploader-inner">
                         <h4>Introduce yourself</h4>
                         <p>Discribe who you are and what you're into.</p>
-                        <textarea></textarea>
+                        <textarea id="profile_description" name="profile_description">{{Session::get('cur_user_profile')->description}}</textarea>
                         <div class="loader-outer">
                             <div class="loader-inner" style="width: 48%"></div>
                         </div>
                         <span>48% Complete</span>
-                        <div class="loader-btn-sec"><button class="panding-btn" type="button">Skip</button><button class="panding-btn" type="button">Save</button></div>
+                        <div class="loader-btn-sec"><button class="panding-btn" type="button">Skip3</button><button class="panding-btn" type="button">Save</button></div>
                     </div>
                 </div>
                 <div class="uploader-sec uploader-sec3">
@@ -242,19 +277,19 @@
                         <p>Let Kanoop celebrate with you. Your are always in control of who can see it.</p>
                         <div class="uploader-select-sec">
                             <span>
-                                <select name="" id="">
-                                    <option value="">Month</option>
-                                    <option value="">jan</option>
-                                    <option value="">feb</option>
-                                    <option value="">mar</option>
+                                <select name="birthMonth" id="birthMonth">
+                                    <option value="0" @if(Session::get('cur_user_profile')->birthMonth==0) selected @endif>Month</option>
+                                    <option value="1" @if(Session::get('cur_user_profile')->birthMonth==1) selected @endif>jan</option>
+                                    <option value="2" @if(Session::get('cur_user_profile')->birthMonth==2) selected @endif>feb</option>
+                                    <option value="3" @if(Session::get('cur_user_profile')->birthMonth==3) selected @endif>mar</option>
                                 </select>
                             </span>
                             <span>
-                                <select name="" id="">
-                                    <option value="">Day</option>
-                                    <option value="">1</option>
-                                    <option value="">2</option>
-                                    <option value="">3</option>
+                                <select name="birthDate" id="birthDate">
+                                    <option value="0" @if(Session::get('cur_user_profile')->birthDate==0) selected @endif>Day</option>
+                                    <option value="1" @if(Session::get('cur_user_profile')->birthDate==1) selected @endif>1</option>
+                                    <option value="2" @if(Session::get('cur_user_profile')->birthDate==2) selected @endif>2</option>
+                                    <option value="3" @if(Session::get('cur_user_profile')->birthDate==3) selected @endif>3</option>
                                 </select>
                             </span>
                             <div class="uploader-select-inner">
@@ -274,11 +309,11 @@
                         </div>
                         <div class="uploader-select-sec">
                             <span>
-                                <select name="" id="">
-                                    <option value="">Year</option>
-                                    <option value="">2010</option>
-                                    <option value="">2011</option>
-                                    <option value="">2012</option>
+                                <select name="birthYear" id="birthYear">
+                                    <option value="0" @if(Session::get('cur_user_profile')->birthYear==0) selected @endif>Year</option>
+                                    <option value="2010" @if(Session::get('cur_user_profile')->birthYear==2010) selected @endif>2010</option>
+                                    <option value="2011" @if(Session::get('cur_user_profile')->birthYear==2011) selected @endif>2011</option>
+                                    <option value="2012" @if(Session::get('cur_user_profile')->birthYear==2012) selected @endif>2012</option>
                                 </select>
                             </span>
                             <div class="uploader-select-inner">
@@ -300,7 +335,7 @@
                             <div class="loader-inner" style="width: 65%"></div>
                         </div>
                         <span>65% Complete</span>
-                        <div class="loader-btn-sec"><button class="panding-btn" type="button">Skip</button><button class="panding-btn" type="button">Save</button></div>
+                        <div class="loader-btn-sec"><button class="panding-btn" type="button">Skip4</button><button class="panding-btn" type="button">Save</button></div>
                     </div>
                 </div>
                 <div class="uploader-sec uploader-sec4">
@@ -308,7 +343,7 @@
                     <div class="uploader-inner">
                         <h4>Where do you live?</h4>
                         <p>Find people in the same location as you.</p>
-                        <input type="text" placeholder="Location">
+                        <input type="text" placeholder="Location" id="location" value="{{Session::get('cur_user_profile')->location}}" name="location">
                         <input id="pac-input" class="controls" type="text" placeholder="Location">
                         <div id="map"></div>
                         <!-- Replace the value of the key parameter with your own API key. -->
@@ -385,7 +420,7 @@
                             <div class="loader-inner" style="width: 83%"></div>
                         </div>
                         <span>83% Complete</span>
-                        <div class="loader-btn-sec"><button class="panding-btn" type="button">Skip</button><button class="panding-btn" type="button">Save</button></div>
+                        <div class="loader-btn-sec"><button class="panding-btn" type="button">Skip1</button><button class="panding-btn" type="button">Save</button></div>
                     </div>
                 </div>
                 <div class="uploader-sec uploader-sec5">
@@ -686,7 +721,7 @@
                                         </ul>
                                         <!-- location -->
                                         
-                                        <button class="post-btn btn btn-muted" disabled="disabled" type="button" onclick="uploadPost()">Post</button>
+                                        <button class="post-btn btn btn-muted" disabled="disabled" type="button" onclick="uploadFile()">Post</button>
                                     </div>
                                 </div>
                             </form>
@@ -827,7 +862,7 @@
                                                     <a class="lock-link" data-toggle="tooltip" data-placement="top" title="subscribe now to repost" href="welcome"><small class="default material-icons">lock</small><small class="hover material-icons">lock_outline</small><small class="active material-icons">lock_open</small></a>
                                                     <i class="dropdown-toggle material-icons pen-btn">sort</i>
                                                     <ul class="dropdown-menu">
-                                                        <li><a href="#"><i class="material-icons">visibility_off</i><span>I don't want to see this</span></a></li>
+                                                        <li class="hide-block"><a href="#"><i class="material-icons">visibility_off</i><span>I don't want to see this</span></a></li>
                                                         <li><a href="#"><i class="material-icons">subject</i><span>Hide all for Chris Beek</span></a></li>
                                                         <li><a href="#"><i class="material-icons">flag</i><span>Report abuse</span></a></li>
                                                         <li><a href="#"><i class="material-icons">remove_circle</i><span>Remove connection</span></a></li>
@@ -858,7 +893,7 @@
                                                             <p><button class="btn btn-block purchase-btn"><span class="price-on-btn"><i class="material-icons">lock</i><span> $100</span></span>Purchase</button></p>
                                                         </div>
                                                         <ul class="dropdown-menu">
-                                                            <li><a href="#"><i class="material-icons">visibility_off</i><span>I don't want to see this</span></a></li>
+                                                            <li class="hide-block"><a href="#"><i class="material-icons">visibility_off</i><span>I don't want to see this</span></a></li>
                                                             <li><a href="#"><i class="material-icons">subject</i><span>Hide all for Chris Beek</span></a></li>
                                                             <li><a href="#"><i class="material-icons">flag</i><span>Report abuse</span></a></li>
                                                             <li><a href="#"><i class="material-icons">remove_circle</i><span>Remove connection</span></a></li>
@@ -1613,13 +1648,25 @@
                                         </div>
                                     </div>
                                 </div>
-                                @foreach ($articles['create'] as $article)
+                                @foreach ($articles as $article)
+                                @if($article->type=="create")
                                 <div class="block-add">
                                     <div class="block-left">
                                         <div class="block-left-inner">
                                             <div class="post-time-sec">
-                                                <span class="time-zone">{{$article->article_period}}</span>
-                                                <i>hour ago</i>
+                                                @if( $article->article_period < 24 )
+                                                    <span class="time-zone">{{(int)($article->article_period)}}</span>
+                                                    <i>hour ago</i>
+                                                @elseif( ($article->article_period) < 720 )
+                                                    <span class="time-zone">{{(int)(($article->article_period)/24)}}</span>
+                                                    <i>days ago</i>
+                                                @elseif( ($article->article_period) < 8640 )
+                                                    <span class="time-zone">{{(int)($article->article_period/720)}}</span>
+                                                    <i>months ago</i>
+                                                @else
+                                                    <span class="time-zone">{{(int)($article->article_period/8640)}}</span>
+                                                    <i>years ago</i>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
@@ -1627,7 +1674,7 @@
                                         <div class="block-post block-post-cout">
                                             <div class="clearfix feed-top-sec feed-top-sec1">
                                                 <div class="feed-top-left">
-                                                    <p><em class="feed-person-btn"><img src="img/profile-img1.png" alt=""> <strong>{{$article->author}}</strong></em> <span>{{$article->posttitle}}</span><i>February 22 at 7:20 am</i></p>
+                                                    <p><em class="feed-person-btn"><img src="img/profile-img1.png" alt=""> <strong>{{$article->author}}</strong></em> <span>{{$article->title}}</span><i>February 22 at 7:20 am</i></p>
                                                     <div class="feed-person-sec">
                                                         <div class="feed-upper-sec">
                                                             <div class="feed-upper-banner">
@@ -1681,7 +1728,7 @@
                                                     </div>
                                                     <i class="dropdown-toggle material-icons pen-btn">sort</i>
                                                     <ul class="dropdown-menu">
-                                                        <li><a href="#"><i class="material-icons">visibility_off</i><span>I don't want to see this</span></a></li>
+                                                        <li class="hide-block"><a href="#"><i class="material-icons">visibility_off</i><span>I don't want to see this</span></a></li>
                                                         <li><a href="#"><i class="material-icons">subject</i><span>Hide all for Chris Beek</span></a></li>
                                                         <li><a href="#"><i class="material-icons">flag</i><span>Report abuse</span></a></li>
                                                         <li><a href="#"><i class="material-icons">remove_circle</i><span>Remove connection</span></a></li>
@@ -1692,7 +1739,7 @@
                                                 <span class="outer-shadow"></span><span class="top-left-shadow"></span>
                                                 <div class="video-sec">
                                                     <!-- <img src="img/article-img2.jpg" alt=""> -->
-                                                    <video preload="none" poster="img/article-img2.jpg" src="{{env('APP_URL')}}/uploads/{{$article->postfile_encname}}"></video>
+                                                    <video preload="none" poster="img/article-img2.jpg" src="{{env('APP_URL')}}/uploads/{{$article->file_encname}}"></video>
                                                     <div class="time_left"></div>
                                                     <div class="volume_cont"></div>
                                                     <span class="play_btn"></span>
@@ -1724,16 +1771,26 @@
                                                         <hr>
                                                         <a class="full-color-btn green" href="#"><i class="material-icons">lock</i><span>Confirm spend of $100</span></a>
                                                     </div>
-                                                    <a class="box-cart-btn" href="#">$425</a>{{$article->posttitle}}<span class="clip-marker"><img src="img/clip-icon.png" alt=""></span></h2>
+                                                    <a class="box-cart-btn" href="#">${{$article->price}}</a>{{$article->title}}<span class="clip-marker"><img src="img/clip-icon.png" alt=""></span></h2>
                                                 </div>
                                                 <div class="feed-heading-right">
-                                                    <span class="star-sec"><i><img src="img/star.png" alt="">
-                                                        </i><i><img src="img/star.png" alt="">
-                                                        </i><i><img src="img/star.png" alt="">
-                                                        </i><i><img src="img/star.png" alt="">
-                                                        </i><i><img src="img/star-o.png" alt=""></i>
+                                                    <span class="star-sec">
+                                                    <div class="stars">
+                                                        <input class="star star-5" id="star-{{$article->id}}-5"  onclick="javascript:updateMark({{$article->id}},5)" @if( $article->mark ==5 ) checked @endif   type="radio" name="star-{{$article->id}}"/>
+                                                        <label class="star star-5" for="star-{{$article->id}}-5"></label>
+                                                        <input class="star star-4" id="star-{{$article->id}}-4" type="radio"  onclick="javascript:updateMark({{$article->id}},4)" @if( $article->mark ==4 ) checked @endif name="star-{{$article->id}}"/>
+                                                        <label class="star star-4" for="star-{{$article->id}}-4"></label>
+                                                        <input class="star star-3" id="star-{{$article->id}}-3" onclick="javascript:updateMark({{$article->id}},3)" type="radio" @if( $article->mark ==3 ) checked @endif name="star-{{$article->id}}"/>
+                                                        <label class="star star-3" for="star-{{$article->id}}-3"></label>
+                                                        <input class="star star-2" id="star-{{$article->id}}-2"  onclick="javascript:updateMark({{$article->id}},2)" type="radio" @if( $article->mark ==2 ) checked @endif name="star-{{$article->id}}"/>
+                                                        <label class="star star-2" for="star-{{$article->id}}-2"></label>
+                                                        <input class="star star-1" id="star-{{$article->id}}-1" onclick="javascript:updateMark({{$article->id}},1)" type="radio" @if( $article->mark ==1 ) checked @endif name="star-{{$article->id}}"/>
+                                                        <label class="star star-1" for="star-{{$article->id}}-1"></label>
+                                                    </div>
                                                     </span>
-                                                    <a class="detail-btn" href="#">view details</a>
+                                                    
+
+                                                    
                                                 </div>
                                             </div>
                                             <div class="block-info-sec">
@@ -2169,7 +2226,109 @@
                                             </div>
                                         </div>
                                     </div>
+                                </div> 
+                                @else                                
+                                <div class="block-add">
+                                    <div class="block-left">
+                                        <div class="block-left-inner">
+                                            <div class="post-time-sec">
+                                                @if( $article->article_period < 24 )
+                                                    <span class="time-zone">{{(int)($article->article_period)}}</span>
+                                                    <i>hour ago</i>
+                                                @elseif( ($article->article_period) < 720 )
+                                                    <span class="time-zone">{{(int)(($article->article_period)/24)}}</span>
+                                                    <i>days ago</i>
+                                                @elseif( ($article->article_period) < 8640 )
+                                                    <span class="time-zone">{{(int)($article->article_period/720)}}</span>
+                                                    <i>months ago</i>
+                                                @else
+                                                    <span class="time-zone">{{(int)($article->article_period/8640)}}</span>
+                                                    <i>years ago</i>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="block-outer">
+                                        <div class="block-post block-person-info">
+                                            <div class="rating-sec">
+                                                <div class="clearfix">
+                                                    <div class="rating-left-sec">
+                                                        <p><img src="uploads/{{$article->file_encname}}" alt=""></p>
+                                                    </div>
+                                                    <div class="rating-right-sec">
+                                                        <div class="feed-top-sec clearfix">
+                                                            <div class="feed-top-left">
+                                                                <p><em class="feed-person-btn"><strong>{{$article->author}}</strong></em> <span>{{$article->title}}<b class="clip-marker"><img src="img/clip-icon.png" alt=""></b></span><i>{{$article->updated_at}}</i></p>
+                                                                <div class="feed-person-sec">
+                                                                    <!-- <span class="clip-btn"></span> -->
+                                                                    <div class="feed-upper-sec">
+                                                                        <div class="feed-upper-banner">
+                                                                            <a class="btn follow-btn" href="#"><img src="img/blue-buzz.png" alt=""><span>Follow</span></a>
+                                                                        </div>
+                                                                        <div class="feed-banner-botsec">
+                                                                            <div class="clearfix">
+                                                                                <div class="feed-banner-botinfo">
+                                                                                    <a href="#"><img src="img/profile-img2.png" alt=""></a>
+                                                                                    <h3>mykal <span>@mykalmorton</span></h3>
+                                                                                </div>
+                                                                                <div class="feed-banner-botsocial">
+                                                                                    <a href="#"><img src="img/feed_social-icon1.jpg" alt=""></a>
+                                                                                    <a href="#"><img src="img/feed_social-icon2.jpg" alt=""></a>
+                                                                                    <a href="#"><img src="img/feed_social-icon3.jpg" alt=""></a>
+                                                                                </div>
+                                                                            </div>
+                                                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit inventore commodi hic quam minima!</p>
+                                                                        </div>
+                                                                        <div class="follow-sec clearfix">
+                                                                            <div class="follow-left-sec">
+                                                                                <span>200</span><i>Connections</i>
+                                                                            </div>
+                                                                            <div class="follow-right-sec">
+                                                                                <span>1.9M</span><i>Followers</i>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="feed-lower-sec">
+                                                                        <h3><i>- Famous Recipes -</i></h3>
+                                                                        <div class="feed-inner-sec clearfix">
+                                                                            <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                            <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                            <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                            <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                        </div>
+                                                                        <a class="more-btn" href="#">more</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="feed-top-right">
+                                                                <i class="dropdown-toggle material-icons pen-btn">sort</i>
+                                                                <ul class="dropdown-menu">
+                                                                    <li class="hide-block"><a  class="hide-block" href="javascript:HideMe()"><i class="material-icons">visibility_off</i><span>I don't want to see this</span></a></li>
+                                                                    <li><a href="#"><i class="material-icons">subject</i><span>Hide all for Chris Beek</span></a></li>
+                                                                    <li><a href="#"><i class="material-icons">flag</i><span>Report abuse</span></a></li>
+                                                                    <li><a href="#"><i class="material-icons">remove_circle</i><span>Remove connection</span></a></li>
+                                                                </ul>
+                                                            </div>
+                                                            <!-- <div class="feed-top-right">
+                                                                <i class="dropdown-toggle material-icons pin-btn">keyboard_arrow_down</i>
+                                                                <ul class="dropdown-menu"> <li><a href="#">Action</a></li> <li><a href="#">Another action</a></li> <li><a href="#">Something else here</a></li> <li role="separator" class="divider"></li> <li><a href="#">Separated link</a></li> </ul>
+                                                            </div> -->
+                                                        </div>
+                                                        <p>{{$article->content}}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="block-info-sec">
+                                                <div class="expand-sec">
+                                                    <div class="expand-right-sec">
+                                                        <span></span><span class="heart-sec"><i class="anim-icon heart"></i> 14</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
+                                @endif
                                 @endforeach
                                 <div class="block-add" style="display:none">
                                     <div class="block-left">
@@ -2315,7 +2474,7 @@
                                                     </div>
                                                     <i class="dropdown-toggle material-icons pen-btn">sort</i>
                                                     <ul class="dropdown-menu">
-                                                        <li><a href="#"><i class="material-icons">visibility_off</i><span>I don't want to see this</span></a></li>
+                                                        <li class="hide-block"><a href="#"><i class="material-icons">visibility_off</i><span>I don't want to see this</span></a></li>
                                                         <li><a href="#"><i class="material-icons">subject</i><span>Hide all for Chris Beek</span></a></li>
                                                         <li><a href="#"><i class="material-icons">flag</i><span>Report abuse</span></a></li>
                                                         <li><a href="#"><i class="material-icons">remove_circle</i><span>Remove connection</span></a></li>
@@ -2777,97 +2936,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                @foreach ($articles['feed'] as $article)
-                                    <div class="block-add">
-                                        <div class="block-left">
-                                            <div class="block-left-inner">
-                                                <div class="post-time-sec">
-                                                    <span class="time-zone">{{$article->article_period}}</span>
-                                                    <i>day ago</i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="block-outer">
-                                            <div class="block-post block-person-info">
-                                                <div class="rating-sec">
-                                                    <div class="clearfix">
-                                                        <div class="rating-left-sec">
-                                                            <p><img src="img/article-img3.jpg" alt=""></p>
-                                                        </div>
-                                                        <div class="rating-right-sec">
-                                                            <div class="feed-top-sec clearfix">
-                                                                <div class="feed-top-left">
-                                                                    <p><em class="feed-person-btn"><strong>{{$article->author}}</strong></em> <span>{{$article->title}}<b class="clip-marker"><img src="img/clip-icon.png" alt=""></b></span><i>{{$article->updated_at}}</i></p>
-                                                                    <div class="feed-person-sec">
-                                                                        <!-- <span class="clip-btn"></span> -->
-                                                                        <div class="feed-upper-sec">
-                                                                            <div class="feed-upper-banner">
-                                                                                <a class="btn follow-btn" href="#"><img src="img/blue-buzz.png" alt=""><span>Follow</span></a>
-                                                                            </div>
-                                                                            <div class="feed-banner-botsec">
-                                                                                <div class="clearfix">
-                                                                                    <div class="feed-banner-botinfo">
-                                                                                        <a href="#"><img src="img/profile-img2.png" alt=""></a>
-                                                                                        <h3>mykal <span>@mykalmorton</span></h3>
-                                                                                    </div>
-                                                                                    <div class="feed-banner-botsocial">
-                                                                                        <a href="#"><img src="img/feed_social-icon1.jpg" alt=""></a>
-                                                                                        <a href="#"><img src="img/feed_social-icon2.jpg" alt=""></a>
-                                                                                        <a href="#"><img src="img/feed_social-icon3.jpg" alt=""></a>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit inventore commodi hic quam minima!</p>
-                                                                            </div>
-                                                                            <div class="follow-sec clearfix">
-                                                                                <div class="follow-left-sec">
-                                                                                    <span>200</span><i>Connections</i>
-                                                                                </div>
-                                                                                <div class="follow-right-sec">
-                                                                                    <span>1.9M</span><i>Followers</i>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="feed-lower-sec">
-                                                                            <h3><i>- Famous Recipes -</i></h3>
-                                                                            <div class="feed-inner-sec clearfix">
-                                                                                <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
-                                                                                <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
-                                                                                <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
-                                                                                <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
-                                                                            </div>
-                                                                            <a class="more-btn" href="#">more</a>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="feed-top-right">
-                                                                    <i class="dropdown-toggle material-icons pen-btn">sort</i>
-                                                                    <ul class="dropdown-menu">
-                                                                        <li><a href="#"><i class="material-icons">visibility_off</i><span>I don't want to see this</span></a></li>
-                                                                        <li><a href="#"><i class="material-icons">subject</i><span>Hide all for Chris Beek</span></a></li>
-                                                                        <li><a href="#"><i class="material-icons">flag</i><span>Report abuse</span></a></li>
-                                                                        <li><a href="#"><i class="material-icons">remove_circle</i><span>Remove connection</span></a></li>
-                                                                    </ul>
-                                                                </div>
-                                                                <!-- <div class="feed-top-right">
-                                                                    <i class="dropdown-toggle material-icons pin-btn">keyboard_arrow_down</i>
-                                                                    <ul class="dropdown-menu"> <li><a href="#">Action</a></li> <li><a href="#">Another action</a></li> <li><a href="#">Something else here</a></li> <li role="separator" class="divider"></li> <li><a href="#">Separated link</a></li> </ul>
-                                                                </div> -->
-                                                            </div>
-                                                            <p>{{$article->content}}</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="block-info-sec">
-                                                    <div class="expand-sec">
-                                                        <div class="expand-right-sec">
-                                                            <span></span><span class="heart-sec"><i class="anim-icon heart"></i> 14</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endforeach
                                 <div class="block-add" style="display:none">
                                     <div class="block-left">
                                         <div class="block-left-inner">
@@ -2932,7 +3000,7 @@
                                                             <div class="feed-top-right">
                                                                 <i class="dropdown-toggle material-icons pen-btn">sort</i>
                                                                 <ul class="dropdown-menu">
-                                                                    <li><a href="#"><i class="material-icons">visibility_off</i><span>I don't want to see this</span></a></li>
+                                                                    <li class="hide-block"><a href="#"><i class="material-icons">visibility_off</i><span>I don't want to see this</span></a></li>
                                                                     <li><a href="#"><i class="material-icons">subject</i><span>Hide all for Chris Beek</span></a></li>
                                                                     <li><a href="#"><i class="material-icons">flag</i><span>Report abuse</span></a></li>
                                                                     <li><a href="#"><i class="material-icons">remove_circle</i><span>Remove connection</span></a></li>
@@ -3082,7 +3150,7 @@
                                                     </div>
                                                     <i class="dropdown-toggle material-icons pen-btn">sort</i>
                                                     <ul class="dropdown-menu">
-                                                        <li><a href="#"><i class="material-icons">visibility_off</i><span>I don't want to see this</span></a></li>
+                                                        <li class="hide-block"><a href="#"><i class="material-icons">visibility_off</i><span>I don't want to see this</span></a></li>
                                                         <li><a href="#"><i class="material-icons">subject</i><span>Hide all for Chris Beek</span></a></li>
                                                         <li><a href="#"><i class="material-icons">flag</i><span>Report abuse</span></a></li>
                                                         <li><a href="#"><i class="material-icons">remove_circle</i><span>Remove connection</span></a></li>
@@ -3608,7 +3676,7 @@
                                                     </div>
                                                     <i class="dropdown-toggle material-icons pen-btn">sort</i>
                                                     <ul class="dropdown-menu">
-                                                        <li><a href="#"><i class="material-icons">visibility_off</i><span>I don't want to see this</span></a></li>
+                                                        <li class="hide-block"><a href="#"><i class="material-icons">visibility_off</i><span>I don't want to see this</span></a></li>
                                                         <li><a href="#"><i class="material-icons">subject</i><span>Hide all for Chris Beek</span></a></li>
                                                         <li><a href="#"><i class="material-icons">flag</i><span>Report abuse</span></a></li>
                                                         <li><a href="#"><i class="material-icons">remove_circle</i><span>Remove connection</span></a></li>
@@ -4154,7 +4222,7 @@
                                                     </div>
                                                     <i class="dropdown-toggle material-icons pen-btn">sort</i>
                                                     <ul class="dropdown-menu">
-                                                        <li><a href="#"><i class="material-icons">visibility_off</i><span>I don't want to see this</span></a></li>
+                                                        <li class="hide-block"><a href="#"><i class="material-icons">visibility_off</i><span>I don't want to see this</span></a></li>
                                                         <li><a href="#"><i class="material-icons">subject</i><span>Hide all for Chris Beek</span></a></li>
                                                         <li><a href="#"><i class="material-icons">flag</i><span>Report abuse</span></a></li>
                                                         <li><a href="#"><i class="material-icons">remove_circle</i><span>Remove connection</span></a></li>
@@ -4698,7 +4766,7 @@
                                                     </div>
                                                     <i class="dropdown-toggle material-icons pen-btn">sort</i>
                                                     <ul class="dropdown-menu">
-                                                        <li><a href="#"><i class="material-icons">visibility_off</i><span>I don't want to see this</span></a></li>
+                                                        <li class="hide-block"><a href="#"><i class="material-icons">visibility_off</i><span>I don't want to see this</span></a></li>
                                                         <li><a href="#"><i class="material-icons">subject</i><span>Hide all for Chris Beek</span></a></li>
                                                         <li><a href="#"><i class="material-icons">flag</i><span>Report abuse</span></a></li>
                                                         <li><a href="#"><i class="material-icons">remove_circle</i><span>Remove connection</span></a></li>
@@ -5203,7 +5271,7 @@
                                             <div class="feed-top-right">
                                                 <i class="dropdown-toggle material-icons pen-btn">sort</i>
                                                 <ul class="dropdown-menu">
-                                                    <li><a href="#"><i class="material-icons">visibility_off</i><span>I don't want to see this</span></a></li>
+                                                    <li class="hide-block"><a href="#"><i class="material-icons">visibility_off</i><span>I don't want to see this</span></a></li>
                                                     <li><a href="#"><i class="material-icons">subject</i><span>Hide all for Chris Beek</span></a></li>
                                                     <li><a href="#"><i class="material-icons">flag</i><span>Report abuse</span></a></li>
                                                     <li><a href="#"><i class="material-icons">remove_circle</i><span>Remove connection</span></a></li>
@@ -5334,7 +5402,7 @@
                                                 </div>
                                                 <i class="dropdown-toggle material-icons pen-btn">sort</i>
                                                 <ul class="dropdown-menu">
-                                                    <li><a href="#"><i class="material-icons">visibility_off</i><span>I don't want to see this</span></a></li>
+                                                    <li class="hide-block"><a href="#"><i class="material-icons">visibility_off</i><span>I don't want to see this</span></a></li>
                                                     <li><a href="#"><i class="material-icons">subject</i><span>Hide all for Chris Beek</span></a></li>
                                                     <li><a href="#"><i class="material-icons">flag</i><span>Report abuse</span></a></li>
                                                     <li><a href="#"><i class="material-icons">remove_circle</i><span>Remove connection</span></a></li>
@@ -5811,7 +5879,7 @@
                                                 </div>
                                                 <i class="dropdown-toggle material-icons pen-btn">sort</i>
                                                 <ul class="dropdown-menu">
-                                                    <li><a href="#"><i class="material-icons">visibility_off</i><span>I don't want to see this</span></a></li>
+                                                    <li class="hide-block"><a href="#"><i class="material-icons">visibility_off</i><span>I don't want to see this</span></a></li>
                                                     <li><a href="#"><i class="material-icons">subject</i><span>Hide all for Chris Beek</span></a></li>
                                                     <li><a href="#"><i class="material-icons">flag</i><span>Report abuse</span></a></li>
                                                     <li><a href="#"><i class="material-icons">remove_circle</i><span>Remove connection</span></a></li>
@@ -7069,7 +7137,10 @@
             <div class="photo-gallary-right"><a href="#">Done</a><span>Done</span></div>
         </div>
         <div class="photo-gallary-bot clearfix">
-            <div class="photo-gallary-img"><a href="#"><img src="img/up-img.jpg" alt=""></a></div>
+            <a <div class="photo-gallary-img">
+                <input type="file" name="upload_image" id="upload_image"/>
+                <a 
+                <img src="img/up-img.jpg" alt=""></a></div>
             <div class="photo-gallary-img"><i class="material-icons material-icons1">panorama_fish_eye</i><i class="material-icons material-icons2">check_circle</i><img src="img/block-img3.jpg" alt=""></div>
             <div class="photo-gallary-img"><i class="material-icons material-icons1">panorama_fish_eye</i><i class="material-icons material-icons2">check_circle</i><img src="img/block-img3.jpg" alt=""></div>
         </div>
@@ -7366,5 +7437,58 @@
 
 <script type="text/javascript" src="http://www.statcounter.com/counter/counter.js"></script>
 
+ <script>
+                      
+                    function uploadFile() {
+                      var fd = new FormData();
+                      fd.append("video", document.getElementById('upload_image').files[0]);
+                      
+                      var xhr = new XMLHttpRequest();
+                      xhr.addEventListener("load", uploadComplete, false);
+                      xhr.addEventListener("error", uploadFailed, false);
+                      xhr.addEventListener("abort", uploadCanceled, false);
+                      xhr.open("POST", "post/video_upload");
+                      xhr.send(fd);
+                    }
+
+                    function uploadComplete(evt) {
+                      var file = document.getElementById('upload_image').files[0];
+                      uploadPost(file.name,evt.target.responseText,"feed");
+                      //uploadPost(evt.target.responseText)
+                      //alert(evt.target.responseText);
+                    }
+
+                    function uploadFailed(evt) {
+                      alert("There was an error attempting to upload the file.");
+                    }
+
+                    function uploadCanceled(evt) {
+                      alert("The upload has been canceled by the user or the browser dropped the connection.");
+                    }
+
+                    function updateAvata(){
+                        var fd = new FormData();
+                        fd.append("video", document.getElementById('avatafile').files[0]);
+                          
+                        var xhr = new XMLHttpRequest();
+                        xhr.addEventListener("load", updateAvataCompleted, false);
+                        xhr.addEventListener("error", uploadFailed, false);
+                        xhr.addEventListener("abort", uploadCanceled, false);
+                        xhr.open("POST", "profile/avatar_upload");
+                        xhr.send(fd);
+                    }
+
+                    function updateAvataCompleted(evt) {
+                        var file = document.getElementById('avatafile').files[0];
+                        updateProfile(file.name,evt.target.responseText,"avatar");
+                    }
+                    
+                    
+                </script>
+
 </body>
+
+<script type="text/javascript">
+    
+</script>
 </html>

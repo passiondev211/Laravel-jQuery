@@ -38,14 +38,14 @@
                                     <div class="row"> 
                                         <label class=" col-sm-12" ng-style="styleTitleLabel">Give your project a title: </label>
                                         <div class="col-sm-12"> 
-                                            <input ng-model="modelTitle" ng-style="styleTitle" ng-focus="checkHideTitleFunc('focus')" ng-blur="checkHideTitleFunc('blur')" id="posttitle" name="posttitle" type="text" placeholder="title" />
+                                            <input ng-model="modelTitle" ng-style="styleTitle" ng-focus="checkHideTitleFunc('focus')" ng-blur="checkHideTitleFunc('blur')" id="title" name="title" type="text" placeholder="title" />
                                         </div>
 
                                     </div>
                                 </div>
                                 <div ng-hide='checkHidePlace' class="custom-selct sel1"> 
                                     <p class="placeClass" ng-style="stylePlaceLabel">What kind of place do you have? </p>
-                                    <select id="postcategory" name="postcategory"  ng-model="dataplace.selectedOption"  ng-style="stylePlace" ng-focus="focusPlace('1')" ng-blur="focusPlace('0')"  ng-change="changePlace()" class="selectpicker" 
+                                    <select id="category" name="category"  ng-model="dataplace.selectedOption"  ng-style="stylePlace" ng-focus="focusPlace('1')" ng-blur="focusPlace('0')"  ng-change="changePlace()" class="selectpicker" 
                                     ng-options="option.name for option in dataplace.availableOptions track by option.id"
                                     > 
                                     </select>
@@ -56,7 +56,7 @@
                                         <label ng-style="styleCountryLabel" class="projLoc col-sm-12" >The Project Location: </label>
                                         <div class="col-sm-12"> 
                                             <div class="custom-selct sel2"> 
-                                                <select id="postlocation" name="postlocation"
+                                                <select id="location" name="location"
                                                 ng-model="dataCountry.selectedOption"
                                                 ng-options="option.name for option in dataCountry.availableOptions track by option.code"
                                                 ng-style="styleCountry" 
@@ -70,6 +70,14 @@
                                             </div>
                                         </div>
 
+                                    </div>
+                                    <div class="row"> 
+                                        <label ng-style="styleCountryLabel" class="projLoc col-sm-12" >Price: </label>
+                                        <div class="col-sm-12"> 
+                                            <div class="custom-selct sel2"> 
+                                                <input type="text" id="price" name="price"/>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -601,27 +609,34 @@ $scope.styleCountryLabel={'color':'#74849a'};
 <!-- Angular usage -->
 <script>
   function gotoNextStep(){
-    posttitle=$('[name="posttitle"]').val();
-    postcategory=$('[name="postcategory"]').val();
-    postlocation=$('[name="postlocation"]').val();
-    if(posttitle==null || posttitle==""){
+    title=$('[name="title"]').val();
+    category=$('[name="category"]').val();
+    location=$('[name="location"]').val();
+    price=$('[name="price"]').val();
+    if(title==null || title==""){
       $("#projecttitle").select();
       alert("Invalid Title!");
       return;
     }
-    if(postcategory==null || postcategory==""){
+    if(category==null || category==""){
       $("#projectcategory").select();
       alert("Invalid Category!");
       return;
     }
-    if(postlocation==null || postlocation==""){
+    if(location==null || location==""){
       $("#projectlocation").select();
       alert("Invalid Location!");
       return;
     }
-    localStorage.setItem('posttitle',posttitle);
-    localStorage.setItem('postcategory',postcategory);
-    localStorage.setItem('postlocation',postlocation);
+    if(price==null || price==""){
+      $("#projectlocation").select();
+      alert("Invalid Location!");
+      return;
+    }
+    localStorage.setItem('title',title);
+    localStorage.setItem('category',category);
+    localStorage.setItem('location',location);
+    localStorage.setItem('price',price);
 
     //document.location.href="/step2";
     location.href="/step2";

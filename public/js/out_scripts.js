@@ -228,14 +228,23 @@ $('.uploader-sec1 .panding-btn').click(function(){
 })
 $('.uploader-sec2 .panding-btn').click(function(){
     $('.uploader-sec2').removeClass('active');
+    //updated by dh;
+    localStorage.setItem('description',$('#profile_description').val());
     $('.uploader-sec3').addClass('active');
 })
 $('.uploader-sec3 .panding-btn').click(function(){
     $('.uploader-sec3').removeClass('active');
+    //updated by dh;
+
+    localStorage.setItem('birthYear',$('#birthYear').val());
+    localStorage.setItem('birthMonth',$('#birthMonth').val());
+    localStorage.setItem('birthDate',$('#birthDate').val());
     $('.uploader-sec4').addClass('active');
 })
 $('.uploader-sec4 .panding-btn').click(function(){
     $('.uploader-sec4').removeClass('active');
+    localStorage.setItem('location',$('#location').val());
+    updateAvata();
     $('.uploader-sec5').addClass('active');
 })
 

@@ -330,15 +330,17 @@ jQuery(document).ready(function(){
                     }
 
 
-                    function postRegister(postfile_encname){
+                    function postRegister(file_encname){
                       var formData = $("#postForm").serialize();
                       formData=formData+'&author=' + localStorage.getItem('fullname');
-                      formData=formData+'&posttitle=' + localStorage.getItem('posttitle');
-                      formData=formData+'&postcategory=' + localStorage.getItem('postcategory');
-                      formData=formData+'&postlocation=' + localStorage.getItem('postlocation');
-                      formData=formData+'&postfilename=' + document.getElementById('upload-video').files[0].name;
-                      formData=formData+'&postfile_encname=' + postfile_encname;
-                      formData=formData+'&type=' + "video";
+                      formData=formData+'&title=' + localStorage.getItem('title');
+                      formData=formData+'&content=' + "content";
+                      formData=formData+'&category=' + localStorage.getItem('category');
+                      formData=formData+'&location=' + localStorage.getItem('location');
+                      formData=formData+'&price=' + localStorage.getItem('price');
+                      formData=formData+'&filename=' + document.getElementById('upload-video').files[0].name;
+                      formData=formData+'&file_encname=' + file_encname;
+                      formData=formData+'&type=' + "create";
                       formData=formData+'&note=' + "OK";
                       $.ajax({
                           url:'post/register',
@@ -350,8 +352,8 @@ jQuery(document).ready(function(){
                           error:function(data){
                           }
                         });
-                      localStorage.setItem('postfile_encname',postfile_encname);
-                      document.getElementById("videoId").src="/uploads/"+postfile_encname;
+                      localStorage.setItem('file_encname',file_encname);
+                      document.getElementById("videoId").src="/uploads/"+file_encname;
                     }
 
                 </script>
