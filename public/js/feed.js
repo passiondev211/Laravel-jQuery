@@ -202,6 +202,7 @@ var sc_project = 3967696;
       var fullname=localStorage.getItem('fullname');
       var location="Moscow";
       var category="category";
+      var price=localStorage.getItem('price');
       var formData = $("#postForm").serialize();
       var title=$('[name="title"]').val();
       var content=$('[name="content"]').val();
@@ -212,6 +213,7 @@ var sc_project = 3967696;
       formData=formData+'&category=' + category;
       formData=formData+'&filename=' + filename;
       formData=formData+'&file_encname=' + file_encname;
+      formData=formData+'&price=' + price;
       formData=formData+'&type=' + type;
       formData=formData+'&note=' + "testnotes`+newcontent.author+`";
       $.ajax({
