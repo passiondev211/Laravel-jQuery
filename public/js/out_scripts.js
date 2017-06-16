@@ -250,14 +250,15 @@ $('.uploader-sec4 .panding-btn').click(function(){
 
 
 $('.post-time-sec').click(function(){
-    $(this).addClass('red');
-    $(this).parents('.block-add').find('.heart-sec').addClass('red')
+    //$(this).addClass('red');
+    //$(this).parents('.block-add').find('.heart-sec').addClass('red')
+    $(this).parents('.block-add').find('.anim-icon').click();
 })
 
-$('.heart-sec').click(function(){
-    $(this).parents('.block-add').find('.post-time-sec').addClass('red');
-    $(this).addClass('red')
-})
+// $('.heart-sec').click(function(){
+//     // $(this).parents('.block-add').find('.post-time-sec').addClass('red');
+//     // $(this).addClass('red')
+// })
 $('.cart-outer').click(function(e){
     e.preventDefault();
 })

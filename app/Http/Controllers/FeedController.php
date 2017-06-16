@@ -67,8 +67,20 @@ class FeedController extends Controller
 
     public function getArticles(Request $request){
         if(\Session::get('cur_user')==null)
-            return view('home');            
-    	
+            return view('home');
+            
+    	//$data['feed'] = Advers::getArticles();
+    	//$data['create'] = PostController::getArticles();
+    	//var_dump(JWTAuth::getToken());exit(0);
+    	//return Auth::check();
+    	//$cur_user=app('cur_user');
+    	//view()->share('cur_user',$this->$cur_user);
+    	//$cur_user=\Config::get('cur_user');
+    	//var_dump($cur_user);exit(0);
+    	//$site_settings = app('site_settings');
+    	//echo App::make('cur_user');exit(0);
+    	//$cur_user=
+    	//var_dump($request->data);exit(0);
         $data=PostController::getArticles();
         //$images = DB::table('tour_images')->where('tour_id','=',$tourID)->get();
         $curUserId=\Session::get('cur_user')->id;
@@ -82,6 +94,8 @@ class FeedController extends Controller
                $data[$i]->mark = '0';
             }
             else{
+                //$newMark=$curMark->first();
+                //$newMark->mark=$mark->mark;
                 if($curMark->first())
                     $data[$i]->mark = $curMark->first()->mark;
                 else
@@ -117,9 +131,6 @@ class FeedController extends Controller
                 else
                     $data[$i]->like = '0';
             }
-
-            $data[$i]->comments=CommentController::getComments($data[$i]->id);
-
             $data[$i]->authorProfile = ProfileController::getProfileFromUserId($data[$i]->user_id);
         }
         return view('feed')->with('articles',$data);

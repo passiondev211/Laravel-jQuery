@@ -161,9 +161,7 @@ var sc_project = 3967696;
         $.ajax({
           url:'feed/updateMark',
           type:'GET',
-          data method_name: function(attribute) {
-            
-          },ormData,
+          data:formData,
           success:function(data){
             //$(this).attr('src','ddd');
             //alert("Succeeded.");
@@ -307,7 +305,7 @@ var sc_project = 3967696;
                             <div class="block-info-sec">
                                 <div class="expand-sec">
                                     <div class="expand-right-sec">
-                                        <span></span><span class="heart-sec"><i class="anim-icon heart"></i> 14</span>
+                                        <span></span><span class="heart-sec"><i class="anim-icon heart"></i>14</span>
                                     </div>
                                 </div>
                             </div>
@@ -339,16 +337,11 @@ var sc_project = 3967696;
     }
 
     $('.hide-block').click(function(){
-            //alert('asdfsdf');
         $(this).parents('.block-add').css('display','none');
+        $(this).parents('.block-add').find('.post-time-sec').toggleClass('red');
+        $(this).toggleClass('red');
     })
 
-    function HideMe(){
-      //alert('dfdf');
-      //$(this).toggle
-      // $(this).parents('.block-add').css('display','none');
-      // alert($(this).css('display'));
-    }
   
   function checkInputValues(title,content){
     if(title==null || title==""){

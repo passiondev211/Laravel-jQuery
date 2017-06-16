@@ -47,7 +47,7 @@ label.star {
   float: right;
   padding: 3px;
   font-size: 15px;
-  color: #444;
+  color: #ccc;
   transition: all .2s;
 }
 
@@ -1696,7 +1696,7 @@ label.star:before {
                                                                         <a href="#"><img src="img/feed_social-icon3.jpg" alt=""></a>
                                                                     </div>
                                                                 </div>
-                                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit inventore commodi hic quam minima!</p>
+                                                                <p>{{$article->authorProfile->Description}}</p>
                                                             </div>
                                                             <div class="follow-sec clearfix">
                                                                 <div class="follow-left-sec">
@@ -1802,14 +1802,14 @@ label.star:before {
                                                 <p>I bet you didn't think you could make cookies using the Anova Precision Cooker. Sous vide cookies might look a little different than the typical oven recipe — here I've cooked the batter in small canning jars and then cut the results into round bars — but they're far more fun to make. You can't just use any dough recipe</p>
                                                 <div class="expand-sec">
                                                     <div class="comment-bar">
-                                                        <span>{{count($article->comments)}} Comments</span>
+                                                        <span>14 Comments</span>
                                                     </div>
                                                     <div class="expand-left-sec">
                                                         <div class="visible-active">
                                                             <span class="chat-btn active"><i class="material-icons">chat</i></span><span><i class="equalizerBtn material-icons">equalizer</i></span>
                                                         </div>
                                                         <div class="hide-active">
-                                                            <span class="chat-btn"><i class="material-icons">chat</i> <span>{{count($article->comments)}} Comment</span></span>
+                                                            <span class="chat-btn"><i class="material-icons">chat</i> <span>32 Comment</span></span>
                                                         </div>
                                                     </div>
                                                     <div class="expand-right-sec">
@@ -1818,7 +1818,15 @@ label.star:before {
                                                             <ul class="dropdown-menu"> <li><a href="#">Action</a></li> <li><a href="#">Another action</a></li> <li><a href="#">Something else here</a></li> <li role="separator" class="divider"></li> <li><a href="#">Separated link</a></li> </ul>
                                                         </div>
                                                         <div class="hide-active">
-                                                            <span><i class="equalizerBtn material-icons">equalizer</i></span><span class="heart-sec"><i class="anim-icon heart"></i> 14</span>
+                                                            <span><i class="equalizerBtn material-icons">equalizer</i></span>
+                                                            @if($article->like=='0')
+                                                                <span class="heart-sec" ><i  id="heart_icon_{{$article->id}}" class="anim-icon heart"onclick="javascript:updateLike({{$article->id}})">
+                                                                </i></span>
+                                                            @else
+                                                                <span class="heart-sec red" ><i id="heart_icon_{{$article->id}}" class="anim-icon heart active" onclick="javascript:updateLike({{$article->id}})">
+                                                                </i></span>
+                                                            @endif
+                                                            <mydiv id="like_count_{{$article->id}}">{{$article->like_count}}</mydiv>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1859,7 +1867,7 @@ label.star:before {
                                                                             <a href="#"><img src="img/feed_social-icon3.jpg" alt=""></a>
                                                                         </div>
                                                                     </div>
-                                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit inventore commodi hic quam minima!</p>
+                                                                    <p>{{$article->authorProfile->description}}</p>
                                                                 </div>
                                                                 <div class="follow-sec clearfix">
                                                                     <div class="follow-left-sec">
@@ -2285,7 +2293,7 @@ label.star:before {
                                                                                     <a href="#"><img src="img/feed_social-icon3.jpg" alt=""></a>
                                                                                 </div>
                                                                             </div>
-                                                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit inventore commodi hic quam minima!</p>
+                                                                            <p>{{$article->authorProfile->description}}</p>
                                                                         </div>
                                                                         <div class="follow-sec clearfix">
                                                                             <div class="follow-left-sec">
@@ -2311,7 +2319,7 @@ label.star:before {
                                                             <div class="feed-top-right">
                                                                 <i class="dropdown-toggle material-icons pen-btn">sort</i>
                                                                 <ul class="dropdown-menu">
-                                                                    <li class="hide-block"><a  class="hide-block" href="javascript:HideMe()"><i class="material-icons">visibility_off</i><span>I don't want to see this</span></a></li>
+                                                                    <li class="hide-block"><a  class="hide-block"><i class="material-icons">visibility_off</i><span>I don't want to see this</span></a></li>
                                                                     <li><a href="#"><i class="material-icons">subject</i><span>Hide all for Chris Beek</span></a></li>
                                                                     <li><a href="#"><i class="material-icons">flag</i><span>Report abuse</span></a></li>
                                                                     <li><a href="#"><i class="material-icons">remove_circle</i><span>Remove connection</span></a></li>
@@ -2328,13 +2336,13 @@ label.star:before {
                                             </div>
                                             <div class="block-info-sec">
                                                 <div class="expand-sec">
-                                                    <div class="expand-right-sec" id="heart_{{$article->id}}" >
+                                                    <div class="expand-right-sec" >
                                                         <span></span>
                                                         @if($article->like=='0')
-                                                            <span class="heart-sec" onclick="javascript:updateLike({{$article->id}},1,{{$article->like_count+1}})"><i class="anim-icon heart">
+                                                            <span class="heart-sec" ><i  id="heart_icon_{{$article->id}}" class="anim-icon heart"onclick="javascript:updateLike({{$article->id}})">
                                                             </i></span>
                                                         @else
-                                                            <span class="heart-sec red"><i id="heart_icon_{{$article->id}}" class="anim-icon heart active">
+                                                            <span class="heart-sec red" ><i id="heart_icon_{{$article->id}}" class="anim-icon heart active" onclick="javascript:updateLike({{$article->id}})">
                                                             </i></span>
                                                         @endif
                                                         <mydiv id="like_count_{{$article->id}}">{{$article->like_count}}</mydiv>
@@ -2346,7 +2354,3491 @@ label.star:before {
                                 </div>
                                 @endif
                                 @endforeach
-                                
+                                <div class="block-add" style="display:none">
+                                    <div class="block-left">
+                                        <div class="block-left-inner">
+                                            <div class="post-time-sec">
+                                                <span class="time-zone">4</span>
+                                                <i>hour ago</i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="block-outer">
+                                        <div class="block-post block-person-info">
+                                            <div class="feed-top-sec clearfix">
+                                                <div class="feed-top-left">
+                                                    <p><em class="feed-person-btn"><img src="img/profile-img1.png" alt=""> <strong>Akilli M. Johnson</strong></em> <span>Beautiful Picture in the World</span><i>February 22 at 7:20 am </i></p>
+                                                    <div class="feed-person-sec">
+                                                        <!-- <span class="clip-btn"></span> -->
+                                                        <div class="feed-upper-sec">
+                                                            <div class="feed-upper-banner">
+                                                                <a class="btn follow-btn" href="#"><img src="img/blue-buzz.png" alt=""><span>Follow</span></a>
+                                                            </div>
+                                                            <div class="feed-banner-botsec">
+                                                                <div class="clearfix">
+                                                                    <div class="feed-banner-botinfo">
+                                                                        <a href="#"><img src="img/profile-img2.png" alt=""></a>
+                                                                        <h3>mykal <span>@mykalmorton</span></h3>
+                                                                    </div>
+                                                                    <div class="feed-banner-botsocial">
+                                                                        <a href="#"><img src="img/feed_social-icon1.jpg" alt=""></a>
+                                                                        <a href="#"><img src="img/feed_social-icon2.jpg" alt=""></a>
+                                                                        <a href="#"><img src="img/feed_social-icon3.jpg" alt=""></a>
+                                                                    </div>
+                                                                </div>
+                                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit inventore commodi hic quam minima!</p>
+                                                            </div>
+                                                            <div class="follow-sec clearfix">
+                                                                <div class="follow-left-sec">
+                                                                    <span>200</span><i>Connections</i>
+                                                                </div>
+                                                                <div class="follow-right-sec">
+                                                                    <span>1.9M</span><i>Followers</i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="feed-lower-sec">
+                                                            <h3><i>- Famous Recipes -</i></h3>
+                                                            <div class="feed-inner-sec clearfix">
+                                                                <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                            </div>
+                                                            <a class="more-btn" href="#">more</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="feed-top-right">
+                                                    <span class="material-label-btn"><i class="material-icons">label</i> 14</span>
+                                                    <div class="material-label-dropdown">
+                                                        <div class="label-dropdown-step label-dropdown-step1">
+                                                            <div class="label-dropdown-head clearfix">
+                                                                <div class="label-dropdown-head-left">
+                                                                    <div class="label-dropdown-fig">
+                                                                        <a href="#"><img src="img/label-person.jpg" alt=""></a>
+                                                                    </div>
+                                                                    <div class="label-dropdown-info">
+                                                                        <p><span>Commission</span><b>$1.80</b></p>
+                                                                        <p><span>Engagment</span><i>18</i></p>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="label-dropdown-head-right">
+                                                                    <ul class="clearfix">
+                                                                        <li><a class="share-drop" href="#" data-toggle="tooltip" data-placement="top" title="Shared With Friends">@</a></li>
+                                                                        <li><a href="#" class="material-icons">visibility</a></li>
+                                                                        <li><a href="#" class="material-icons">visibility_off</a></li>
+                                                                        <li><a href="#" class="material-icons">watch_later</a></li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                            <div class="label-dropdown-content">
+                                                                <div class="textarea-sec">
+                                                                    <textarea name="" id="" cols="30" rows="10" placeholder="What's on your mind?"></textarea>
+                                                                    <i class="material-icons">code</i>
+                                                                </div>
+                                                            </div>
+                                                            <div class="label-dropdown-foot clearfix">
+                                                                <div class="label-dropdown-foot-left">
+                                                                    <ul>
+                                                                        <li><a href="#"><i class="fa fa-paperclip"></i> <span>http://grnhtr.in/ibvd</span></a></li>
+                                                                        <li><a data-toggle="tooltip" data-placement="top" title="Shared With Tumblr" class="fa fa-facebook-square" href="#"></a></li>
+                                                                        <li><a data-toggle="tooltip" data-placement="top" title="Shared With Tumblr" class="fa fa-twitter-square" href="#"></a></li>
+                                                                    </ul>
+                                                                </div>
+                                                                <div class="label-dropdown-foot-right">
+                                                                    <a class="step-btn1" href="#"><i class="material-icons">lock</i><span>Next</span></a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="label-dropdown-step label-dropdown-step2">
+                                                            <div class="label-dropdown-head">
+                                                                <i class="material-label-close material-icons">close</i>
+                                                                <h4>Budget</h4>
+                                                                <p>Select how much you like to spend.</p>
+                                                            </div>
+                                                            <div class="dropdown-step2-content">
+                                                                <i class="arrow-back material-icons">keyboard_arrow_left</i>
+                                                                <div class="budget-slider">
+                                                                    <ul class="clearfix">
+                                                                        <li><input type="radio" name="glow" id="glow1"><label for="glow1"></label><span>10$</span></li>
+                                                                        <li><input type="radio" name="glow" id="glow2"><label for="glow2"></label><span>50$</span></li>
+                                                                        <li><input type="radio" name="glow" id="glow3"><label for="glow3"></label><span>100$</span></li>
+                                                                        <li><input checked="" type="radio" name="glow" id="glow4"><label for="glow4"></label><span>200$</span></li>
+                                                                        <li><input type="radio" name="glow" id="glow5"><label for="glow5"></label><span>500$</span></li>
+                                                                        <li><input type="radio" name="glow" id="glow6"><label for="glow6"></label><span>1000$</span></li>
+                                                                        <li><input type="radio" name="glow" id="glow7"><label for="glow7"></label><span>2500$</span></li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                            <div class="label-dropdown-foot">
+                                                                <a href="#">proceed to confirmation</a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="label-dropdown-step label-dropdown-step3">
+                                                            <div class="label-dropdown-head">
+                                                                <i class="material-label-close material-icons">close</i>
+                                                            </div>
+                                                            <div class="dropdown-step3-content">
+                                                                <div class="dropdown-step3-content-inner">
+                                                                    <h4><i class="material-icons">check_circle</i><span>Your Promoted Tweet is on its way!</span></h4>
+                                                                    <div class="progress"></div>
+                                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam tenetur officiis, eveniet, vitae illo, quas modi quis, tempora veritatis natus fugiat ea atque iusto. Officia impedit id quibusdam placeat consequuntur.</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="label-dropdown-step label-dropdown-step4">
+                                                            <div class="label-dropdown-head"></div>
+                                                            <div class="label-dropdown-foot"></div>
+                                                        </div>
+                                                        <div class="label-dropdown-step label-dropdown-step5">
+                                                            <div class="label-dropdown-head"></div>
+                                                            <div class="label-dropdown-foot"></div>
+                                                        </div>
+                                                    </div>
+                                                    <i class="dropdown-toggle material-icons pen-btn">sort</i>
+                                                    <ul class="dropdown-menu">
+                                                        <li class="hide-block"><a href="#"><i class="material-icons">visibility_off</i><span>I don't want to see this</span></a></li>
+                                                        <li><a href="#"><i class="material-icons">subject</i><span>Hide all for Chris Beek</span></a></li>
+                                                        <li><a href="#"><i class="material-icons">flag</i><span>Report abuse</span></a></li>
+                                                        <li><a href="#"><i class="material-icons">remove_circle</i><span>Remove connection</span></a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="feed-top-left">
+                                                    <p style="margin: 0 0 0 50px;">How is your product perceived by your customers?</p>
+                                                </div>
+                                            </div>
+                                            <div class="outer-shadow-sec">                                            
+                                                <span class="outer-shadow"></span>
+                                                <div class="rating-sec box-rating-sec">
+                                                    <div class="clearfix">
+                                                        <div class="rating-left-sec">
+                                                            <p><img src="img/article-img3.jpg" alt=""></p>
+                                                        </div>
+                                                        <div class="rating-right-sec">
+                                                            <div class="feed-heading-wrap clearfix">
+                                                                <div class="feed-heading-left">
+                                                                    <div class="feed-heading-sec">
+                                                                        <a href="#formSidebar" class="cart-menubtn"><i class="material-icons">shopping_cart</i></a>
+                                                                        <h2 class="feed-title">Lorem ipsum dolor sit amet.<span class="clip-marker"><img src="img/clip-icon.png" alt=""></span></h2>
+                                                                        <p><i>$319.00</i> <em>USD + Shopping Cost</em></p>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="feed-heading-right">
+                                                                    <span class="heart-sec"><i class="anim-icon heart"></i> 14</span>
+                                                                </div>
+                                                            </div>
+                                                            <p>I bet you didn't think you could make cookies using the Anova Precision Cooker. Sous vide cookies might look a little different than the typical oven recipe — here I've cooked the batter in small canning jars and then cut the <span class="more-info-txt">results into round bars — but they're far more fun to make. You can't just use any dough recipe, though. Traditional cookie recipes include a TON of butter, which makes for a mushy sous vide cookie. Here, I've modified a typical cookie recipe to include more flour, leavener, and some serious mixer action. The result is a moist, rich, decadent cookie that your friends will never forget. </span></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="block-info-sec">
+                                                <div class="expand-sec">
+                                                    <div class="comment-bar">
+                                                        <span>14 Comments</span>
+                                                    </div>
+                                                    <div class="expand-left-sec">
+                                                        <div class="visible-active">
+                                                            <span class="chat-btn active"><i class="material-icons">chat</i></span><span><i class="equalizerBtn material-icons">equalizer</i></span>
+                                                        </div>
+                                                        <div class="hide-active">
+                                                            <span class="chat-btn"><i class="material-icons">chat</i> 32 Comment</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="expand-right-sec">
+                                                        <div class="visible-active">
+                                                            <a class="dropdown-toggle" href="#">Sort by Best <i class="material-icons">arrow_drop_down</i></a>
+                                                            <ul class="dropdown-menu"> <li><a href="#">Action</a></li> <li><a href="#">Another action</a></li> <li><a href="#">Something else here</a></li> <li role="separator" class="divider"></li> <li><a href="#">Separated link</a></li> </ul>
+                                                        </div>
+                                                        <div class="hide-active">
+                                                            <span><i class="equalizerBtn material-icons">equalizer</i></span><span class="heart-sec"><i class="anim-icon heart"></i> 14</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="comment-chat-wrap">
+                                                <div class="comment-chat-bar">
+                                                    <form class="pushing-form">
+                                                        <a href="#"><img src="img/jeff.jpg" alt=""></a>
+                                                        <span><i class="anim-icon camera"></i><textarea placeholder="What do you want to share?"></textarea></span>
+                                                        <div class="icon-sec clearfix">
+                                                            <button type="submit">Send</button>
+                                                            <div class="icon-sec-right">
+                                                                <em href="#"><span class="anim-icon camera"></span> media</em>
+                                                                <em href="#"><i class="material-icons">location_on</i> <b>Location</b></em>
+                                                                <em href="#"><i class="material-icons">unarchive</i> <b>Poll</b></em>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                <div class="latest-comment-chat comment-chat-sec">
+                                                    <div class="comment-chat-fig">
+                                                        <a href="#"><img src="img/chat-icon1.jpg" alt=""></a>
+                                                        <div class="feed-person-sec">
+                                                            <!-- <span class="clip-btn"></span> -->
+                                                            <div class="feed-upper-sec">
+                                                                <div class="feed-upper-banner">
+                                                                    <a class="btn follow-btn" href="#"><img src="img/blue-buzz.png" alt=""><span>Follow</span></a>
+                                                                </div>
+                                                                <div class="feed-banner-botsec">
+                                                                    <div class="clearfix">
+                                                                        <div class="feed-banner-botinfo">
+                                                                            <a href="#"><img src="img/profile-img2.png" alt=""></a>
+                                                                            <h3>mykal <span>@mykalmorton</span></h3>
+                                                                        </div>
+                                                                        <div class="feed-banner-botsocial">
+                                                                            <a href="#"><img src="img/feed_social-icon1.jpg" alt=""></a>
+                                                                            <a href="#"><img src="img/feed_social-icon2.jpg" alt=""></a>
+                                                                            <a href="#"><img src="img/feed_social-icon3.jpg" alt=""></a>
+                                                                        </div>
+                                                                    </div>
+                                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit inventore commodi hic quam minima!</p>
+                                                                </div>
+                                                                <div class="follow-sec clearfix">
+                                                                    <div class="follow-left-sec">
+                                                                        <span>200</span><i>Connections</i>
+                                                                    </div>
+                                                                    <div class="follow-right-sec">
+                                                                        <span>1.9M</span><i>Followers</i>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="feed-lower-sec">
+                                                                <h3><i>- Famous Recipes -</i></h3>
+                                                                <div class="feed-inner-sec clearfix">
+                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                </div>
+                                                                <a class="more-btn" href="#">more</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="comment-chat-info">
+                                                        <h4 class="clearfix"><a href="#">Akilli M. Johnson</a> . 19 Days ago <span><i class="material-icons">favorite</i> 2</span></h4>
+                                                        <p><a href="#">@tsipras_eu As a</a> European, as a classicist, i know that i will never be enough grateful to all the greeks, for what you are doing. </p>
+                                                        <div class="clearfix">
+                                                            <div class="share-reply share-reply-left">
+                                                                <a href="#"><span>9</span><span><i class="fa fa-angle-down"></i></span>|<span><i class="fa fa-angle-up"></i></span></a> <a href="#">Share <i class="fa fa-angle-right"></i></a>
+                                                            </div>
+                                                            <div class="share-reply">
+                                                                <a href="#">Reply</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="comment-chat-sec">
+                                                    <div class="comment-chat-fig">
+                                                        <a href="#"><img src="img/chat-icon1.jpg" alt=""></a>
+                                                        <div class="feed-person-sec">
+                                                            <!-- <span class="clip-btn"></span> -->
+                                                            <div class="feed-upper-sec">
+                                                                <div class="feed-upper-banner">
+                                                                    <a class="btn follow-btn" href="#"><img src="img/blue-buzz.png" alt=""><span>Follow</span></a>
+                                                                </div>
+                                                                <div class="feed-banner-botsec">
+                                                                    <div class="clearfix">
+                                                                        <div class="feed-banner-botinfo">
+                                                                            <a href="#"><img src="img/profile-img2.png" alt=""></a>
+                                                                            <h3>mykal <span>@mykalmorton</span></h3>
+                                                                        </div>
+                                                                        <div class="feed-banner-botsocial">
+                                                                            <a href="#"><img src="img/feed_social-icon1.jpg" alt=""></a>
+                                                                            <a href="#"><img src="img/feed_social-icon2.jpg" alt=""></a>
+                                                                            <a href="#"><img src="img/feed_social-icon3.jpg" alt=""></a>
+                                                                        </div>
+                                                                    </div>
+                                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit inventore commodi hic quam minima!</p>
+                                                                </div>
+                                                                <div class="follow-sec clearfix">
+                                                                    <div class="follow-left-sec">
+                                                                        <span>200</span><i>Connections</i>
+                                                                    </div>
+                                                                    <div class="follow-right-sec">
+                                                                        <span>1.9M</span><i>Followers</i>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="feed-lower-sec">
+                                                                <h3><i>- Famous Recipes -</i></h3>
+                                                                <div class="feed-inner-sec clearfix">
+                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                </div>
+                                                                <a class="more-btn" href="#">more</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="comment-chat-info">
+                                                        <h4 class="clearfix"><a href="#">Akilli M. Johnson</a> . 19 Days ago <span><i class="material-icons">favorite</i> 2</span></h4>
+                                                        <p><a href="#">@tsipras_eu As a</a> European, as a classicist, i know that i will never be enough grateful to all the greeks, for what you are doing. </p>
+                                                        <div class="clearfix">
+                                                            <div class="share-reply share-reply-left">
+                                                                <a href="#"><span>9</span><span><i class="fa fa-angle-down"></i></span>|<span><i class="fa fa-angle-up"></i></span></a> <a href="#">Share <i class="fa fa-angle-right"></i></a>
+                                                            </div>
+                                                            <div class="share-reply">
+                                                                <a href="#">Reply</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <a href="#" class="show-btn">Show More</a>
+                                                <div class="comment-chat-sec">
+                                                    <div class="comment-chat-fig">
+                                                        <a href="#"><img src="img/chat-icon1.jpg" alt=""></a>
+                                                        <div class="feed-person-sec">
+                                                            <!-- <span class="clip-btn"></span> -->
+                                                            <div class="feed-upper-sec">
+                                                                <div class="feed-upper-banner">
+                                                                    <a class="btn follow-btn" href="#"><img src="img/blue-buzz.png" alt=""><span>Follow</span></a>
+                                                                </div>
+                                                                <div class="feed-banner-botsec">
+                                                                    <div class="clearfix">
+                                                                        <div class="feed-banner-botinfo">
+                                                                            <a href="#"><img src="img/profile-img2.png" alt=""></a>
+                                                                            <h3>mykal <span>@mykalmorton</span></h3>
+                                                                        </div>
+                                                                        <div class="feed-banner-botsocial">
+                                                                            <a href="#"><img src="img/feed_social-icon1.jpg" alt=""></a>
+                                                                            <a href="#"><img src="img/feed_social-icon2.jpg" alt=""></a>
+                                                                            <a href="#"><img src="img/feed_social-icon3.jpg" alt=""></a>
+                                                                        </div>
+                                                                    </div>
+                                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit inventore commodi hic quam minima!</p>
+                                                                </div>
+                                                                <div class="follow-sec clearfix">
+                                                                    <div class="follow-left-sec">
+                                                                        <span>200</span><i>Connections</i>
+                                                                    </div>
+                                                                    <div class="follow-right-sec">
+                                                                        <span>1.9M</span><i>Followers</i>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="feed-lower-sec">
+                                                                <h3><i>- Famous Recipes -</i></h3>
+                                                                <div class="feed-inner-sec clearfix">
+                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                </div>
+                                                                <a class="more-btn" href="#">more</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="comment-chat-info">
+                                                        <h4 class="clearfix"><a href="#">Akilli M. Johnson</a> . 19 Days ago <span><i class="material-icons">favorite</i> 2</span></h4>
+                                                        <p><a href="#">@tsipras_eu As a</a> European, as a classicist, i know that i will never be enough grateful to all the greeks, for what you are doing. </p>
+                                                        <div class="clearfix">
+                                                            <div class="share-reply share-reply-left">
+                                                                <a href="#"><span>9</span><span><i class="fa fa-angle-down"></i></span>|<span><i class="fa fa-angle-up"></i></span></a> <a href="#">Share <i class="fa fa-angle-right"></i></a>
+                                                            </div>
+                                                            <div class="share-reply">
+                                                                <a href="#">Reply</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <a href="#" class="home-link"><img src="img/header-logo.png" alt=""></a>
+                                            </div>
+                                        </div>
+                                        <div class="sidebarWrap">
+                                            <div class="post-sidebar contentSidebar">
+                                                <span class="arrow-close anim-icon close"></span>
+                                                <div class="post-sidebar-inner">
+                                                    <div class="sidebar_slider-sec">
+                                                        <div class="flexslider">
+                                                            <ul class="slides clearfix">
+                                                                <li>
+                                                                    <a href="product"><img src="img/gray-bg.jpg" /></a>
+                                                                    <a href="#" class="formBtn form_slide_price"><sup>$</sup><span>137</span></a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="product"><img src="img/gray-bg.jpg" /></a>
+                                                                    <a href="#" class="formBtn form_slide_price"><sup>$</sup><span>37</span></a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="product"><img src="img/gray-bg.jpg" /></a>
+                                                                    <a href="#" class="formBtn form_slide_price"><sup>$</sup><span>3</span></a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="product"><img src="img/gray-bg.jpg" /></a>
+                                                                    <a href="#" class="formBtn form_slide_price"><sup>$</sup><span>43</span></a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="chat-wrap">
+                                                        <div class="clearfix">
+                                                            <div class="chat-com-sec chat-left-sec">
+                                                                <a class="" href="#"><i class="material-icons">chat</i> 26 Comment</a>
+                                                            </div>
+                                                            <div class="chat-com-sec chat-right-sec">
+                                                                <span><i class="material-icons">favorite</i></span><span><i class="material-icons">autorenew</i></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="donate-form-sec">
+                                                        <form class="donate-form-inner donate-discription-sec">
+                                                            <div class="donate-discription-info">
+                                                                <h2 class="clearfix"><a href="product">Lorem ipsum dolor sit amet.</a>
+                                                                    <span class="star-sec"><i><img src="img/star.png" alt="">
+                                                                        </i><i><img src="img/star.png" alt="">
+                                                                        </i><i><img src="img/star.png" alt="">
+                                                                        </i><i><img src="img/star.png" alt="">
+                                                                        </i><i><img src="img/star-o.png" alt=""></i>
+                                                                    </span>
+                                                                </h2>
+                                                                <p class="clearfix">consectetur adipisicing elit. Cumque inventore et laboriosam vel neque laborum, optio quis dicta magni consequatur distinctio hic nemo veniam temporibus, necessitatibus <span class="hidden-txt">repellat culpa facilis iure consectetur adipisicing elit. Cumque inventore et laboriosam vel neque</span><a href="#" class="more-info-btn"></a></p>
+                                                                <div class="donate-discription-inner clearfix">
+                                                                    <div class="discription-inner-detail">
+                                                                        <p>Estamailted: <span>May 2016</span></p>
+                                                                    </div>
+                                                                    <div class="discription-inner-detail">
+                                                                        <p>Estamailted devlivery: <span>May 2016</span></p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-agreed-sec catagary-sec">
+                                                                <div class="clearfix">
+                                                                    <div class="form-agreed-left">
+                                                                        <a href="#"><i class="material-icons">loyalty</i> Technology</a>
+                                                                        <a href="#"><i class="material-icons">location_on</i> Sans Fancisco</a>
+                                                                    </div>
+                                                                    <div class="form-agreed-right">
+                                                                        <a href="#" class="btn btn-purchase formBtn">Checkout</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="post-sidebar formSidebar">
+                                                <span class="arrow-close anim-icon close"></span>
+                                                <div class="post-sidebar-inner">
+                                                    <div class="side-slider-outer">
+                                                        <ul class="slides clearfix">
+                                                            <li>
+                                                                <div class="clearfix">
+                                                                    <div class="side-slider-fig">
+                                                                        <img src="img/product-img4.jpg" alt="">
+                                                                        <a href="#" class="formBtn form_slide_price"><sup>$</sup><span>37</span></a>
+                                                                    </div>
+                                                                    <div class="side-slider-info">
+                                                                        <h3>GRILLED SHRIMP<br>WITH VINAIGRETTE</h3>
+                                                                        <p class="product-detail">
+                                                                            <em>Cilantro</em>.
+                                                                            <em>390 g</em>.
+                                                                            <em>610 kcal</em>
+                                                                        </p>
+                                                                        <p><span>25m cooking</span><span>15m delivery</span></p>
+                                                                        <div class="side-slider-btn-sec clearfix">
+                                                                            <div class="slider-btn-left">
+                                                                                <img src="img/product-slider.jpg" alt="">
+                                                                            </div>
+                                                                            <div class="slider-btn-right">
+                                                                                <a href="#" class="btn btn-purchase">Order</a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                            <li>
+                                                                <div class="clearfix">
+                                                                    <div class="side-slider-fig">
+                                                                        <img src="img/product-img4.jpg" alt="">
+                                                                        <a href="#" class="formBtn form_slide_price"><sup>$</sup><span>37</span></a>
+                                                                    </div>
+                                                                    <div class="side-slider-info">
+                                                                        <h3>GRILLED SHRIMP<br>WITH VINAIGRETTE</h3>
+                                                                        <p class="product-detail">
+                                                                            <em>Cilantro</em>.
+                                                                            <em>390 g</em>.
+                                                                            <em>610 kcal</em>
+                                                                        </p>
+                                                                        <p><span>25m cooking</span><span>15m delivery</span></p>
+                                                                        <div class="side-slider-btn-sec clearfix">
+                                                                            <div class="slider-btn-left">
+                                                                                <img src="img/product-slider.jpg" alt="">
+                                                                            </div>
+                                                                            <div class="slider-btn-right">
+                                                                                <a href="#" class="btn btn-purchase">Order</a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                            <li>
+                                                                <div class="clearfix">
+                                                                    <div class="side-slider-fig">
+                                                                        <img src="img/product-img4.jpg" alt="">
+                                                                        <a href="#" class="formBtn form_slide_price"><sup>$</sup><span>37</span></a>
+                                                                    </div>
+                                                                    <div class="side-slider-info">
+                                                                        <h3>GRILLED SHRIMP<br>WITH VINAIGRETTE</h3>
+                                                                        <p class="product-detail">
+                                                                            <em>Cilantro</em>.
+                                                                            <em>390 g</em>.
+                                                                            <em>610 kcal</em>
+                                                                        </p>
+                                                                        <p><span>25m cooking</span><span>15m delivery</span></p>
+                                                                        <div class="side-slider-btn-sec clearfix">
+                                                                            <div class="slider-btn-left">
+                                                                                <img src="img/product-slider.jpg" alt="">
+                                                                            </div>
+                                                                            <div class="slider-btn-right">
+                                                                                <a href="#" class="btn btn-purchase">Order</a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                            <li>
+                                                                <div class="clearfix">
+                                                                    <div class="side-slider-fig">
+                                                                        <img src="img/product-img4.jpg" alt="">
+                                                                        <a href="#" class="formBtn form_slide_price"><sup>$</sup><span>37</span></a>
+                                                                    </div>
+                                                                    <div class="side-slider-info">
+                                                                        <h3>GRILLED SHRIMP<br>WITH VINAIGRETTE</h3>
+                                                                        <p class="product-detail">
+                                                                            <em>Cilantro</em>.
+                                                                            <em>390 g</em>.
+                                                                            <em>610 kcal</em>
+                                                                        </p>
+                                                                        <p><span>25m cooking</span><span>15m delivery</span></p>
+                                                                        <div class="side-slider-btn-sec clearfix">
+                                                                            <div class="slider-btn-left">
+                                                                                <img src="img/product-slider.jpg" alt="">
+                                                                            </div>
+                                                                            <div class="slider-btn-right">
+                                                                                <a href="#" class="btn btn-purchase">Order</a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="donate-form-sec">
+                                                        <form class="donate-form-inner">
+                                                            <section>
+                                                                <h3>Payment information</h3>
+                                                                <p>Your payment method will not be changed at this time if the project is successfully funded, your payment method will be changed 178.00 when the projects ends.</p>
+                                                            </section>
+                                                            <section>
+                                                                <h3 class="clearfix">Select payment method</h3>
+                                                                <span><input name="payment" id="radio1" checked="" type="radio"><label for="radio1"><img src="img/visa.png" alt=""><p><b>Card ending in 8080</b>Expires 7-20-29</p><i class="material-icons">edit</i></label></span>
+                                                                <span><input name="payment" id="radio2" type="radio"><label for="radio2">Use a new card<i class="material-icons">edit</i></label></span>
+                                                            </section>
+                                                            <section class="lowersec">
+                                                                <h3 class="clearfix">Select a shipping address</h3>
+                                                                <span><input name="payment1" id="radio3" checked="" type="radio"><label for="radio3"><p>Mykal Michael,<br> 2717 howell st apt 4302, dalla,tx, 75204</p><i class="material-icons">edit</i></label></span>
+                                                                <span><input name="payment1" id="radio4" type="radio"><label for="radio4">Use a new address<i class="material-icons">edit</i></label></span>
+                                                            </section>
+                                                            <div class="form-agreed-sec">
+                                                                <p>By pledging you agree to kickstarter’s <a href="#">Terms of use</a> and <a href="#">Privacy policy</a></p>
+                                                                <div class="clearfix">
+                                                                    <div class="form-agreed-left">
+                                                                        <a href="#" class="btn btn-addcart">ADD TO CART</a>
+                                                                    </div>
+                                                                    <div class="form-agreed-right">
+                                                                        <a href="#" class="btn btn-purchase donateBtn">Purchase</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="block-add" style="display:none">
+                                    <div class="block-left">
+                                        <div class="block-left-inner">
+                                            <div class="post-time-sec">
+                                                <span class="time-zone">2</span>
+                                                <i>days ago</i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="block-outer">
+                                        <div class="block-post block-person-info block-short-info">
+                                            <div class="rating-sec">
+                                                <div class="clearfix">
+                                                    <div class="rating-left-sec">
+                                                        <p><img src="img/article-img3.jpg" alt=""></p>
+                                                    </div>
+                                                    <div class="rating-right-sec">
+                                                        <div class="feed-top-sec clearfix">
+                                                            <div class="feed-top-left">
+                                                            <p><em class="feed-person-btn1"><strong>Akilli M. Johnson</strong></em> <span>Beautiful Picture in the World <b class="clip-marker"><img src="img/clip-icon.png" alt=""></b></span><i>February 22 at 7:20 am </i></p>
+                                                            <div class="feed-person-sec">
+                                                                <!-- <span class="clip-btn"></span> -->
+                                                                <div class="feed-upper-sec">
+                                                                    <div class="feed-upper-banner">
+                                                                        <a class="btn follow-btn" href="#"><img src="img/blue-buzz.png" alt=""><span>Follow</span></a>
+                                                                    </div>
+                                                                    <div class="feed-banner-botsec">
+                                                                        <div class="clearfix">
+                                                                            <div class="feed-banner-botinfo">
+                                                                                <a href="#"><img src="img/profile-img2.png" alt=""></a>
+                                                                                <h3>mykal <span>@mykalmorton</span></h3>
+                                                                            </div>
+                                                                            <div class="feed-banner-botsocial">
+                                                                                <a href="#"><img src="img/feed_social-icon1.jpg" alt=""></a>
+                                                                                <a href="#"><img src="img/feed_social-icon2.jpg" alt=""></a>
+                                                                                <a href="#"><img src="img/feed_social-icon3.jpg" alt=""></a>
+                                                                            </div>
+                                                                        </div>
+                                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit inventore commodi hic quam minima!</p>
+                                                                    </div>
+                                                                    <div class="follow-sec clearfix">
+                                                                        <div class="follow-left-sec">
+                                                                            <span>200</span><i>Connections</i>
+                                                                        </div>
+                                                                        <div class="follow-right-sec">
+                                                                            <span>1.9M</span><i>Followers</i>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="feed-lower-sec">
+                                                                    <h3><i>- Famous Recipes -</i></h3>
+                                                                    <div class="feed-inner-sec clearfix">
+                                                                        <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                        <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                        <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                        <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                    </div>
+                                                                    <a class="more-btn" href="#">more</a>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                            <div class="feed-top-right">
+                                                                <i class="dropdown-toggle material-icons pen-btn">sort</i>
+                                                                <ul class="dropdown-menu">
+                                                                    <li class="hide-block"><a href="#"><i class="material-icons">visibility_off</i><span>I don't want to see this</span></a></li>
+                                                                    <li><a href="#"><i class="material-icons">subject</i><span>Hide all for Chris Beek</span></a></li>
+                                                                    <li><a href="#"><i class="material-icons">flag</i><span>Report abuse</span></a></li>
+                                                                    <li><a href="#"><i class="material-icons">remove_circle</i><span>Remove connection</span></a></li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                        <p>I bet you didn't think you could make cookies using the Anova Precision Cooker. Sous vide cookies might to make. You can't just use any dough recipe</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="block-info-sec">
+                                                <div class="expand-sec">
+                                                    <div class="expand-right-sec">
+                                                        <span></span><span class="heart-sec"><i class="anim-icon heart"></i> 14</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="block-add tvins-add" style="display:none">
+                                    <div class="block-left">
+                                        <div class="block-left-inner">
+                                            <div class="post-time-sec">
+                                                <span class="time-zone"></span>
+                                                <i>SPONSERED</i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="block-outer">
+                                        <div class="block-post">
+                                            <div class="tvins-sec">
+                                                <h4><a href="#">create ad</a></h4>
+                                                <div class="clearfix">
+                                                    <div class="tvins-info">
+                                                        <div class="tvins-inner-info">
+                                                            <p><a href="#"><img src="img/adds-img2.png" alt=""></a></p>
+                                                            <p><a href="#"><b>SeeGoodDaily</b></a></p>
+                                                            <p><a href=""><span>att.com</span></a></p>
+                                                            <p><i>Lorem ipsum dolor sit amet,<br> consectetur adipisicing elit.</i></p>
+                                                            <div class="tvins-dropdown">
+                                                                <i class="dropdown-toggle material-icons pin-btn">keyboard_arrow_down</i>
+                                                                <ul class="dropdown-menu" style="display: none;"> <li><a href="#">Action</a></li> <li><a href="#">Another action</a></li> <li><a href="#">Something else here</a></li> <li role="separator" class="divider"></li> <li><a href="#">Separated link</a></li> </ul>
+                                                            </div>
+                                                        </div>
+                                                        <div class="dismiss-sec clearfix">
+                                                            <div class="dismiss-left"><a href="#"><i class="material-icons">close</i><span>Dismiss</span></a></div>
+                                                            <div class="dismiss-right">
+                                                                <span class="heart-sec"><i class="anim-icon heart"></i> 440</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="tvins-info">
+                                                        <div class="tvins-inner-info">
+                                                            <p><a href="#"><img src="img/adds-img2.png" alt=""></a></p>
+                                                            <p><a href="#"><b>SeeGoodDaily</b></a></p>
+                                                            <p><a href=""><span>att.com</span></a></p>
+                                                            <p><i>Lorem ipsum dolor sit amet,<br> consectetur adipisicing elit.</i></p>
+                                                            <div class="tvins-dropdown">
+                                                                <i class="dropdown-toggle material-icons pin-btn">keyboard_arrow_down</i>
+                                                                <ul class="dropdown-menu" style="display: none;"> <li><a href="#">Action</a></li> <li><a href="#">Another action</a></li> <li><a href="#">Something else here</a></li> <li role="separator" class="divider"></li> <li><a href="#">Separated link</a></li> </ul>
+                                                            </div>
+                                                        </div>
+                                                        <div class="dismiss-sec clearfix">
+                                                            <div class="dismiss-left"><a href="#"><i class="material-icons">close</i><span>Dismiss</span></a></div>
+                                                            <div class="dismiss-right">
+                                                                <span class="heart-sec"><i class="anim-icon heart"></i> 440</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="block-add black-travel-wrap" style="display:none">
+                                    <div class="block-left">
+                                        <div class="block-left-inner">
+                                            <div class="post-time-sec">
+                                                <span class="time-zone">1</span>
+                                                <i>month ago</i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="block-outer">
+                                        <div class="block-post">
+                                            <div class="black-travel clearfix">
+                                                <div class="black-travel-left">
+                                                    <h4>Red/Black Travel Tie Case</h4>
+                                                </div>
+                                                <div class="black-travel-right"><b>$450</b><span>usd</span></div>
+                                            </div>
+                                            <div class="feed-top-sec clearfix">
+                                                <div class="feed-top-left">
+                                                    <p><em class="feed-person-btn"><img src="img/profile-img1.png" alt=""> <strong>Akilli M. Johnson</strong></em> <span>Beautiful Picture in the World</span><i>February 22 at 7:20 am </i></p>
+                                                    <div class="feed-person-sec">
+                                                        <!-- <span class="clip-btn"></span> -->
+                                                        <div class="feed-upper-sec">
+                                                            <div class="feed-upper-banner">
+                                                                <a class="btn follow-btn" href="#"><img src="img/blue-buzz.png" alt=""><span>Follow</span></a>
+                                                            </div>
+                                                            <div class="feed-banner-botsec">
+                                                                <div class="clearfix">
+                                                                    <div class="feed-banner-botinfo">
+                                                                        <a href="#"><img src="img/profile-img2.png" alt=""></a>
+                                                                        <h3>mykal <span>@mykalmorton</span></h3>
+                                                                    </div>
+                                                                    <div class="feed-banner-botsocial">
+                                                                        <a href="#"><img src="img/feed_social-icon1.jpg" alt=""></a>
+                                                                        <a href="#"><img src="img/feed_social-icon2.jpg" alt=""></a>
+                                                                        <a href="#"><img src="img/feed_social-icon3.jpg" alt=""></a>
+                                                                    </div>
+                                                                </div>
+                                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit inventore commodi hic quam minima!</p>
+                                                            </div>
+                                                            <div class="follow-sec clearfix">
+                                                                <div class="follow-left-sec">
+                                                                    <span>200</span><i>Connections</i>
+                                                                </div>
+                                                                <div class="follow-right-sec">
+                                                                    <span>1.9M</span><i>Followers</i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="feed-lower-sec">
+                                                            <h3><i>- Famous Recipes -</i></h3>
+                                                            <div class="feed-inner-sec clearfix">
+                                                                <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                            </div>
+                                                            <a class="more-btn" href="#">more</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="feed-top-right">
+                                                    <strong><b class="anim-icon retweet in feed-popup-btn"></b><small>14</small></strong>
+                                                    <div class="feed-tooltip-sec">
+                                                        <a href="#" class="tool-img"><img src="img/mikn-img.jpg" alt="">
+                                                        </a><a href="#" class="tool-img"><img src="img/mikn-img.jpg" alt="">
+                                                        </a><a href="#" class="tool-img"><img src="img/mikn-img.jpg" alt="">
+                                                        </a><a href="#" class="tool-img"><img src="img/mikn-img.jpg" alt="">
+                                                        </a><a href="#" class="tool-img"><img src="img/mikn-img.jpg" alt="">
+                                                        </a><a href="#" class="tool-img"><img src="img/mikn-img.jpg" alt="">
+                                                        </a><a href="#" class="tool-icon"><i class="material-icons">more_horiz</i></a>
+                                                    </div>
+                                                    <i class="dropdown-toggle material-icons pen-btn">sort</i>
+                                                    <ul class="dropdown-menu">
+                                                        <li class="hide-block"><a href="#"><i class="material-icons">visibility_off</i><span>I don't want to see this</span></a></li>
+                                                        <li><a href="#"><i class="material-icons">subject</i><span>Hide all for Chris Beek</span></a></li>
+                                                        <li><a href="#"><i class="material-icons">flag</i><span>Report abuse</span></a></li>
+                                                        <li><a href="#"><i class="material-icons">remove_circle</i><span>Remove connection</span></a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="video-wrap active">
+                                                <span class="outer-shadow"></span><span class="top-left-shadow"></span>
+                                                <div class="video-sec">
+                                                    <!-- <img src="img/article-img4.jpg" alt=""> -->
+                                                    <video preload="none" poster="img/article-img4.jpg" src="https://ksr-video.imgix.net/projects/2394248/video-655209-h264_high.mp4"></video>
+                                                    <div class="time_left"></div>
+                                                    <div class="volume_cont"></div>
+                                                    <span class="play_btn"></span>
+                                                </div>
+                                            </div>
+                                            <div class="feed-heading-wrap clearfix">
+                                                <div class="feed-heading-left">
+                                                    <h2 class="feed-title"><a class="box-cart-btn" href="#">$425</a>Red/Black Travel Tie Case</h2>
+                                                </div>
+                                                <div class="feed-heading-right">
+                                                    <span class="star-sec"><i><img src="img/star.png" alt="">
+                                                        </i><i><img src="img/star.png" alt="">
+                                                        </i><i><img src="img/star.png" alt="">
+                                                        </i><i><img src="img/star.png" alt="">
+                                                        </i><i><img src="img/star-o.png" alt=""></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="block-info-sec">
+                                                <p>I bet you didn't think you could make cookies using the Anova Precision Cooker. Sous vide cookies might look a little different than the typical oven recipe — here I've cooked the batter in small canning jars and then cut the results into round bars — but they're far more fun to make. You can't just use any dough recipe</p>
+                                                <div class="expand-sec">
+                                                    <div class="comment-bar">
+                                                        <span>14 Comments</span>
+                                                    </div>
+                                                    <div class="expand-left-sec">
+                                                        <div class="visible-active">
+                                                            <span class="chat-btn active"><i class="material-icons">chat</i></span><span><i class="equalizerBtn material-icons">equalizer</i></span>
+                                                        </div>
+                                                        <div class="hide-active">
+                                                            <span class="chat-btn"><i class="material-icons">chat</i> 32 Comment</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="expand-right-sec">
+                                                        <div class="visible-active">
+                                                            <a class="dropdown-toggle" href="#">Sort by Best <i class="material-icons">arrow_drop_down</i></a>
+                                                            <ul class="dropdown-menu"> <li><a href="#">Action</a></li> <li><a href="#">Another action</a></li> <li><a href="#">Something else here</a></li> <li role="separator" class="divider"></li> <li><a href="#">Separated link</a></li> </ul>
+                                                        </div>
+                                                        <div class="hide-active">
+                                                            <span><i class="equalizerBtn material-icons">equalizer</i></span><span class="heart-sec"><i class="anim-icon heart"></i> 14</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="comment-chat-wrap">
+                                                <div class="comment-chat-bar">
+                                                    <form class="pushing-form">
+                                                        <a href="#"><img src="img/jeff.jpg" alt=""></a>
+                                                        <span><i class="anim-icon camera"></i><textarea placeholder="What do you want to share?"></textarea></span>
+                                                        <div class="icon-sec clearfix">
+                                                            <button type="submit">Send</button>
+                                                            <div class="icon-sec-right">
+                                                                <em href="#"><span class="anim-icon camera"></span> media</em>
+                                                                <em href="#"><i class="material-icons">location_on</i> <b>Location</b></em>
+                                                                <em href="#"><i class="material-icons">unarchive</i> <b>Poll</b></em>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                <div class="latest-comment-chat comment-chat-sec">
+                                                    <div class="comment-chat-fig">
+                                                        <a href="#"><img src="img/chat-icon1.jpg" alt=""></a>
+                                                        <div class="feed-person-sec">
+                                                            <!-- <span class="clip-btn"></span> -->
+                                                            <div class="feed-upper-sec">
+                                                                <div class="feed-upper-banner">
+                                                                    <a class="btn follow-btn" href="#"><img src="img/blue-buzz.png" alt=""><span>Follow</span></a>
+                                                                </div>
+                                                                <div class="feed-banner-botsec">
+                                                                    <div class="clearfix">
+                                                                        <div class="feed-banner-botinfo">
+                                                                            <a href="#"><img src="img/profile-img2.png" alt=""></a>
+                                                                            <h3>mykal <span>@mykalmorton</span></h3>
+                                                                        </div>
+                                                                        <div class="feed-banner-botsocial">
+                                                                            <a href="#"><img src="img/feed_social-icon1.jpg" alt=""></a>
+                                                                            <a href="#"><img src="img/feed_social-icon2.jpg" alt=""></a>
+                                                                            <a href="#"><img src="img/feed_social-icon3.jpg" alt=""></a>
+                                                                        </div>
+                                                                    </div>
+                                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit inventore commodi hic quam minima!</p>
+                                                                </div>
+                                                                <div class="follow-sec clearfix">
+                                                                    <div class="follow-left-sec">
+                                                                        <span>200</span><i>Connections</i>
+                                                                    </div>
+                                                                    <div class="follow-right-sec">
+                                                                        <span>1.9M</span><i>Followers</i>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="feed-lower-sec">
+                                                                <h3><i>- Famous Recipes -</i></h3>
+                                                                <div class="feed-inner-sec clearfix">
+                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                </div>
+                                                                <a class="more-btn" href="#">more</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="comment-chat-info">
+                                                        <h4 class="clearfix"><a href="#">Akilli M. Johnson</a> . 19 Days ago <span><i class="material-icons">favorite</i> 2</span></h4>
+                                                        <p><a href="#">@tsipras_eu As a</a> European, as a classicist, i know that i will never be enough grateful to all the greeks, for what you are doing. </p>
+                                                        <div class="clearfix">
+                                                            <div class="share-reply share-reply-left">
+                                                                <a href="#"><span>9</span><span><i class="fa fa-angle-down"></i></span>|<span><i class="fa fa-angle-up"></i></span></a> <a href="#">Share <i class="fa fa-angle-right"></i></a>
+                                                            </div>
+                                                            <div class="share-reply">
+                                                                <a href="#">Reply</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="comment-chat-sec">
+                                                    <div class="comment-chat-fig">
+                                                        <a href="#"><img src="img/chat-icon1.jpg" alt=""></a>
+                                                        <div class="feed-person-sec">
+                                                            <!-- <span class="clip-btn"></span> -->
+                                                            <div class="feed-upper-sec">
+                                                                <div class="feed-upper-banner">
+                                                                    <a class="btn follow-btn" href="#"><img src="img/blue-buzz.png" alt=""><span>Follow</span></a>
+                                                                </div>
+                                                                <div class="feed-banner-botsec">
+                                                                    <div class="clearfix">
+                                                                        <div class="feed-banner-botinfo">
+                                                                            <a href="#"><img src="img/profile-img2.png" alt=""></a>
+                                                                            <h3>mykal <span>@mykalmorton</span></h3>
+                                                                        </div>
+                                                                        <div class="feed-banner-botsocial">
+                                                                            <a href="#"><img src="img/feed_social-icon1.jpg" alt=""></a>
+                                                                            <a href="#"><img src="img/feed_social-icon2.jpg" alt=""></a>
+                                                                            <a href="#"><img src="img/feed_social-icon3.jpg" alt=""></a>
+                                                                        </div>
+                                                                    </div>
+                                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit inventore commodi hic quam minima!</p>
+                                                                </div>
+                                                                <div class="follow-sec clearfix">
+                                                                    <div class="follow-left-sec">
+                                                                        <span>200</span><i>Connections</i>
+                                                                    </div>
+                                                                    <div class="follow-right-sec">
+                                                                        <span>1.9M</span><i>Followers</i>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="feed-lower-sec">
+                                                                <h3><i>- Famous Recipes -</i></h3>
+                                                                <div class="feed-inner-sec clearfix">
+                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                </div>
+                                                                <a class="more-btn" href="#">more</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="comment-chat-info">
+                                                        <h4 class="clearfix"><a href="#">Akilli M. Johnson</a> . 19 Days ago <span><i class="material-icons">favorite</i> 2</span></h4>
+                                                        <p><a href="#">@tsipras_eu As a</a> European, as a classicist, i know that i will never be enough grateful to all the greeks, for what you are doing. </p>
+                                                        <div class="clearfix">
+                                                            <div class="share-reply share-reply-left">
+                                                                <a href="#"><span>9</span><span><i class="fa fa-angle-down"></i></span>|<span><i class="fa fa-angle-up"></i></span></a> <a href="#">Share <i class="fa fa-angle-right"></i></a>
+                                                            </div>
+                                                            <div class="share-reply">
+                                                                <a href="#">Reply</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <a href="#" class="show-btn">Show More</a>
+                                                <div class="comment-chat-sec">
+                                                    <div class="comment-chat-fig">
+                                                        <a href="#"><img src="img/chat-icon1.jpg" alt=""></a>
+                                                        <div class="feed-person-sec">
+                                                            <!-- <span class="clip-btn"></span> -->
+                                                            <div class="feed-upper-sec">
+                                                                <div class="feed-upper-banner">
+                                                                    <a class="btn follow-btn" href="#"><img src="img/blue-buzz.png" alt=""><span>Follow</span></a>
+                                                                </div>
+                                                                <div class="feed-banner-botsec">
+                                                                    <div class="clearfix">
+                                                                        <div class="feed-banner-botinfo">
+                                                                            <a href="#"><img src="img/profile-img2.png" alt=""></a>
+                                                                            <h3>mykal <span>@mykalmorton</span></h3>
+                                                                        </div>
+                                                                        <div class="feed-banner-botsocial">
+                                                                            <a href="#"><img src="img/feed_social-icon1.jpg" alt=""></a>
+                                                                            <a href="#"><img src="img/feed_social-icon2.jpg" alt=""></a>
+                                                                            <a href="#"><img src="img/feed_social-icon3.jpg" alt=""></a>
+                                                                        </div>
+                                                                    </div>
+                                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit inventore commodi hic quam minima!</p>
+                                                                </div>
+                                                                <div class="follow-sec clearfix">
+                                                                    <div class="follow-left-sec">
+                                                                        <span>200</span><i>Connections</i>
+                                                                    </div>
+                                                                    <div class="follow-right-sec">
+                                                                        <span>1.9M</span><i>Followers</i>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="feed-lower-sec">
+                                                                <h3><i>- Famous Recipes -</i></h3>
+                                                                <div class="feed-inner-sec clearfix">
+                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                </div>
+                                                                <a class="more-btn" href="#">more</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="comment-chat-info">
+                                                        <h4 class="clearfix"><a href="#">Akilli M. Johnson</a> . 19 Days ago <span><i class="material-icons">favorite</i> 2</span></h4>
+                                                        <p><a href="#">@tsipras_eu As a</a> European, as a classicist, i know that i will never be enough grateful to all the greeks, for what you are doing. </p>
+                                                        <div class="clearfix">
+                                                            <div class="share-reply share-reply-left">
+                                                                <a href="#"><span>9</span><span><i class="fa fa-angle-down"></i></span>|<span><i class="fa fa-angle-up"></i></span></a> <a href="#">Share <i class="fa fa-angle-right"></i></a>
+                                                            </div>
+                                                            <div class="share-reply">
+                                                                <a href="#">Reply</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <a href="#" class="home-link"><img src="img/header-logo.png" alt=""></a>
+                                            </div>
+                                        </div>
+                                        <div class="sidebarWrap">
+                                            <div class="post-sidebar contentSidebar">
+                                                <span class="arrow-close anim-icon close"></span>
+                                                <div class="post-sidebar-inner">
+                                                    <div class="sidebar_slider-sec">
+                                                        <div class="flexslider">
+                                                            <ul class="slides clearfix">
+                                                                <li>
+                                                                    <a href="product"><img src="img/gray-bg.jpg" /></a>
+                                                                    <a href="#" class="formBtn form_slide_price"><sup>$</sup><span>137</span></a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="product"><img src="img/gray-bg.jpg" /></a>
+                                                                    <a href="#" class="formBtn form_slide_price"><sup>$</sup><span>37</span></a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="product"><img src="img/gray-bg.jpg" /></a>
+                                                                    <a href="#" class="formBtn form_slide_price"><sup>$</sup><span>3</span></a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="product"><img src="img/gray-bg.jpg" /></a>
+                                                                    <a href="#" class="formBtn form_slide_price"><sup>$</sup><span>43</span></a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="chat-wrap">
+                                                        <div class="clearfix">
+                                                            <div class="chat-com-sec chat-left-sec">
+                                                                <a class="" href="#"><i class="material-icons">chat</i> 26 Comment</a>
+                                                            </div>
+                                                            <div class="chat-com-sec chat-right-sec">
+                                                                <span><i class="material-icons">favorite</i></span><span><i class="material-icons">autorenew</i></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="donate-form-sec">
+                                                        <form class="donate-form-inner donate-discription-sec">
+                                                            <div class="donate-discription-info">
+                                                                <h2 class="clearfix"><a href="product">Lorem ipsum dolor sit amet.</a>
+                                                                    <span class="star-sec"><i><img src="img/star.png" alt="">
+                                                                        </i><i><img src="img/star.png" alt="">
+                                                                        </i><i><img src="img/star.png" alt="">
+                                                                        </i><i><img src="img/star.png" alt="">
+                                                                        </i><i><img src="img/star-o.png" alt=""></i>
+                                                                    </span>
+                                                                </h2>
+                                                                <p class="clearfix">consectetur adipisicing elit. Cumque inventore et laboriosam vel neque laborum, optio quis dicta magni consequatur distinctio hic nemo veniam temporibus, necessitatibus <span class="hidden-txt">repellat culpa facilis iure consectetur adipisicing elit. Cumque inventore et laboriosam vel neque</span><a href="#" class="more-info-btn"></a></p>
+                                                                <div class="donate-discription-inner clearfix">
+                                                                    <div class="discription-inner-detail">
+                                                                        <p>Estamailted: <span>May 2016</span></p>
+                                                                    </div>
+                                                                    <div class="discription-inner-detail">
+                                                                        <p>Estamailted devlivery: <span>May 2016</span></p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-agreed-sec catagary-sec">
+                                                                <div class="clearfix">
+                                                                    <div class="form-agreed-left">
+                                                                        <a href="#"><i class="material-icons">loyalty</i> Technology</a>
+                                                                        <a href="#"><i class="material-icons">location_on</i> Sans Fancisco</a>
+                                                                    </div>
+                                                                    <div class="form-agreed-right">
+                                                                        <a href="#" class="btn btn-purchase formBtn">Checkout</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="post-sidebar formSidebar">
+                                                <span class="arrow-close anim-icon close"></span>
+                                                <div class="post-sidebar-inner">
+                                                    <div class="side-slider-outer">
+                                                        <ul class="slides clearfix">
+                                                            <li>
+                                                                <div class="clearfix">
+                                                                    <div class="side-slider-fig">
+                                                                        <img src="img/product-img4.jpg" alt="">
+                                                                        <a href="#" class="formBtn form_slide_price"><sup>$</sup><span>37</span></a>
+                                                                    </div>
+                                                                    <div class="side-slider-info">
+                                                                        <h3>GRILLED SHRIMP<br>WITH VINAIGRETTE</h3>
+                                                                        <p class="product-detail">
+                                                                            <em>Cilantro</em>.
+                                                                            <em>390 g</em>.
+                                                                            <em>610 kcal</em>
+                                                                        </p>
+                                                                        <p><span>25m cooking</span><span>15m delivery</span></p>
+                                                                        <div class="side-slider-btn-sec clearfix">
+                                                                            <div class="slider-btn-left">
+                                                                                <img src="img/product-slider.jpg" alt="">
+                                                                            </div>
+                                                                            <div class="slider-btn-right">
+                                                                                <a href="#" class="btn btn-purchase">Order</a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                            <li>
+                                                                <div class="clearfix">
+                                                                    <div class="side-slider-fig">
+                                                                        <img src="img/product-img4.jpg" alt="">
+                                                                        <a href="#" class="formBtn form_slide_price"><sup>$</sup><span>37</span></a>
+                                                                    </div>
+                                                                    <div class="side-slider-info">
+                                                                        <h3>GRILLED SHRIMP<br>WITH VINAIGRETTE</h3>
+                                                                        <p class="product-detail">
+                                                                            <em>Cilantro</em>.
+                                                                            <em>390 g</em>.
+                                                                            <em>610 kcal</em>
+                                                                        </p>
+                                                                        <p><span>25m cooking</span><span>15m delivery</span></p>
+                                                                        <div class="side-slider-btn-sec clearfix">
+                                                                            <div class="slider-btn-left">
+                                                                                <img src="img/product-slider.jpg" alt="">
+                                                                            </div>
+                                                                            <div class="slider-btn-right">
+                                                                                <a href="#" class="btn btn-purchase">Order</a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                            <li>
+                                                                <div class="clearfix">
+                                                                    <div class="side-slider-fig">
+                                                                        <img src="img/product-img4.jpg" alt="">
+                                                                        <a href="#" class="formBtn form_slide_price"><sup>$</sup><span>37</span></a>
+                                                                    </div>
+                                                                    <div class="side-slider-info">
+                                                                        <h3>GRILLED SHRIMP<br>WITH VINAIGRETTE</h3>
+                                                                        <p class="product-detail">
+                                                                            <em>Cilantro</em>.
+                                                                            <em>390 g</em>.
+                                                                            <em>610 kcal</em>
+                                                                        </p>
+                                                                        <p><span>25m cooking</span><span>15m delivery</span></p>
+                                                                        <div class="side-slider-btn-sec clearfix">
+                                                                            <div class="slider-btn-left">
+                                                                                <img src="img/product-slider.jpg" alt="">
+                                                                            </div>
+                                                                            <div class="slider-btn-right">
+                                                                                <a href="#" class="btn btn-purchase">Order</a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                            <li>
+                                                                <div class="clearfix">
+                                                                    <div class="side-slider-fig">
+                                                                        <img src="img/product-img4.jpg" alt="">
+                                                                        <a href="#" class="formBtn form_slide_price"><sup>$</sup><span>37</span></a>
+                                                                    </div>
+                                                                    <div class="side-slider-info">
+                                                                        <h3>GRILLED SHRIMP<br>WITH VINAIGRETTE</h3>
+                                                                        <p class="product-detail">
+                                                                            <em>Cilantro</em>.
+                                                                            <em>390 g</em>.
+                                                                            <em>610 kcal</em>
+                                                                        </p>
+                                                                        <p><span>25m cooking</span><span>15m delivery</span></p>
+                                                                        <div class="side-slider-btn-sec clearfix">
+                                                                            <div class="slider-btn-left">
+                                                                                <img src="img/product-slider.jpg" alt="">
+                                                                            </div>
+                                                                            <div class="slider-btn-right">
+                                                                                <a href="#" class="btn btn-purchase">Order</a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="donate-form-sec">
+                                                        <form class="donate-form-inner">
+                                                            <section>
+                                                                <h3>Payment information</h3>
+                                                                <p>Your payment method will not be changed at this time if the project is successfully funded, your payment method will be changed 178.00 when the projects ends.</p>
+                                                            </section>
+                                                            <section>
+                                                                <h3 class="clearfix">Select payment method</h3>
+                                                                <span><input name="payment" id="radio1" checked="" type="radio"><label for="radio1"><img src="img/visa.png" alt=""><p><b>Card ending in 8080</b>Expires 7-20-29</p><i class="material-icons">edit</i></label></span>
+                                                                <span><input name="payment" id="radio2" type="radio"><label for="radio2">Use a new card<i class="material-icons">edit</i></label></span>
+                                                            </section>
+                                                            <section class="lowersec">
+                                                                <h3 class="clearfix">Select a shipping address</h3>
+                                                                <span><input name="payment1" id="radio3" checked="" type="radio"><label for="radio3"><p>Mykal Michael,<br> 2717 howell st apt 4302, dalla,tx, 75204</p><i class="material-icons">edit</i></label></span>
+                                                                <span><input name="payment1" id="radio4" type="radio"><label for="radio4">Use a new address<i class="material-icons">edit</i></label></span>
+                                                            </section>
+                                                            <div class="form-agreed-sec">
+                                                                <p>By pledging you agree to kickstarter’s <a href="#">Terms of use</a> and <a href="#">Privacy policy</a></p>
+                                                                <div class="clearfix">
+                                                                    <div class="form-agreed-left">
+                                                                        <a href="#" class="btn btn-addcart">ADD TO CART</a>
+                                                                    </div>
+                                                                    <div class="form-agreed-right">
+                                                                        <a href="#" class="btn btn-purchase donateBtn">Purchase</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="block-add" style="display:none">
+                                    <div class="block-left">
+                                        <div class="block-left-inner">
+                                            <div class="post-time-sec">
+                                                <span class="time-zone">2</span>
+                                                <i>month ago</i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="block-outer">
+                                        <div class="block-post">
+                                            <div class="feed-top-sec clearfix">
+                                                <div class="feed-top-left">
+                                                    <p><em class="feed-person-btn"><img src="img/profile-img1.png" alt=""> <strong>Akilli M. Johnson</strong></em> <span>Beautiful Picture in the World</span><i>February 22 at 7:20 am </i></p>
+                                                    <div class="feed-person-sec">
+                                                        <!-- <span class="clip-btn"></span> -->
+                                                        <div class="feed-upper-sec">
+                                                            <div class="feed-upper-banner">
+                                                                <a class="btn follow-btn" href="#"><img src="img/blue-buzz.png" alt=""><span>Follow</span></a>
+                                                            </div>
+                                                            <div class="feed-banner-botsec">
+                                                                <div class="clearfix">
+                                                                    <div class="feed-banner-botinfo">
+                                                                        <a href="#"><img src="img/profile-img2.png" alt=""></a>
+                                                                        <h3>mykal <span>@mykalmorton</span></h3>
+                                                                    </div>
+                                                                    <div class="feed-banner-botsocial">
+                                                                        <a href="#"><img src="img/feed_social-icon1.jpg" alt=""></a>
+                                                                        <a href="#"><img src="img/feed_social-icon2.jpg" alt=""></a>
+                                                                        <a href="#"><img src="img/feed_social-icon3.jpg" alt=""></a>
+                                                                    </div>
+                                                                </div>
+                                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit inventore commodi hic quam minima!</p>
+                                                            </div>
+                                                            <div class="follow-sec clearfix">
+                                                                <div class="follow-left-sec">
+                                                                    <span>200</span><i>Connections</i>
+                                                                </div>
+                                                                <div class="follow-right-sec">
+                                                                    <span>1.9M</span><i>Followers</i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="feed-lower-sec">
+                                                            <h3><i>- Famous Recipes -</i></h3>
+                                                            <div class="feed-inner-sec clearfix">
+                                                                <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                            </div>
+                                                            <a class="more-btn" href="#">more</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="feed-top-right">
+                                                    <strong><b class="anim-icon retweet in feed-popup-btn"></b><small>14</small></strong>
+                                                    <div class="feed-tooltip-sec">
+                                                        <a href="#" class="tool-img"><img src="img/mikn-img.jpg" alt="">
+                                                        </a><a href="#" class="tool-img"><img src="img/mikn-img.jpg" alt="">
+                                                        </a><a href="#" class="tool-img"><img src="img/mikn-img.jpg" alt="">
+                                                        </a><a href="#" class="tool-img"><img src="img/mikn-img.jpg" alt="">
+                                                        </a><a href="#" class="tool-img"><img src="img/mikn-img.jpg" alt="">
+                                                        </a><a href="#" class="tool-img"><img src="img/mikn-img.jpg" alt="">
+                                                        </a><a href="#" class="tool-icon"><i class="material-icons">more_horiz</i></a>
+                                                    </div>
+                                                    <i class="dropdown-toggle material-icons pen-btn">sort</i>
+                                                    <ul class="dropdown-menu">
+                                                        <li class="hide-block"><a href="#"><i class="material-icons">visibility_off</i><span>I don't want to see this</span></a></li>
+                                                        <li><a href="#"><i class="material-icons">subject</i><span>Hide all for Chris Beek</span></a></li>
+                                                        <li><a href="#"><i class="material-icons">flag</i><span>Report abuse</span></a></li>
+                                                        <li><a href="#"><i class="material-icons">remove_circle</i><span>Remove connection</span></a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="video-wrap active">
+                                                <span class="outer-shadow"></span><span class="top-left-shadow"></span>
+                                                <div class="video-sec">
+                                                    <a class="video_img" href="#"><img src="img/article-img5.jpg" alt=""></a>
+                                                    <div class="volume_cont"></div>
+                                                    <span class="play_btn"></span>
+                                                </div>
+                                            </div>
+                                            <div class="feed-heading-wrap clearfix">
+                                                <div class="feed-heading-left">
+                                                    <h4>Lorem ipsum dolor sit amet.<span class="clip-marker"><img src="img/clip-icon.png" alt=""></span></h4>
+                                                </div>
+                                                <div class="feed-heading-right">
+                                                    <span class="star-sec"><i><img src="img/star.png" alt="">
+                                                        </i><i><img src="img/star.png" alt="">
+                                                        </i><i><img src="img/star.png" alt="">
+                                                        </i><i><img src="img/star.png" alt="">
+                                                        </i><i><img src="img/star-o.png" alt=""></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="block-info-sec">
+                                                <p>I bet you didn't think you could make cookies using the Anova Precision Cooker. Sous vide cookies might look a little different than the typical oven recipe — here I've cooked the batter in small canning jars and then cut the results into round bars — but they're far more fun to make. You can't just use any dough recipe</p>
+                                                <div class="block-post-sec clearfix">
+                                                    <div class="block-post-outer">
+                                                        <span class="top-left-shadow"></span>
+                                                        <div class="block-post-inner">
+                                                            <div class="block-post-fig"><a href="#"><img src="img/postimg1.jpg" alt=""></a></div>
+                                                            <div class="block-post-info">
+                                                                <p>Dress Belt by American Bench Craft <span class="clip-marker"><img src="img/clip-icon.png" alt=""></span></p>
+                                                                <p>$70 <i>. AmericanBenchCraft + 563</i></p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="block-post-outer">
+                                                        <span class="top-left-shadow"></span>
+                                                        <div class="block-post-inner">
+                                                            <div class="block-post-fig"><a href="#"><img src="img/postimg1.jpg" alt=""></a></div>
+                                                            <div class="block-post-info">
+                                                                <p>10-one-4 Watch <span class="clip-marker"><img src="img/clip-icon.png" alt=""></span></p>
+                                                                <p>$140 <i>. ProjectsWAtches + 2,258</i></p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="expand-sec">
+                                                    <div class="comment-bar">
+                                                        <span>14 Comments</span>
+                                                    </div>
+                                                    <div class="expand-left-sec">
+                                                        <div class="visible-active">
+                                                            <span class="chat-btn active"><i class="material-icons">chat</i></span><span><i class="equalizerBtn material-icons">equalizer</i></span>
+                                                        </div>
+                                                        <div class="hide-active">
+                                                            <span class="chat-btn"><i class="material-icons">chat</i> 32 Comment</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="expand-right-sec">
+                                                        <div class="visible-active">
+                                                            <a class="dropdown-toggle" href="#">Sort by Best <i class="material-icons">arrow_drop_down</i></a>
+                                                            <ul class="dropdown-menu"> <li><a href="#">Action</a></li> <li><a href="#">Another action</a></li> <li><a href="#">Something else here</a></li> <li role="separator" class="divider"></li> <li><a href="#">Separated link</a></li> </ul>
+                                                        </div>
+                                                        <div class="hide-active">
+                                                            <span><i class="equalizerBtn material-icons">equalizer</i></span><span class="heart-sec"><i class="anim-icon heart"></i> 14</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="comment-chat-wrap">
+                                                <div class="comment-chat-bar">
+                                                    <form class="pushing-form">
+                                                        <a href="#"><img src="img/jeff.jpg" alt=""></a>
+                                                        <span><i class="anim-icon camera"></i><textarea placeholder="What do you want to share?"></textarea></span>
+                                                        <div class="icon-sec clearfix">
+                                                            <button type="submit">Send</button>
+                                                            <div class="icon-sec-right">
+                                                                <em href="#"><span class="anim-icon camera"></span> media</em>
+                                                                <em href="#"><i class="material-icons">location_on</i> <b>Location</b></em>
+                                                                <em href="#"><i class="material-icons">unarchive</i> <b>Poll</b></em>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                <div class="latest-comment-chat comment-chat-sec">
+                                                    <div class="comment-chat-fig">
+                                                        <a href="#"><img src="img/chat-icon1.jpg" alt=""></a>
+                                                        <div class="feed-person-sec">
+                                                            <!-- <span class="clip-btn"></span> -->
+                                                            <div class="feed-upper-sec">
+                                                                <div class="feed-upper-banner">
+                                                                    <a class="btn follow-btn" href="#"><img src="img/blue-buzz.png" alt=""><span>Follow</span></a>
+                                                                </div>
+                                                                <div class="feed-banner-botsec">
+                                                                    <div class="clearfix">
+                                                                        <div class="feed-banner-botinfo">
+                                                                            <a href="#"><img src="img/profile-img2.png" alt=""></a>
+                                                                            <h3>mykal <span>@mykalmorton</span></h3>
+                                                                        </div>
+                                                                        <div class="feed-banner-botsocial">
+                                                                            <a href="#"><img src="img/feed_social-icon1.jpg" alt=""></a>
+                                                                            <a href="#"><img src="img/feed_social-icon2.jpg" alt=""></a>
+                                                                            <a href="#"><img src="img/feed_social-icon3.jpg" alt=""></a>
+                                                                        </div>
+                                                                    </div>
+                                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit inventore commodi hic quam minima!</p>
+                                                                </div>
+                                                                <div class="follow-sec clearfix">
+                                                                    <div class="follow-left-sec">
+                                                                        <span>200</span><i>Connections</i>
+                                                                    </div>
+                                                                    <div class="follow-right-sec">
+                                                                        <span>1.9M</span><i>Followers</i>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="feed-lower-sec">
+                                                                <h3><i>- Famous Recipes -</i></h3>
+                                                                <div class="feed-inner-sec clearfix">
+                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                </div>
+                                                                <a class="more-btn" href="#">more</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="comment-chat-info">
+                                                        <h4 class="clearfix"><a href="#">Akilli M. Johnson</a> . 19 Days ago <span><i class="material-icons">favorite</i> 2</span></h4>
+                                                        <p><a href="#">@tsipras_eu As a</a> European, as a classicist, i know that i will never be enough grateful to all the greeks, for what you are doing. </p>
+                                                        <div class="clearfix">
+                                                            <div class="share-reply share-reply-left">
+                                                                <a href="#"><span>9</span><span><i class="fa fa-angle-down"></i></span>|<span><i class="fa fa-angle-up"></i></span></a> <a href="#">Share <i class="fa fa-angle-right"></i></a>
+                                                            </div>
+                                                            <div class="share-reply">
+                                                                <a href="#">Reply</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="comment-chat-sec">
+                                                    <div class="comment-chat-fig">
+                                                        <a href="#"><img src="img/chat-icon1.jpg" alt=""></a>
+                                                        <div class="feed-person-sec">
+                                                            <!-- <span class="clip-btn"></span> -->
+                                                            <div class="feed-upper-sec">
+                                                                <div class="feed-upper-banner">
+                                                                    <a class="btn follow-btn" href="#"><img src="img/blue-buzz.png" alt=""><span>Follow</span></a>
+                                                                </div>
+                                                                <div class="feed-banner-botsec">
+                                                                    <div class="clearfix">
+                                                                        <div class="feed-banner-botinfo">
+                                                                            <a href="#"><img src="img/profile-img2.png" alt=""></a>
+                                                                            <h3>mykal <span>@mykalmorton</span></h3>
+                                                                        </div>
+                                                                        <div class="feed-banner-botsocial">
+                                                                            <a href="#"><img src="img/feed_social-icon1.jpg" alt=""></a>
+                                                                            <a href="#"><img src="img/feed_social-icon2.jpg" alt=""></a>
+                                                                            <a href="#"><img src="img/feed_social-icon3.jpg" alt=""></a>
+                                                                        </div>
+                                                                    </div>
+                                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit inventore commodi hic quam minima!</p>
+                                                                </div>
+                                                                <div class="follow-sec clearfix">
+                                                                    <div class="follow-left-sec">
+                                                                        <span>200</span><i>Connections</i>
+                                                                    </div>
+                                                                    <div class="follow-right-sec">
+                                                                        <span>1.9M</span><i>Followers</i>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="feed-lower-sec">
+                                                                <h3><i>- Famous Recipes -</i></h3>
+                                                                <div class="feed-inner-sec clearfix">
+                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                </div>
+                                                                <a class="more-btn" href="#">more</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="comment-chat-info">
+                                                        <h4 class="clearfix"><a href="#">Akilli M. Johnson</a> . 19 Days ago <span><i class="material-icons">favorite</i> 2</span></h4>
+                                                        <p><a href="#">@tsipras_eu As a</a> European, as a classicist, i know that i will never be enough grateful to all the greeks, for what you are doing. </p>
+                                                        <div class="clearfix">
+                                                            <div class="share-reply share-reply-left">
+                                                                <a href="#"><span>9</span><span><i class="fa fa-angle-down"></i></span>|<span><i class="fa fa-angle-up"></i></span></a> <a href="#">Share <i class="fa fa-angle-right"></i></a>
+                                                            </div>
+                                                            <div class="share-reply">
+                                                                <a href="#">Reply</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <a href="#" class="show-btn">Show More</a>
+                                                <div class="comment-chat-sec">
+                                                    <div class="comment-chat-fig">
+                                                        <a href="#"><img src="img/chat-icon1.jpg" alt=""></a>
+                                                        <div class="feed-person-sec">
+                                                            <!-- <span class="clip-btn"></span> -->
+                                                            <div class="feed-upper-sec">
+                                                                <div class="feed-upper-banner">
+                                                                    <a class="btn follow-btn" href="#"><img src="img/blue-buzz.png" alt=""><span>Follow</span></a>
+                                                                </div>
+                                                                <div class="feed-banner-botsec">
+                                                                    <div class="clearfix">
+                                                                        <div class="feed-banner-botinfo">
+                                                                            <a href="#"><img src="img/profile-img2.png" alt=""></a>
+                                                                            <h3>mykal <span>@mykalmorton</span></h3>
+                                                                        </div>
+                                                                        <div class="feed-banner-botsocial">
+                                                                            <a href="#"><img src="img/feed_social-icon1.jpg" alt=""></a>
+                                                                            <a href="#"><img src="img/feed_social-icon2.jpg" alt=""></a>
+                                                                            <a href="#"><img src="img/feed_social-icon3.jpg" alt=""></a>
+                                                                        </div>
+                                                                    </div>
+                                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit inventore commodi hic quam minima!</p>
+                                                                </div>
+                                                                <div class="follow-sec clearfix">
+                                                                    <div class="follow-left-sec">
+                                                                        <span>200</span><i>Connections</i>
+                                                                    </div>
+                                                                    <div class="follow-right-sec">
+                                                                        <span>1.9M</span><i>Followers</i>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="feed-lower-sec">
+                                                                <h3><i>- Famous Recipes -</i></h3>
+                                                                <div class="feed-inner-sec clearfix">
+                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                </div>
+                                                                <a class="more-btn" href="#">more</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="comment-chat-info">
+                                                        <h4 class="clearfix"><a href="#">Akilli M. Johnson</a> . 19 Days ago <span><i class="material-icons">favorite</i> 2</span></h4>
+                                                        <p><a href="#">@tsipras_eu As a</a> European, as a classicist, i know that i will never be enough grateful to all the greeks, for what you are doing. </p>
+                                                        <div class="clearfix">
+                                                            <div class="share-reply share-reply-left">
+                                                                <a href="#"><span>9</span><span><i class="fa fa-angle-down"></i></span>|<span><i class="fa fa-angle-up"></i></span></a> <a href="#">Share <i class="fa fa-angle-right"></i></a>
+                                                            </div>
+                                                            <div class="share-reply">
+                                                                <a href="#">Reply</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <a href="#" class="home-link"><img src="img/header-logo.png" alt=""></a>
+                                            </div>
+                                        </div>
+                                        <div class="sidebarWrap">
+                                            <div class="post-sidebar contentSidebar">
+                                                <span class="arrow-close anim-icon close"></span>
+                                                <div class="post-sidebar-inner">
+                                                    <div class="sidebar_slider-sec">
+                                                        <div class="flexslider">
+                                                            <ul class="slides clearfix">
+                                                                <li>
+                                                                    <a href="product"><img src="img/gray-bg.jpg" /></a>
+                                                                    <a href="#" class="formBtn form_slide_price"><sup>$</sup><span>137</span></a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="product"><img src="img/gray-bg.jpg" /></a>
+                                                                    <a href="#" class="formBtn form_slide_price"><sup>$</sup><span>37</span></a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="product"><img src="img/gray-bg.jpg" /></a>
+                                                                    <a href="#" class="formBtn form_slide_price"><sup>$</sup><span>3</span></a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="product"><img src="img/gray-bg.jpg" /></a>
+                                                                    <a href="#" class="formBtn form_slide_price"><sup>$</sup><span>43</span></a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="chat-wrap">
+                                                        <div class="clearfix">
+                                                            <div class="chat-com-sec chat-left-sec">
+                                                                <a class="" href="#"><i class="material-icons">chat</i> 26 Comment</a>
+                                                            </div>
+                                                            <div class="chat-com-sec chat-right-sec">
+                                                                <span><i class="material-icons">favorite</i></span><span><i class="material-icons">autorenew</i></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="donate-form-sec">
+                                                        <form class="donate-form-inner donate-discription-sec">
+                                                            <div class="donate-discription-info">
+                                                                <h2 class="clearfix"><a href="product">Lorem ipsum dolor sit amet.</a>
+                                                                    <span class="star-sec"><i><img src="img/star.png" alt="">
+                                                                        </i><i><img src="img/star.png" alt="">
+                                                                        </i><i><img src="img/star.png" alt="">
+                                                                        </i><i><img src="img/star.png" alt="">
+                                                                        </i><i><img src="img/star-o.png" alt=""></i>
+                                                                    </span>
+                                                                </h2>
+                                                                <p class="clearfix">consectetur adipisicing elit. Cumque inventore et laboriosam vel neque laborum, optio quis dicta magni consequatur distinctio hic nemo veniam temporibus, necessitatibus <span class="hidden-txt">repellat culpa facilis iure consectetur adipisicing elit. Cumque inventore et laboriosam vel neque</span><a href="#" class="more-info-btn"></a></p>
+                                                                <div class="donate-discription-inner clearfix">
+                                                                    <div class="discription-inner-detail">
+                                                                        <p>Estamailted: <span>May 2016</span></p>
+                                                                    </div>
+                                                                    <div class="discription-inner-detail">
+                                                                        <p>Estamailted devlivery: <span>May 2016</span></p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-agreed-sec catagary-sec">
+                                                                <div class="clearfix">
+                                                                    <div class="form-agreed-left">
+                                                                        <a href="#"><i class="material-icons">loyalty</i> Technology</a>
+                                                                        <a href="#"><i class="material-icons">location_on</i> Sans Fancisco</a>
+                                                                    </div>
+                                                                    <div class="form-agreed-right">
+                                                                        <a href="#" class="btn btn-purchase formBtn">Checkout</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="post-sidebar formSidebar">
+                                                <span class="arrow-close anim-icon close"></span>
+                                                <div class="post-sidebar-inner">
+                                                    <div class="side-slider-outer">
+                                                        <ul class="slides clearfix">
+                                                            <li>
+                                                                <div class="clearfix">
+                                                                    <div class="side-slider-fig">
+                                                                        <img src="img/product-img4.jpg" alt="">
+                                                                        <a href="#" class="formBtn form_slide_price"><sup>$</sup><span>37</span></a>
+                                                                    </div>
+                                                                    <div class="side-slider-info">
+                                                                        <h3>GRILLED SHRIMP<br>WITH VINAIGRETTE</h3>
+                                                                        <p class="product-detail">
+                                                                            <em>Cilantro</em>.
+                                                                            <em>390 g</em>.
+                                                                            <em>610 kcal</em>
+                                                                        </p>
+                                                                        <p><span>25m cooking</span><span>15m delivery</span></p>
+                                                                        <div class="side-slider-btn-sec clearfix">
+                                                                            <div class="slider-btn-left">
+                                                                                <img src="img/product-slider.jpg" alt="">
+                                                                            </div>
+                                                                            <div class="slider-btn-right">
+                                                                                <a href="#" class="btn btn-purchase">Order</a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                            <li>
+                                                                <div class="clearfix">
+                                                                    <div class="side-slider-fig">
+                                                                        <img src="img/product-img4.jpg" alt="">
+                                                                        <a href="#" class="formBtn form_slide_price"><sup>$</sup><span>37</span></a>
+                                                                    </div>
+                                                                    <div class="side-slider-info">
+                                                                        <h3>GRILLED SHRIMP<br>WITH VINAIGRETTE</h3>
+                                                                        <p class="product-detail">
+                                                                            <em>Cilantro</em>.
+                                                                            <em>390 g</em>.
+                                                                            <em>610 kcal</em>
+                                                                        </p>
+                                                                        <p><span>25m cooking</span><span>15m delivery</span></p>
+                                                                        <div class="side-slider-btn-sec clearfix">
+                                                                            <div class="slider-btn-left">
+                                                                                <img src="img/product-slider.jpg" alt="">
+                                                                            </div>
+                                                                            <div class="slider-btn-right">
+                                                                                <a href="#" class="btn btn-purchase">Order</a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                            <li>
+                                                                <div class="clearfix">
+                                                                    <div class="side-slider-fig">
+                                                                        <img src="img/product-img4.jpg" alt="">
+                                                                        <a href="#" class="formBtn form_slide_price"><sup>$</sup><span>37</span></a>
+                                                                    </div>
+                                                                    <div class="side-slider-info">
+                                                                        <h3>GRILLED SHRIMP<br>WITH VINAIGRETTE</h3>
+                                                                        <p class="product-detail">
+                                                                            <em>Cilantro</em>.
+                                                                            <em>390 g</em>.
+                                                                            <em>610 kcal</em>
+                                                                        </p>
+                                                                        <p><span>25m cooking</span><span>15m delivery</span></p>
+                                                                        <div class="side-slider-btn-sec clearfix">
+                                                                            <div class="slider-btn-left">
+                                                                                <img src="img/product-slider.jpg" alt="">
+                                                                            </div>
+                                                                            <div class="slider-btn-right">
+                                                                                <a href="#" class="btn btn-purchase">Order</a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                            <li>
+                                                                <div class="clearfix">
+                                                                    <div class="side-slider-fig">
+                                                                        <img src="img/product-img4.jpg" alt="">
+                                                                        <a href="#" class="formBtn form_slide_price"><sup>$</sup><span>37</span></a>
+                                                                    </div>
+                                                                    <div class="side-slider-info">
+                                                                        <h3>GRILLED SHRIMP<br>WITH VINAIGRETTE</h3>
+                                                                        <p class="product-detail">
+                                                                            <em>Cilantro</em>.
+                                                                            <em>390 g</em>.
+                                                                            <em>610 kcal</em>
+                                                                        </p>
+                                                                        <p><span>25m cooking</span><span>15m delivery</span></p>
+                                                                        <div class="side-slider-btn-sec clearfix">
+                                                                            <div class="slider-btn-left">
+                                                                                <img src="img/product-slider.jpg" alt="">
+                                                                            </div>
+                                                                            <div class="slider-btn-right">
+                                                                                <a href="#" class="btn btn-purchase">Order</a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="donate-form-sec">
+                                                        <form class="donate-form-inner">
+                                                            <section>
+                                                                <h3>Payment information</h3>
+                                                                <p>Your payment method will not be changed at this time if the project is successfully funded, your payment method will be changed 178.00 when the projects ends.</p>
+                                                            </section>
+                                                            <section>
+                                                                <h3 class="clearfix">Select payment method</h3>
+                                                                <span><input name="payment" id="radio1" checked="" type="radio"><label for="radio1"><img src="img/visa.png" alt=""><p><b>Card ending in 8080</b>Expires 7-20-29</p><i class="material-icons">edit</i></label></span>
+                                                                <span><input name="payment" id="radio2" type="radio"><label for="radio2">Use a new card<i class="material-icons">edit</i></label></span>
+                                                            </section>
+                                                            <section class="lowersec">
+                                                                <h3 class="clearfix">Select a shipping address</h3>
+                                                                <span><input name="payment1" id="radio3" checked="" type="radio"><label for="radio3"><p>Mykal Michael,<br> 2717 howell st apt 4302, dalla,tx, 75204</p><i class="material-icons">edit</i></label></span>
+                                                                <span><input name="payment1" id="radio4" type="radio"><label for="radio4">Use a new address<i class="material-icons">edit</i></label></span>
+                                                            </section>
+                                                            <div class="form-agreed-sec">
+                                                                <p>By pledging you agree to kickstarter’s <a href="#">Terms of use</a> and <a href="#">Privacy policy</a></p>
+                                                                <div class="clearfix">
+                                                                    <div class="form-agreed-left">
+                                                                        <a href="#" class="btn btn-addcart">ADD TO CART</a>
+                                                                    </div>
+                                                                    <div class="form-agreed-right">
+                                                                        <a href="#" class="btn btn-purchase donateBtn">Purchase</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="block-add" style="display:none">
+                                    <div class="block-left">
+                                        <div class="block-left-inner">
+                                            <div class="post-time-sec">
+                                                <span class="time-zone">2</span>
+                                                <i>month ago</i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="block-outer">
+                                        <div class="block-post">
+                                            <div class="feed-top-sec clearfix">
+                                                <div class="feed-top-left">
+                                                    <p><em class="feed-person-btn"><img src="img/profile-img1.png" alt=""> <strong>Akilli M. Johnson</strong></em> <span>Beautiful Picture in the World</span><i>February 22 at 7:20 am </i></p>
+                                                    <div class="feed-person-sec">
+                                                        <!-- <span class="clip-btn"></span> -->
+                                                        <div class="feed-upper-sec">
+                                                            <div class="feed-upper-banner">
+                                                                <a class="btn follow-btn" href="#"><img src="img/blue-buzz.png" alt=""><span>Follow</span></a>
+                                                            </div>
+                                                            <div class="feed-banner-botsec">
+                                                                <div class="clearfix">
+                                                                    <div class="feed-banner-botinfo">
+                                                                        <a href="#"><img src="img/profile-img2.png" alt=""></a>
+                                                                        <h3>mykal <span>@mykalmorton</span></h3>
+                                                                    </div>
+                                                                    <div class="feed-banner-botsocial">
+                                                                        <a href="#"><img src="img/feed_social-icon1.jpg" alt=""></a>
+                                                                        <a href="#"><img src="img/feed_social-icon2.jpg" alt=""></a>
+                                                                        <a href="#"><img src="img/feed_social-icon3.jpg" alt=""></a>
+                                                                    </div>
+                                                                </div>
+                                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit inventore commodi hic quam minima!</p>
+                                                            </div>
+                                                            <div class="follow-sec clearfix">
+                                                                <div class="follow-left-sec">
+                                                                    <span>200</span><i>Connections</i>
+                                                                </div>
+                                                                <div class="follow-right-sec">
+                                                                    <span>1.9M</span><i>Followers</i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="feed-lower-sec">
+                                                            <h3><i>- Famous Recipes -</i></h3>
+                                                            <div class="feed-inner-sec clearfix">
+                                                                <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                            </div>
+                                                            <a class="more-btn" href="#">more</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="feed-top-right">
+                                                    <strong><b class="anim-icon retweet in feed-popup-btn"></b><small>14</small></strong>
+                                                    <div class="feed-tooltip-sec">
+                                                        <a href="#" class="tool-img"><img src="img/mikn-img.jpg" alt="">
+                                                        </a><a href="#" class="tool-img"><img src="img/mikn-img.jpg" alt="">
+                                                        </a><a href="#" class="tool-img"><img src="img/mikn-img.jpg" alt="">
+                                                        </a><a href="#" class="tool-img"><img src="img/mikn-img.jpg" alt="">
+                                                        </a><a href="#" class="tool-img"><img src="img/mikn-img.jpg" alt="">
+                                                        </a><a href="#" class="tool-img"><img src="img/mikn-img.jpg" alt="">
+                                                        </a><a href="#" class="tool-icon"><i class="material-icons">more_horiz</i></a>
+                                                    </div>
+                                                    <i class="dropdown-toggle material-icons pen-btn">sort</i>
+                                                    <ul class="dropdown-menu">
+                                                        <li class="hide-block"><a href="#"><i class="material-icons">visibility_off</i><span>I don't want to see this</span></a></li>
+                                                        <li><a href="#"><i class="material-icons">subject</i><span>Hide all for Chris Beek</span></a></li>
+                                                        <li><a href="#"><i class="material-icons">flag</i><span>Report abuse</span></a></li>
+                                                        <li><a href="#"><i class="material-icons">remove_circle</i><span>Remove connection</span></a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="video-wrap active video-img-wrap">
+                                                <div class="video-sec">
+                                                    <a class="video_img" href="#"><img src="https://thingd-media-ec4.thefancy.com/default/1304876669890201351_7f886471460f.jpg" alt=""></a>
+                                                    <a href="#" class="cart-product-btn"><i class="material-icons">shopping_cart</i> <span>Buy with</span> <b>KANOOP</b></a>
+                                                </div>
+                                            </div>
+                                            <div class="feed-heading-wrap clearfix">
+                                                <div class="feed-heading-left">
+                                                    <h4>Lorem ipsum dolor sit amet.<span class="clip-marker"><img src="img/clip-icon.png" alt=""></span></h4>
+                                                </div>
+                                                <div class="feed-heading-right">
+                                                    <span class="star-sec"><i><img src="img/star.png" alt="">
+                                                        </i><i><img src="img/star.png" alt="">
+                                                        </i><i><img src="img/star.png" alt="">
+                                                        </i><i><img src="img/star.png" alt="">
+                                                        </i><i><img src="img/star-o.png" alt=""></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="block-info-sec">
+                                                <p>I bet you didn't think you could make cookies using the Anova Precision Cooker. Sous vide cookies might look a little different than the typical oven recipe — here I've cooked the batter in small canning jars and then cut the results into round bars — but they're far more fun to make. You can't just use any dough recipe</p>
+                                                <div class="block-post-sec clearfix">
+                                                    <div class="block-post-outer">
+                                                        <span class="top-left-shadow"></span>
+                                                        <div class="block-post-inner">
+                                                            <div class="block-post-fig"><a href="#"><img src="img/postimg1.jpg" alt=""></a></div>
+                                                            <div class="block-post-info">
+                                                                <p>Dress Belt by American Bench Craft <span class="clip-marker"><img src="img/clip-icon.png" alt=""></span></p>
+                                                                <p>$70 <i>. AmericanBenchCraft + 563</i></p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="block-post-outer">
+                                                        <span class="top-left-shadow"></span>
+                                                        <div class="block-post-inner">
+                                                            <div class="block-post-fig"><a href="#"><img src="img/postimg1.jpg" alt=""></a></div>
+                                                            <div class="block-post-info">
+                                                                <p>10-one-4 Watch <span class="clip-marker"><img src="img/clip-icon.png" alt=""></span></p>
+                                                                <p>$140 <i>. ProjectsWAtches + 2,258</i></p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="expand-sec">
+                                                    <div class="comment-bar">
+                                                        <span>14 Comments</span>
+                                                    </div>
+                                                    <div class="expand-left-sec">
+                                                        <div class="visible-active">
+                                                            <span class="chat-btn active"><i class="material-icons">chat</i></span><span><i class="equalizerBtn material-icons">equalizer</i></span>
+                                                        </div>
+                                                        <div class="hide-active">
+                                                            <span class="chat-btn"><i class="material-icons">chat</i> 32 Comment</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="expand-right-sec">
+                                                        <div class="visible-active">
+                                                            <a class="dropdown-toggle" href="#">Sort by Best <i class="material-icons">arrow_drop_down</i></a>
+                                                            <ul class="dropdown-menu"> <li><a href="#">Action</a></li> <li><a href="#">Another action</a></li> <li><a href="#">Something else here</a></li> <li role="separator" class="divider"></li> <li><a href="#">Separated link</a></li> </ul>
+                                                        </div>
+                                                        <div class="hide-active">
+                                                            <span><i class="equalizerBtn material-icons">equalizer</i></span><span class="heart-sec"><i class="anim-icon heart"></i> 14</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="comment-chat-wrap">
+                                                <div class="comment-chat-bar">
+                                                    <form class="pushing-form">
+                                                        <a href="#"><img src="img/jeff.jpg" alt=""></a>
+                                                        <span><i class="anim-icon camera"></i><textarea placeholder="What do you want to share?"></textarea></span>
+                                                        <div class="icon-sec clearfix">
+                                                            <button type="submit">Send</button>
+                                                            <div class="icon-sec-right">
+                                                                <em href="#"><span class="anim-icon camera"></span> media</em>
+                                                                <em href="#"><i class="material-icons">location_on</i> <b>Location</b></em>
+                                                                <em href="#"><i class="material-icons">unarchive</i> <b>Poll</b></em>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                <div class="latest-comment-chat comment-chat-sec">
+                                                    <div class="comment-chat-fig">
+                                                        <a href="#"><img src="img/chat-icon1.jpg" alt=""></a>
+                                                        <div class="feed-person-sec">
+                                                            <!-- <span class="clip-btn"></span> -->
+                                                            <div class="feed-upper-sec">
+                                                                <div class="feed-upper-banner">
+                                                                    <a class="btn follow-btn" href="#"><img src="img/blue-buzz.png" alt=""><span>Follow</span></a>
+                                                                </div>
+                                                                <div class="feed-banner-botsec">
+                                                                    <div class="clearfix">
+                                                                        <div class="feed-banner-botinfo">
+                                                                            <a href="#"><img src="img/profile-img2.png" alt=""></a>
+                                                                            <h3>mykal <span>@mykalmorton</span></h3>
+                                                                        </div>
+                                                                        <div class="feed-banner-botsocial">
+                                                                            <a href="#"><img src="img/feed_social-icon1.jpg" alt=""></a>
+                                                                            <a href="#"><img src="img/feed_social-icon2.jpg" alt=""></a>
+                                                                            <a href="#"><img src="img/feed_social-icon3.jpg" alt=""></a>
+                                                                        </div>
+                                                                    </div>
+                                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit inventore commodi hic quam minima!</p>
+                                                                </div>
+                                                                <div class="follow-sec clearfix">
+                                                                    <div class="follow-left-sec">
+                                                                        <span>200</span><i>Connections</i>
+                                                                    </div>
+                                                                    <div class="follow-right-sec">
+                                                                        <span>1.9M</span><i>Followers</i>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="feed-lower-sec">
+                                                                <h3><i>- Famous Recipes -</i></h3>
+                                                                <div class="feed-inner-sec clearfix">
+                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                </div>
+                                                                <a class="more-btn" href="#">more</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="comment-chat-info">
+                                                        <h4 class="clearfix"><a href="#">Akilli M. Johnson</a> . 19 Days ago <span><i class="material-icons">favorite</i> 2</span></h4>
+                                                        <p><a href="#">@tsipras_eu As a</a> European, as a classicist, i know that i will never be enough grateful to all the greeks, for what you are doing. </p>
+                                                        <div class="clearfix">
+                                                            <div class="share-reply share-reply-left">
+                                                                <a href="#"><span>9</span><span><i class="fa fa-angle-down"></i></span>|<span><i class="fa fa-angle-up"></i></span></a> <a href="#">Share <i class="fa fa-angle-right"></i></a>
+                                                            </div>
+                                                            <div class="share-reply">
+                                                                <a href="#">Reply</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="comment-chat-sec">
+                                                    <div class="comment-chat-fig">
+                                                        <a href="#"><img src="img/chat-icon1.jpg" alt=""></a>
+                                                        <div class="feed-person-sec">
+                                                            <!-- <span class="clip-btn"></span> -->
+                                                            <div class="feed-upper-sec">
+                                                                <div class="feed-upper-banner">
+                                                                    <a class="btn follow-btn" href="#"><img src="img/blue-buzz.png" alt=""><span>Follow</span></a>
+                                                                </div>
+                                                                <div class="feed-banner-botsec">
+                                                                    <div class="clearfix">
+                                                                        <div class="feed-banner-botinfo">
+                                                                            <a href="#"><img src="img/profile-img2.png" alt=""></a>
+                                                                            <h3>mykal <span>@mykalmorton</span></h3>
+                                                                        </div>
+                                                                        <div class="feed-banner-botsocial">
+                                                                            <a href="#"><img src="img/feed_social-icon1.jpg" alt=""></a>
+                                                                            <a href="#"><img src="img/feed_social-icon2.jpg" alt=""></a>
+                                                                            <a href="#"><img src="img/feed_social-icon3.jpg" alt=""></a>
+                                                                        </div>
+                                                                    </div>
+                                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit inventore commodi hic quam minima!</p>
+                                                                </div>
+                                                                <div class="follow-sec clearfix">
+                                                                    <div class="follow-left-sec">
+                                                                        <span>200</span><i>Connections</i>
+                                                                    </div>
+                                                                    <div class="follow-right-sec">
+                                                                        <span>1.9M</span><i>Followers</i>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="feed-lower-sec">
+                                                                <h3><i>- Famous Recipes -</i></h3>
+                                                                <div class="feed-inner-sec clearfix">
+                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                </div>
+                                                                <a class="more-btn" href="#">more</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="comment-chat-info">
+                                                        <h4 class="clearfix"><a href="#">Akilli M. Johnson</a> . 19 Days ago <span><i class="material-icons">favorite</i> 2</span></h4>
+                                                        <p><a href="#">@tsipras_eu As a</a> European, as a classicist, i know that i will never be enough grateful to all the greeks, for what you are doing. </p>
+                                                        <div class="clearfix">
+                                                            <div class="share-reply share-reply-left">
+                                                                <a href="#"><span>9</span><span><i class="fa fa-angle-down"></i></span>|<span><i class="fa fa-angle-up"></i></span></a> <a href="#">Share <i class="fa fa-angle-right"></i></a>
+                                                            </div>
+                                                            <div class="share-reply">
+                                                                <a href="#">Reply</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <a href="#" class="show-btn">Show More</a>
+                                                <div class="comment-chat-sec">
+                                                    <div class="comment-chat-fig">
+                                                        <a href="#"><img src="img/chat-icon1.jpg" alt=""></a>
+                                                        <div class="feed-person-sec">
+                                                            <!-- <span class="clip-btn"></span> -->
+                                                            <div class="feed-upper-sec">
+                                                                <div class="feed-upper-banner">
+                                                                    <a class="btn follow-btn" href="#"><img src="img/blue-buzz.png" alt=""><span>Follow</span></a>
+                                                                </div>
+                                                                <div class="feed-banner-botsec">
+                                                                    <div class="clearfix">
+                                                                        <div class="feed-banner-botinfo">
+                                                                            <a href="#"><img src="img/profile-img2.png" alt=""></a>
+                                                                            <h3>mykal <span>@mykalmorton</span></h3>
+                                                                        </div>
+                                                                        <div class="feed-banner-botsocial">
+                                                                            <a href="#"><img src="img/feed_social-icon1.jpg" alt=""></a>
+                                                                            <a href="#"><img src="img/feed_social-icon2.jpg" alt=""></a>
+                                                                            <a href="#"><img src="img/feed_social-icon3.jpg" alt=""></a>
+                                                                        </div>
+                                                                    </div>
+                                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit inventore commodi hic quam minima!</p>
+                                                                </div>
+                                                                <div class="follow-sec clearfix">
+                                                                    <div class="follow-left-sec">
+                                                                        <span>200</span><i>Connections</i>
+                                                                    </div>
+                                                                    <div class="follow-right-sec">
+                                                                        <span>1.9M</span><i>Followers</i>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="feed-lower-sec">
+                                                                <h3><i>- Famous Recipes -</i></h3>
+                                                                <div class="feed-inner-sec clearfix">
+                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                </div>
+                                                                <a class="more-btn" href="#">more</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="comment-chat-info">
+                                                        <h4 class="clearfix"><a href="#">Akilli M. Johnson</a> . 19 Days ago <span><i class="material-icons">favorite</i> 2</span></h4>
+                                                        <p><a href="#">@tsipras_eu As a</a> European, as a classicist, i know that i will never be enough grateful to all the greeks, for what you are doing. </p>
+                                                        <div class="clearfix">
+                                                            <div class="share-reply share-reply-left">
+                                                                <a href="#"><span>9</span><span><i class="fa fa-angle-down"></i></span>|<span><i class="fa fa-angle-up"></i></span></a> <a href="#">Share <i class="fa fa-angle-right"></i></a>
+                                                            </div>
+                                                            <div class="share-reply">
+                                                                <a href="#">Reply</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <a href="#" class="home-link"><img src="img/header-logo.png" alt=""></a>
+                                            </div>
+                                        </div>
+                                        <div class="sidebarWrap">
+                                            <div class="post-sidebar contentSidebar">
+                                                <span class="arrow-close anim-icon close"></span>
+                                                <div class="post-sidebar-inner">
+                                                    <div class="sidebar_slider-sec">
+                                                        <div class="flexslider">
+                                                            <ul class="slides clearfix">
+                                                                <li>
+                                                                    <a href="product"><img src="img/gray-bg.jpg" /></a>
+                                                                    <a href="#" class="formBtn form_slide_price"><sup>$</sup><span>137</span></a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="product"><img src="img/gray-bg.jpg" /></a>
+                                                                    <a href="#" class="formBtn form_slide_price"><sup>$</sup><span>37</span></a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="product"><img src="img/gray-bg.jpg" /></a>
+                                                                    <a href="#" class="formBtn form_slide_price"><sup>$</sup><span>3</span></a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="product"><img src="img/gray-bg.jpg" /></a>
+                                                                    <a href="#" class="formBtn form_slide_price"><sup>$</sup><span>43</span></a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="chat-wrap">
+                                                        <div class="clearfix">
+                                                            <div class="chat-com-sec chat-left-sec">
+                                                                <a class="" href="#"><i class="material-icons">chat</i> 26 Comment</a>
+                                                            </div>
+                                                            <div class="chat-com-sec chat-right-sec">
+                                                                <span><i class="material-icons">favorite</i></span><span><i class="material-icons">autorenew</i></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="donate-form-sec">
+                                                        <form class="donate-form-inner donate-discription-sec">
+                                                            <div class="donate-discription-info">
+                                                                <h2 class="clearfix"><a href="product">Lorem ipsum dolor sit amet.</a>
+                                                                    <span class="star-sec"><i><img src="img/star.png" alt="">
+                                                                        </i><i><img src="img/star.png" alt="">
+                                                                        </i><i><img src="img/star.png" alt="">
+                                                                        </i><i><img src="img/star.png" alt="">
+                                                                        </i><i><img src="img/star-o.png" alt=""></i>
+                                                                    </span>
+                                                                </h2>
+                                                                <p class="clearfix">consectetur adipisicing elit. Cumque inventore et laboriosam vel neque laborum, optio quis dicta magni consequatur distinctio hic nemo veniam temporibus, necessitatibus <span class="hidden-txt">repellat culpa facilis iure consectetur adipisicing elit. Cumque inventore et laboriosam vel neque</span><a href="#" class="more-info-btn"></a></p>
+                                                                <div class="donate-discription-inner clearfix">
+                                                                    <div class="discription-inner-detail">
+                                                                        <p>Estamailted: <span>May 2016</span></p>
+                                                                    </div>
+                                                                    <div class="discription-inner-detail">
+                                                                        <p>Estamailted devlivery: <span>May 2016</span></p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-agreed-sec catagary-sec">
+                                                                <div class="clearfix">
+                                                                    <div class="form-agreed-left">
+                                                                        <a href="#"><i class="material-icons">loyalty</i> Technology</a>
+                                                                        <a href="#"><i class="material-icons">location_on</i> Sans Fancisco</a>
+                                                                    </div>
+                                                                    <div class="form-agreed-right">
+                                                                        <a href="#" class="btn btn-purchase formBtn">Checkout</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="post-sidebar formSidebar">
+                                                <span class="arrow-close anim-icon close"></span>
+                                                <div class="post-sidebar-inner">
+                                                    <div class="side-slider-outer">
+                                                        <ul class="slides clearfix">
+                                                            <li>
+                                                                <div class="clearfix">
+                                                                    <div class="side-slider-fig">
+                                                                        <img src="img/product-img4.jpg" alt="">
+                                                                        <a href="#" class="formBtn form_slide_price"><sup>$</sup><span>37</span></a>
+                                                                    </div>
+                                                                    <div class="side-slider-info">
+                                                                        <h3>GRILLED SHRIMP<br>WITH VINAIGRETTE</h3>
+                                                                        <p class="product-detail">
+                                                                            <em>Cilantro</em>.
+                                                                            <em>390 g</em>.
+                                                                            <em>610 kcal</em>
+                                                                        </p>
+                                                                        <p><span>25m cooking</span><span>15m delivery</span></p>
+                                                                        <div class="side-slider-btn-sec clearfix">
+                                                                            <div class="slider-btn-left">
+                                                                                <img src="img/product-slider.jpg" alt="">
+                                                                            </div>
+                                                                            <div class="slider-btn-right">
+                                                                                <a href="#" class="btn btn-purchase">Order</a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                            <li>
+                                                                <div class="clearfix">
+                                                                    <div class="side-slider-fig">
+                                                                        <img src="img/product-img4.jpg" alt="">
+                                                                        <a href="#" class="formBtn form_slide_price"><sup>$</sup><span>37</span></a>
+                                                                    </div>
+                                                                    <div class="side-slider-info">
+                                                                        <h3>GRILLED SHRIMP<br>WITH VINAIGRETTE</h3>
+                                                                        <p class="product-detail">
+                                                                            <em>Cilantro</em>.
+                                                                            <em>390 g</em>.
+                                                                            <em>610 kcal</em>
+                                                                        </p>
+                                                                        <p><span>25m cooking</span><span>15m delivery</span></p>
+                                                                        <div class="side-slider-btn-sec clearfix">
+                                                                            <div class="slider-btn-left">
+                                                                                <img src="img/product-slider.jpg" alt="">
+                                                                            </div>
+                                                                            <div class="slider-btn-right">
+                                                                                <a href="#" class="btn btn-purchase">Order</a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                            <li>
+                                                                <div class="clearfix">
+                                                                    <div class="side-slider-fig">
+                                                                        <img src="img/product-img4.jpg" alt="">
+                                                                        <a href="#" class="formBtn form_slide_price"><sup>$</sup><span>37</span></a>
+                                                                    </div>
+                                                                    <div class="side-slider-info">
+                                                                        <h3>GRILLED SHRIMP<br>WITH VINAIGRETTE</h3>
+                                                                        <p class="product-detail">
+                                                                            <em>Cilantro</em>.
+                                                                            <em>390 g</em>.
+                                                                            <em>610 kcal</em>
+                                                                        </p>
+                                                                        <p><span>25m cooking</span><span>15m delivery</span></p>
+                                                                        <div class="side-slider-btn-sec clearfix">
+                                                                            <div class="slider-btn-left">
+                                                                                <img src="img/product-slider.jpg" alt="">
+                                                                            </div>
+                                                                            <div class="slider-btn-right">
+                                                                                <a href="#" class="btn btn-purchase">Order</a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                            <li>
+                                                                <div class="clearfix">
+                                                                    <div class="side-slider-fig">
+                                                                        <img src="img/product-img4.jpg" alt="">
+                                                                        <a href="#" class="formBtn form_slide_price"><sup>$</sup><span>37</span></a>
+                                                                    </div>
+                                                                    <div class="side-slider-info">
+                                                                        <h3>GRILLED SHRIMP<br>WITH VINAIGRETTE</h3>
+                                                                        <p class="product-detail">
+                                                                            <em>Cilantro</em>.
+                                                                            <em>390 g</em>.
+                                                                            <em>610 kcal</em>
+                                                                        </p>
+                                                                        <p><span>25m cooking</span><span>15m delivery</span></p>
+                                                                        <div class="side-slider-btn-sec clearfix">
+                                                                            <div class="slider-btn-left">
+                                                                                <img src="img/product-slider.jpg" alt="">
+                                                                            </div>
+                                                                            <div class="slider-btn-right">
+                                                                                <a href="#" class="btn btn-purchase">Order</a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="donate-form-sec">
+                                                        <form class="donate-form-inner">
+                                                            <section>
+                                                                <h3>Payment information</h3>
+                                                                <p>Your payment method will not be changed at this time if the project is successfully funded, your payment method will be changed 178.00 when the projects ends.</p>
+                                                            </section>
+                                                            <section>
+                                                                <h3 class="clearfix">Select payment method</h3>
+                                                                <span><input name="payment" id="radio1" checked="" type="radio"><label for="radio1"><img src="img/visa.png" alt=""><p><b>Card ending in 8080</b>Expires 7-20-29</p><i class="material-icons">edit</i></label></span>
+                                                                <span><input name="payment" id="radio2" type="radio"><label for="radio2">Use a new card<i class="material-icons">edit</i></label></span>
+                                                            </section>
+                                                            <section class="lowersec">
+                                                                <h3 class="clearfix">Select a shipping address</h3>
+                                                                <span><input name="payment1" id="radio3" checked="" type="radio"><label for="radio3"><p>Mykal Michael,<br> 2717 howell st apt 4302, dalla,tx, 75204</p><i class="material-icons">edit</i></label></span>
+                                                                <span><input name="payment1" id="radio4" type="radio"><label for="radio4">Use a new address<i class="material-icons">edit</i></label></span>
+                                                            </section>
+                                                            <div class="form-agreed-sec">
+                                                                <p>By pledging you agree to kickstarter’s <a href="#">Terms of use</a> and <a href="#">Privacy policy</a></p>
+                                                                <div class="clearfix">
+                                                                    <div class="form-agreed-left">
+                                                                        <a href="#" class="btn btn-addcart">ADD TO CART</a>
+                                                                    </div>
+                                                                    <div class="form-agreed-right">
+                                                                        <a href="#" class="btn btn-purchase donateBtn">Purchase</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="block-add block-add-video" style="display:none">
+                                    <div class="block-left">
+                                        <div class="block-left-inner">
+                                            <div class="post-time-sec">
+                                                <span class="time-zone">1</span>
+                                                <i>hour ago</i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="block-outer">
+                                        <div class="block-post">
+                                            <div class="feed-top-sec clearfix">
+                                                <div class="feed-top-left">
+                                                    <p><em class="feed-person-btn"><img src="img/profile-img1.png" alt=""> <strong>Akilli M. Johnson</strong></em> <span>Beautiful Picture in the World </span><i>February 22 at 7:20 am</i></p>
+                                                    <div class="feed-person-sec">
+                                                        <!-- <span class="clip-btn"></span> -->
+                                                        <div class="feed-upper-sec">
+                                                            <div class="feed-upper-banner">
+                                                                <a class="btn follow-btn" href="#"><img src="img/blue-buzz.png" alt=""><span>Follow</span></a>
+                                                            </div>
+                                                            <div class="feed-banner-botsec">
+                                                                <div class="clearfix">
+                                                                    <div class="feed-banner-botinfo">
+                                                                        <a href="#"><img src="img/profile-img2.png" alt=""></a>
+                                                                        <h3>mykal <span>@mykalmorton</span></h3>
+                                                                    </div>
+                                                                    <div class="feed-banner-botsocial">
+                                                                        <a href="#"><img src="img/feed_social-icon1.jpg" alt=""></a>
+                                                                        <a href="#"><img src="img/feed_social-icon2.jpg" alt=""></a>
+                                                                        <a href="#"><img src="img/feed_social-icon3.jpg" alt=""></a>
+                                                                    </div>
+                                                                </div>
+                                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit inventore commodi hic quam minima!</p>
+                                                            </div>
+                                                            <div class="follow-sec clearfix">
+                                                                <div class="follow-left-sec">
+                                                                    <span>200</span><i>Connections</i>
+                                                                </div>
+                                                                <div class="follow-right-sec">
+                                                                    <span>1.9M</span><i>Followers</i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="feed-lower-sec">
+                                                            <h3><i>- Famous Recipes -</i></h3>
+                                                            <div class="feed-inner-sec clearfix">
+                                                                <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                            </div>
+                                                            <a class="more-btn" href="#">more</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="feed-top-right">
+                                                    <strong><b class="anim-icon retweet in feed-popup-btn"></b><small>14</small></strong>
+                                                    <div class="feed-tooltip-sec">
+                                                        <a href="#" class="tool-img"><img src="img/mikn-img.jpg" alt="">
+                                                        </a><a href="#" class="tool-img"><img src="img/mikn-img.jpg" alt="">
+                                                        </a><a href="#" class="tool-img"><img src="img/mikn-img.jpg" alt="">
+                                                        </a><a href="#" class="tool-img"><img src="img/mikn-img.jpg" alt="">
+                                                        </a><a href="#" class="tool-img"><img src="img/mikn-img.jpg" alt="">
+                                                        </a><a href="#" class="tool-img"><img src="img/mikn-img.jpg" alt="">
+                                                        </a><a href="#" class="tool-icon"><i class="material-icons">more_horiz</i></a>
+                                                    </div>
+                                                    <i class="dropdown-toggle material-icons pen-btn">sort</i>
+                                                    <ul class="dropdown-menu">
+                                                        <li class="hide-block"><a href="#"><i class="material-icons">visibility_off</i><span>I don't want to see this</span></a></li>
+                                                        <li><a href="#"><i class="material-icons">subject</i><span>Hide all for Chris Beek</span></a></li>
+                                                        <li><a href="#"><i class="material-icons">flag</i><span>Report abuse</span></a></li>
+                                                        <li><a href="#"><i class="material-icons">remove_circle</i><span>Remove connection</span></a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="block-video-wrap">
+                                                <div class="clearfix">
+                                                    <div class="block-video-left">
+                                                        <div class="clearfix">
+                                                            <div class="block-video-l"><h3>Live video <span>. Hide</span></h3></div>
+                                                            <div class="block-video-r"><a href="chat">Watch</a></div>
+                                                        </div>
+                                                        <div class="video-streem" href="#"><img src="img/live-video-img.jpg" alt=""><a href="#">live now</a></div>
+                                                        <h4>99Damage</h4>
+                                                        <p>99Damage Liga Saison #4 - German s...</p>
+                                                    </div>
+                                                    <div class="block-video-right">
+                                                        <ul>
+                                                            <li><a class="active" href="#"><img src="img/tweet-fig.png"><span>Jacqueline Holmes</span></a></li>
+                                                            <li><a href="#"><img src="img/tweet-fig.png"><span>Eugene Simpson</span></a></li>
+                                                            <li><a href="#"><img src="img/tweet-fig.png"><span>Eugene Simpson</span></a></li>
+                                                            <li><a href="#"><img src="img/tweet-fig.png"><span>Thomas Morgan</span></a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="block-info-sec">                                        
+                                                <div class="expand-sec">
+                                                    <div class="expand-left-sec">
+                                                        <span class="follow-point"><i class="material-icons">person</i><b>3553</b></span>
+                                                        <span class="view-point"><i class="material-icons">remove_red_eye</i><b>212,215,955</b></span>
+                                                        <a href="#" class="view-point-btn">Share</a>
+                                                        <i class="dropdown-toggle material-icons view-point-drop">more_vert</i>
+                                                        <ul class="dropdown-menu"><li><a href="#">Report</a></li></ul>
+                                                    </div>
+                                                    <div class="expand-right-sec">
+                                                        <span></span><span class="heart-sec"><i class="anim-icon heart"></i> 14</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="comment-chat-wrap">
+                                                <div class="comment-chat-bar">
+                                                    <form class="pushing-form">
+                                                        <a href="#"><img src="img/jeff.jpg" alt=""></a>
+                                                        <span><i class="anim-icon camera"></i><textarea placeholder="What do you want to share?"></textarea></span>
+                                                        <div class="icon-sec clearfix">
+                                                            <button type="submit">Send</button>
+                                                            <div class="icon-sec-right">
+                                                                <em href="#"><span class="anim-icon camera"></span> media</em>
+                                                                <em href="#"><i class="material-icons">location_on</i> <b>Location</b></em>
+                                                                <em href="#"><i class="material-icons">unarchive</i> <b>Poll</b></em>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                <div class="latest-comment-chat comment-chat-sec">
+                                                    <div class="comment-chat-fig">
+                                                        <a href="#"><img src="img/chat-icon1.jpg" alt=""></a>
+                                                        <div class="feed-person-sec">
+                                                            <!-- <span class="clip-btn"></span> -->
+                                                            <div class="feed-upper-sec">
+                                                                <div class="feed-upper-banner">
+                                                                    <a class="btn follow-btn" href="#"><img src="img/blue-buzz.png" alt=""><span>Follow</span></a>
+                                                                </div>
+                                                                <div class="feed-banner-botsec">
+                                                                    <div class="clearfix">
+                                                                        <div class="feed-banner-botinfo">
+                                                                            <a href="#"><img src="img/profile-img2.png" alt=""></a>
+                                                                            <h3>mykal <span>@mykalmorton</span></h3>
+                                                                        </div>
+                                                                        <div class="feed-banner-botsocial">
+                                                                            <a href="#"><img src="img/feed_social-icon1.jpg" alt=""></a>
+                                                                            <a href="#"><img src="img/feed_social-icon2.jpg" alt=""></a>
+                                                                            <a href="#"><img src="img/feed_social-icon3.jpg" alt=""></a>
+                                                                        </div>
+                                                                    </div>
+                                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit inventore commodi hic quam minima!</p>
+                                                                </div>
+                                                                <div class="follow-sec clearfix">
+                                                                    <div class="follow-left-sec">
+                                                                        <span>200</span><i>Connections</i>
+                                                                    </div>
+                                                                    <div class="follow-right-sec">
+                                                                        <span>1.9M</span><i>Followers</i>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="feed-lower-sec">
+                                                                <h3><i>- Famous Recipes -</i></h3>
+                                                                <div class="feed-inner-sec clearfix">
+                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                </div>
+                                                                <a class="more-btn" href="#">more</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="comment-chat-info">
+                                                        <h4 class="clearfix"><a href="#">Akilli M. Johnson</a> . 19 Days ago <span><i class="material-icons">favorite</i> 2</span></h4>
+                                                        <p><a href="#">@tsipras_eu As a</a> European, as a classicist, i know that i will never be enough grateful to all the greeks, for what you are doing. </p>
+                                                        <div class="clearfix">
+                                                            <div class="share-reply share-reply-left">
+                                                                <a href="#"><span>9</span><span><i class="fa fa-angle-down"></i></span>|<span><i class="fa fa-angle-up"></i></span></a> <a href="#">Share <i class="fa fa-angle-right"></i></a>
+                                                            </div>
+                                                            <div class="share-reply">
+                                                                <a href="#">Reply</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="comment-chat-sec">
+                                                    <div class="comment-chat-fig">
+                                                        <a href="#"><img src="img/chat-icon1.jpg" alt=""></a>
+                                                        <div class="feed-person-sec">
+                                                            <!-- <span class="clip-btn"></span> -->
+                                                            <div class="feed-upper-sec">
+                                                                <div class="feed-upper-banner">
+                                                                    <a class="btn follow-btn" href="#"><img src="img/blue-buzz.png" alt=""><span>Follow</span></a>
+                                                                </div>
+                                                                <div class="feed-banner-botsec">
+                                                                    <div class="clearfix">
+                                                                        <div class="feed-banner-botinfo">
+                                                                            <a href="#"><img src="img/profile-img2.png" alt=""></a>
+                                                                            <h3>mykal <span>@mykalmorton</span></h3>
+                                                                        </div>
+                                                                        <div class="feed-banner-botsocial">
+                                                                            <a href="#"><img src="img/feed_social-icon1.jpg" alt=""></a>
+                                                                            <a href="#"><img src="img/feed_social-icon2.jpg" alt=""></a>
+                                                                            <a href="#"><img src="img/feed_social-icon3.jpg" alt=""></a>
+                                                                        </div>
+                                                                    </div>
+                                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit inventore commodi hic quam minima!</p>
+                                                                </div>
+                                                                <div class="follow-sec clearfix">
+                                                                    <div class="follow-left-sec">
+                                                                        <span>200</span><i>Connections</i>
+                                                                    </div>
+                                                                    <div class="follow-right-sec">
+                                                                        <span>1.9M</span><i>Followers</i>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="feed-lower-sec">
+                                                                <h3><i>- Famous Recipes -</i></h3>
+                                                                <div class="feed-inner-sec clearfix">
+                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                </div>
+                                                                <a class="more-btn" href="#">more</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="comment-chat-info">
+                                                        <h4 class="clearfix"><a href="#">Akilli M. Johnson</a> . 19 Days ago <span><i class="material-icons">favorite</i> 2</span></h4>
+                                                        <p><a href="#">@tsipras_eu As a</a> European, as a classicist, i know that i will never be enough grateful to all the greeks, for what you are doing. </p>
+                                                        <div class="clearfix">
+                                                            <div class="share-reply share-reply-left">
+                                                                <a href="#"><span>9</span><span><i class="fa fa-angle-down"></i></span>|<span><i class="fa fa-angle-up"></i></span></a> <a href="#">Share <i class="fa fa-angle-right"></i></a>
+                                                            </div>
+                                                            <div class="share-reply">
+                                                                <a href="#">Reply</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <a href="#" class="show-btn">Show More</a>
+                                                <div class="comment-chat-sec">
+                                                    <div class="comment-chat-fig">
+                                                        <a href="#"><img src="img/chat-icon1.jpg" alt=""></a>
+                                                        <div class="feed-person-sec">
+                                                            <!-- <span class="clip-btn"></span> -->
+                                                            <div class="feed-upper-sec">
+                                                                <div class="feed-upper-banner">
+                                                                    <a class="btn follow-btn" href="#"><img src="img/blue-buzz.png" alt=""><span>Follow</span></a>
+                                                                </div>
+                                                                <div class="feed-banner-botsec">
+                                                                    <div class="clearfix">
+                                                                        <div class="feed-banner-botinfo">
+                                                                            <a href="#"><img src="img/profile-img2.png" alt=""></a>
+                                                                            <h3>mykal <span>@mykalmorton</span></h3>
+                                                                        </div>
+                                                                        <div class="feed-banner-botsocial">
+                                                                            <a href="#"><img src="img/feed_social-icon1.jpg" alt=""></a>
+                                                                            <a href="#"><img src="img/feed_social-icon2.jpg" alt=""></a>
+                                                                            <a href="#"><img src="img/feed_social-icon3.jpg" alt=""></a>
+                                                                        </div>
+                                                                    </div>
+                                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit inventore commodi hic quam minima!</p>
+                                                                </div>
+                                                                <div class="follow-sec clearfix">
+                                                                    <div class="follow-left-sec">
+                                                                        <span>200</span><i>Connections</i>
+                                                                    </div>
+                                                                    <div class="follow-right-sec">
+                                                                        <span>1.9M</span><i>Followers</i>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="feed-lower-sec">
+                                                                <h3><i>- Famous Recipes -</i></h3>
+                                                                <div class="feed-inner-sec clearfix">
+                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                </div>
+                                                                <a class="more-btn" href="#">more</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="comment-chat-info">
+                                                        <h4 class="clearfix"><a href="#">Akilli M. Johnson</a> . 19 Days ago <span><i class="material-icons">favorite</i> 2</span></h4>
+                                                        <p><a href="#">@tsipras_eu As a</a> European, as a classicist, i know that i will never be enough grateful to all the greeks, for what you are doing. </p>
+                                                        <div class="clearfix">
+                                                            <div class="share-reply share-reply-left">
+                                                                <a href="#"><span>9</span><span><i class="fa fa-angle-down"></i></span>|<span><i class="fa fa-angle-up"></i></span></a> <a href="#">Share <i class="fa fa-angle-right"></i></a>
+                                                            </div>
+                                                            <div class="share-reply">
+                                                                <a href="#">Reply</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <a href="#" class="home-link"><img src="img/header-logo.png" alt=""></a>
+                                            </div>
+                                        </div>
+                                        <div class="sidebarWrap">
+                                            <div class="post-sidebar contentSidebar">
+                                                <span class="arrow-close anim-icon close"></span>
+                                                <div class="post-sidebar-inner">
+                                                    <div class="sidebar_slider-sec">
+                                                        <div class="flexslider">
+                                                            <ul class="slides clearfix">
+                                                                <li>
+                                                                    <a href="product"><img src="img/gray-bg.jpg" /></a>
+                                                                    <a href="#" class="formBtn form_slide_price"><sup>$</sup><span>137</span></a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="product"><img src="img/gray-bg.jpg" /></a>
+                                                                    <a href="#" class="formBtn form_slide_price"><sup>$</sup><span>37</span></a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="product"><img src="img/gray-bg.jpg" /></a>
+                                                                    <a href="#" class="formBtn form_slide_price"><sup>$</sup><span>3</span></a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="product"><img src="img/gray-bg.jpg" /></a>
+                                                                    <a href="#" class="formBtn form_slide_price"><sup>$</sup><span>43</span></a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="chat-wrap">
+                                                        <div class="clearfix">
+                                                            <div class="chat-com-sec chat-left-sec">
+                                                                <a class="" href="#"><i class="material-icons">chat</i> 26 Comment</a>
+                                                            </div>
+                                                            <div class="chat-com-sec chat-right-sec">
+                                                                <span><i class="material-icons">favorite</i></span><span><i class="material-icons">autorenew</i></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="donate-form-sec">
+                                                        <form class="donate-form-inner donate-discription-sec">
+                                                            <div class="donate-discription-info">
+                                                                <h2 class="clearfix"><a href="product">Lorem ipsum dolor sit amet.</a>
+                                                                    <span class="star-sec"><i><img src="img/star.png" alt="">
+                                                                        </i><i><img src="img/star.png" alt="">
+                                                                        </i><i><img src="img/star.png" alt="">
+                                                                        </i><i><img src="img/star.png" alt="">
+                                                                        </i><i><img src="img/star-o.png" alt=""></i>
+                                                                    </span>
+                                                                </h2>
+                                                                <p class="clearfix">consectetur adipisicing elit. Cumque inventore et laboriosam vel neque laborum, optio quis dicta magni consequatur distinctio hic nemo veniam temporibus, necessitatibus <span class="hidden-txt">repellat culpa facilis iure consectetur adipisicing elit. Cumque inventore et laboriosam vel neque</span><a href="#" class="more-info-btn"></a></p>
+                                                                <div class="donate-discription-inner clearfix">
+                                                                    <div class="discription-inner-detail">
+                                                                        <p>Estamailted: <span>May 2016</span></p>
+                                                                    </div>
+                                                                    <div class="discription-inner-detail">
+                                                                        <p>Estamailted devlivery: <span>May 2016</span></p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-agreed-sec catagary-sec">
+                                                                <div class="clearfix">
+                                                                    <div class="form-agreed-left">
+                                                                        <a href="#"><i class="material-icons">loyalty</i> Technology</a>
+                                                                        <a href="#"><i class="material-icons">location_on</i> Sans Fancisco</a>
+                                                                    </div>
+                                                                    <div class="form-agreed-right">
+                                                                        <a href="#" class="btn btn-purchase formBtn">Checkout</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="post-sidebar formSidebar">
+                                                <span class="arrow-close anim-icon close"></span>
+                                                <div class="post-sidebar-inner">
+                                                    <div class="side-slider-outer">
+                                                        <ul class="slides clearfix">
+                                                            <li>
+                                                                <div class="clearfix">
+                                                                    <div class="side-slider-fig">
+                                                                        <img src="img/product-img4.jpg" alt="">
+                                                                        <a href="#" class="formBtn form_slide_price"><sup>$</sup><span>37</span></a>
+                                                                    </div>
+                                                                    <div class="side-slider-info">
+                                                                        <h3>GRILLED SHRIMP<br>WITH VINAIGRETTE</h3>
+                                                                        <p class="product-detail">
+                                                                            <em>Cilantro</em>.
+                                                                            <em>390 g</em>.
+                                                                            <em>610 kcal</em>
+                                                                        </p>
+                                                                        <p><span>25m cooking</span><span>15m delivery</span></p>
+                                                                        <div class="side-slider-btn-sec clearfix">
+                                                                            <div class="slider-btn-left">
+                                                                                <img src="img/product-slider.jpg" alt="">
+                                                                            </div>
+                                                                            <div class="slider-btn-right">
+                                                                                <a href="#" class="btn btn-purchase">Order</a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                            <li>
+                                                                <div class="clearfix">
+                                                                    <div class="side-slider-fig">
+                                                                        <img src="img/product-img4.jpg" alt="">
+                                                                        <a href="#" class="formBtn form_slide_price"><sup>$</sup><span>37</span></a>
+                                                                    </div>
+                                                                    <div class="side-slider-info">
+                                                                        <h3>GRILLED SHRIMP<br>WITH VINAIGRETTE</h3>
+                                                                        <p class="product-detail">
+                                                                            <em>Cilantro</em>.
+                                                                            <em>390 g</em>.
+                                                                            <em>610 kcal</em>
+                                                                        </p>
+                                                                        <p><span>25m cooking</span><span>15m delivery</span></p>
+                                                                        <div class="side-slider-btn-sec clearfix">
+                                                                            <div class="slider-btn-left">
+                                                                                <img src="img/product-slider.jpg" alt="">
+                                                                            </div>
+                                                                            <div class="slider-btn-right">
+                                                                                <a href="#" class="btn btn-purchase">Order</a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                            <li>
+                                                                <div class="clearfix">
+                                                                    <div class="side-slider-fig">
+                                                                        <img src="img/product-img4.jpg" alt="">
+                                                                        <a href="#" class="formBtn form_slide_price"><sup>$</sup><span>37</span></a>
+                                                                    </div>
+                                                                    <div class="side-slider-info">
+                                                                        <h3>GRILLED SHRIMP<br>WITH VINAIGRETTE</h3>
+                                                                        <p class="product-detail">
+                                                                            <em>Cilantro</em>.
+                                                                            <em>390 g</em>.
+                                                                            <em>610 kcal</em>
+                                                                        </p>
+                                                                        <p><span>25m cooking</span><span>15m delivery</span></p>
+                                                                        <div class="side-slider-btn-sec clearfix">
+                                                                            <div class="slider-btn-left">
+                                                                                <img src="img/product-slider.jpg" alt="">
+                                                                            </div>
+                                                                            <div class="slider-btn-right">
+                                                                                <a href="#" class="btn btn-purchase">Order</a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                            <li>
+                                                                <div class="clearfix">
+                                                                    <div class="side-slider-fig">
+                                                                        <img src="img/product-img4.jpg" alt="">
+                                                                        <a href="#" class="formBtn form_slide_price"><sup>$</sup><span>37</span></a>
+                                                                    </div>
+                                                                    <div class="side-slider-info">
+                                                                        <h3>GRILLED SHRIMP<br>WITH VINAIGRETTE</h3>
+                                                                        <p class="product-detail">
+                                                                            <em>Cilantro</em>.
+                                                                            <em>390 g</em>.
+                                                                            <em>610 kcal</em>
+                                                                        </p>
+                                                                        <p><span>25m cooking</span><span>15m delivery</span></p>
+                                                                        <div class="side-slider-btn-sec clearfix">
+                                                                            <div class="slider-btn-left">
+                                                                                <img src="img/product-slider.jpg" alt="">
+                                                                            </div>
+                                                                            <div class="slider-btn-right">
+                                                                                <a href="#" class="btn btn-purchase">Order</a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="donate-form-sec">
+                                                        <form class="donate-form-inner">
+                                                            <section>
+                                                                <h3>Payment information</h3>
+                                                                <p>Your payment method will not be changed at this time if the project is successfully funded, your payment method will be changed 178.00 when the projects ends.</p>
+                                                            </section>
+                                                            <section>
+                                                                <h3 class="clearfix">Select payment method</h3>
+                                                                <span><input name="payment" id="radio1" checked="" type="radio"><label for="radio1"><img src="img/visa.png" alt=""><p><b>Card ending in 8080</b>Expires 7-20-29</p><i class="material-icons">edit</i></label></span>
+                                                                <span><input name="payment" id="radio2" type="radio"><label for="radio2">Use a new card<i class="material-icons">edit</i></label></span>
+                                                            </section>
+                                                            <section class="lowersec">
+                                                                <h3 class="clearfix">Select a shipping address</h3>
+                                                                <span><input name="payment1" id="radio3" checked="" type="radio"><label for="radio3"><p>Mykal Michael,<br> 2717 howell st apt 4302, dalla,tx, 75204</p><i class="material-icons">edit</i></label></span>
+                                                                <span><input name="payment1" id="radio4" type="radio"><label for="radio4">Use a new address<i class="material-icons">edit</i></label></span>
+                                                            </section>
+                                                            <div class="form-agreed-sec">
+                                                                <p>By pledging you agree to kickstarter’s <a href="#">Terms of use</a> and <a href="#">Privacy policy</a></p>
+                                                                <div class="clearfix">
+                                                                    <div class="form-agreed-left">
+                                                                        <a href="#" class="btn btn-addcart">ADD TO CART</a>
+                                                                    </div>
+                                                                    <div class="form-agreed-right">
+                                                                        <a href="#" class="btn btn-purchase donateBtn">Purchase</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="load-more-sec" style="display:none">
+                                    <h2>Loading Seems to be taking a while.</h2>
+                                    <p>Twitter may be over capacity or experiencing a momentary hicup. <a href="#">Try again</a> or visit</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="block-info mainBody block-info-in" style="display:none">
+                        <h3><i class="anim-icon retweet in"></i>Kanoop</h3>
+                        <div class="block-inner block-inner4">
+                            <div class="block-add" style="display:none">
+                                <div class="block-outer">
+                                    <div class="block-post block-post">
+                                        <div class="feed-top-sec feed-top-sec2 clearfix">
+                                            <div class="feed-top-left">
+                                                <p><em class="feed-person-btn"><img src="img/profile-img1.png" alt=""> </em> <span>Beautiful Picture in the World</span><i>February 22 at 7:20 am </i></p>
+                                                <div class="feed-person-sec">
+                                                    <!-- <span class="clip-btn"></span> -->
+                                                    <div class="feed-upper-sec">
+                                                        <div class="feed-upper-banner">
+                                                            <a class="btn follow-btn" href="#"><img src="img/blue-buzz.png" alt=""><span>Follow</span></a>
+                                                        </div>
+                                                        <div class="feed-banner-botsec">
+                                                            <div class="clearfix">
+                                                                <div class="feed-banner-botinfo">
+                                                                    <a href="#"><img src="img/profile-img2.png" alt=""></a>
+                                                                    <h3>mykal <span>@mykalmorton</span></h3>
+                                                                </div>
+                                                                <div class="feed-banner-botsocial">
+                                                                    <a href="#"><img src="img/feed_social-icon1.jpg" alt=""></a>
+                                                                    <a href="#"><img src="img/feed_social-icon2.jpg" alt=""></a>
+                                                                    <a href="#"><img src="img/feed_social-icon3.jpg" alt=""></a>
+                                                                </div>
+                                                            </div>
+                                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit inventore commodi hic quam minima!</p>
+                                                        </div>
+                                                        <div class="follow-sec clearfix">
+                                                            <div class="follow-left-sec">
+                                                                <span>200</span><i>Connections</i>
+                                                            </div>
+                                                            <div class="follow-right-sec">
+                                                                <span>1.9M</span><i>Followers</i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="feed-lower-sec">
+                                                        <h3><i>- Famous Recipes -</i></h3>
+                                                        <div class="feed-inner-sec clearfix">
+                                                            <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                            <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                            <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                            <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                        </div>
+                                                        <a class="more-btn" href="#">more</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="feed-top-right">
+                                                <i class="dropdown-toggle material-icons pen-btn">sort</i>
+                                                <ul class="dropdown-menu">
+                                                    <li class="hide-block"><a href="#"><i class="material-icons">visibility_off</i><span>I don't want to see this</span></a></li>
+                                                    <li><a href="#"><i class="material-icons">subject</i><span>Hide all for Chris Beek</span></a></li>
+                                                    <li><a href="#"><i class="material-icons">flag</i><span>Report abuse</span></a></li>
+                                                    <li><a href="#"><i class="material-icons">remove_circle</i><span>Remove connection</span></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="load-product-sec load-product-sec1">
+                                            <div class="load-product-banner">
+                                                <img src="img/product-bg-img.jpg" alt="">
+                                                <a href="#"><img src="img/tweet-fig.png"></a>
+                                            </div>
+                                            <div class="load-product-main">
+                                                <h4>AromaTech <a href="#">PRO</a></h4>
+                                                <p><a href="#">Hunter &amp; Fisherman</a> . Baton Rouge, LA</p>
+                                                <a class="connected-btn" href="#"><i class="material-icons">check_circle</i><span>Connected</span></a>
+                                                <div class="product-tooltip-sec">
+                                                    <a href="#" class="product-tec-img"><img src="img/mikn-img.jpg" alt="">
+                                                    </a><a href="#" class="product-tec-img"><img src="img/mikn-img.jpg" alt="">
+                                                    </a><a href="#" class="product-tec-img"><img src="img/mikn-img.jpg" alt="">
+                                                    </a><a href="#" class="product-tec-img"><img src="img/mikn-img.jpg" alt=""></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix edge_float">
+                            <div class="fll">
+                                <div class="load-product-sec">
+                                    <div class="load-product-banner">
+                                        <img src="img/zhtp2.jpg" alt="">
+                                        <a href="#"><img src="img/779352843636563968_03.png" alt=""></a>
+                                    </div>
+                                    <div class="load-product-main">
+                                        <h4>AromaTech <span>London,GB</span></h4>
+                                        <p>The Home of Luxury Accessories for Men</p>
+                                        <div class="load-product-info">
+                                            <a href="#"><img src="img/lproduct1.jpg" alt=""></a>
+                                            <a href="#"><img src="img/lproduct2.jpg" alt=""></a>
+                                            <a href="#"><img src="img/lproduct3.jpg" alt=""></a>
+                                        </div>
+                                    </div>
+                                    <div class="load-product-foot">
+                                        <a href="#" class="load-product-btn">View Store</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="fll">
+                                <div class="load-product-sec">
+                                    <div class="load-product-banner">
+                                        <img src="img/20151112093155368.jpg" alt="">
+                                        <a href="#"><img src="img/779352843636563968_03.png" alt=""></a>
+                                    </div>
+                                    <div class="load-product-main">
+                                        <h4>AromaTech <span>London,GB</span></h4>
+                                        <p>The Home of Luxury Accessories for Men</p>
+                                        <div class="load-product-info">
+                                            <a href="#"><img src="img/lproduct1.jpg" alt=""></a>
+                                            <a href="#"><img src="img/lproduct2.jpg" alt=""></a>
+                                            <a href="#"><img src="img/lproduct3.jpg" alt=""></a>
+                                        </div>
+                                    </div>
+                                    <div class="load-product-foot">
+                                        <a href="#" class="load-product-btn">View Store</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="block-inner">
+                            <div class="block-add background-block-add" style="display:none">
+                                <div class="block-outer">
+                                    <div class="block-post">
+                                        <div class="feed-top-sec clearfix">
+                                            <div class="feed-top-left">
+                                                <p><em class="feed-person-btn"><img src="img/profile-img1.png" alt=""> <strong>Akilli M. Johnson</strong></em> <span>Beautiful Picture in the World</span><i>February 22 at 7:20 am </i></p>
+                                                <div class="feed-person-sec">
+                                                    <!-- <span class="clip-btn"></span> -->
+                                                    <div class="feed-upper-sec">
+                                                        <div class="feed-upper-banner">
+                                                            <a class="btn follow-btn" href="#"><img src="img/blue-buzz.png" alt=""><span>Follow</span></a>
+                                                        </div>
+                                                        <div class="feed-banner-botsec">
+                                                            <div class="clearfix">
+                                                                <div class="feed-banner-botinfo">
+                                                                    <a href="#"><img src="img/profile-img2.png" alt=""></a>
+                                                                    <h3>mykal <span>@mykalmorton</span></h3>
+                                                                </div>
+                                                                <div class="feed-banner-botsocial">
+                                                                    <a href="#"><img src="img/feed_social-icon1.jpg" alt=""></a>
+                                                                    <a href="#"><img src="img/feed_social-icon2.jpg" alt=""></a>
+                                                                    <a href="#"><img src="img/feed_social-icon3.jpg" alt=""></a>
+                                                                </div>
+                                                            </div>
+                                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit inventore commodi hic quam minima!</p>
+                                                        </div>
+                                                        <div class="follow-sec clearfix">
+                                                            <div class="follow-left-sec">
+                                                                <span>200</span><i>Connections</i>
+                                                            </div>
+                                                            <div class="follow-right-sec">
+                                                                <span>1.9M</span><i>Followers</i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="feed-lower-sec">
+                                                        <h3><i>- Famous Recipes -</i></h3>
+                                                        <div class="feed-inner-sec clearfix">
+                                                            <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                            <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                            <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                            <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                        </div>
+                                                        <a class="more-btn" href="#">more</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="feed-top-right">
+                                                <strong><b class="anim-icon retweet in feed-popup-btn"></b><small>14</small></strong>
+                                                <div class="feed-tooltip-sec">
+                                                    <a href="#" class="tool-img"><img src="img/mikn-img.jpg" alt="">
+                                                    </a><a href="#" class="tool-img"><img src="img/mikn-img.jpg" alt="">
+                                                    </a><a href="#" class="tool-img"><img src="img/mikn-img.jpg" alt="">
+                                                    </a><a href="#" class="tool-img"><img src="img/mikn-img.jpg" alt="">
+                                                    </a><a href="#" class="tool-img"><img src="img/mikn-img.jpg" alt="">
+                                                    </a><a href="#" class="tool-img"><img src="img/mikn-img.jpg" alt="">
+                                                    </a><a href="#" class="tool-icon"><i class="material-icons">more_horiz</i></a>
+                                                </div>
+                                                <i class="dropdown-toggle material-icons pen-btn">sort</i>
+                                                <ul class="dropdown-menu">
+                                                    <li class="hide-block"><a href="#"><i class="material-icons">visibility_off</i><span>I don't want to see this</span></a></li>
+                                                    <li><a href="#"><i class="material-icons">subject</i><span>Hide all for Chris Beek</span></a></li>
+                                                    <li><a href="#"><i class="material-icons">flag</i><span>Report abuse</span></a></li>
+                                                    <li><a href="#"><i class="material-icons">remove_circle</i><span>Remove connection</span></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="video-wrap active video-img-wrap">
+                                            <div class="video-sec">
+                                                <a class="video_img" href="#"><img src="img/947590567435438008_c49b2533f229.jpg" alt=""></a>
+                                            </div>
+                                        </div>
+                                        <div class="feed-heading-wrap clearfix">
+                                            <div class="feed-heading-left">
+                                                <h2 class="feed-title"><a class="box-cart-btn" href="#">$425</a>Lorem ipsum dolor sit amet.<span class="clip-marker"><img src="img/clip-icon.png" alt=""></span></h2>
+                                            </div>
+                                            <div class="feed-heading-right">
+                                                <span class="star-sec"><i><img src="img/star.png" alt="">
+                                                    </i><i><img src="img/star.png" alt="">
+                                                    </i><i><img src="img/star.png" alt="">
+                                                    </i><i><img src="img/star.png" alt="">
+                                                    </i><i><img src="img/star-o.png" alt=""></i>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="block-info-sec">
+                                            <p>I bet you didn't think you could make cookies using the Anova Precision Cooker. Sous vide cookies might look a little different than the typical oven recipe — here I've cooked the batter in small canning jars and then cut the results into round bars — but they're far more fun to make. You can't just use any dough recipe</p>
+                                            <div class="expand-sec">
+                                                <div class="comment-bar">
+                                                    <span>14 Comments</span>
+                                                </div>
+                                                <div class="expand-left-sec">
+                                                    <div class="visible-active">
+                                                        <span class="chat-btn active"><i class="material-icons">chat</i></span><span><i class="equalizerBtn material-icons">equalizer</i></span>
+                                                    </div>
+                                                    <div class="hide-active">
+                                                        <span class="chat-btn"><i class="material-icons">chat</i> 32 Comment</span>
+                                                    </div>
+                                                </div>
+                                                <div class="expand-right-sec">
+                                                    <div class="visible-active">
+                                                        <a class="dropdown-toggle" href="#">Sort by Best <i class="material-icons">arrow_drop_down</i></a>
+                                                        <ul class="dropdown-menu"> <li><a href="#">Action</a></li> <li><a href="#">Another action</a></li> <li><a href="#">Something else here</a></li> <li role="separator" class="divider"></li> <li><a href="#">Separated link</a></li> </ul>
+                                                    </div>
+                                                    <div class="hide-active">
+                                                        <span><i class="equalizerBtn material-icons">equalizer</i></span><span class="heart-sec"><i class="anim-icon heart"></i> 14</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="comment-chat-wrap">
+                                            <div class="comment-chat-bar">
+                                                    <form class="pushing-form">
+                                                        <a href="#"><img src="img/jeff.jpg" alt=""></a>
+                                                        <span><i class="anim-icon camera"></i><textarea placeholder="What do you want to share?"></textarea></span>
+                                                        <div class="icon-sec clearfix">
+                                                            <button type="submit">Send</button>
+                                                            <div class="icon-sec-right">
+                                                                <em href="#"><span class="anim-icon camera"></span> media</em>
+                                                                <em href="#"><i class="material-icons">location_on</i> <b>Location</b></em>
+                                                                <em href="#"><i class="material-icons">unarchive</i> <b>Poll</b></em>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            <div class="latest-comment-chat comment-chat-sec">
+                                                <div class="comment-chat-fig">
+                                                    <a href="#"><img src="img/chat-icon1.jpg" alt=""></a>
+                                                    <div class="feed-person-sec">
+                                                        <span class="clip-btn"></span>
+                                                        <div class="feed-upper-sec">
+                                                            <a href="#"><img src="img/profile-img2.png" alt=""></a>
+                                                            <h3>Cristhofer Andana Alcanio</h3>
+                                                            <address><i class="material-icons">location_on</i> SAN FANCISCO</address>
+                                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit inventore commodi hic quam minima!</p>
+                                                            <a class="btn follow-btn" href="#">Follow</a>
+                                                            <div class="follow-sec clearfix">
+                                                                <div class="follow-left-sec">
+                                                                    <span>200</span><i>Connections</i>
+                                                                </div>
+                                                                <div class="follow-right-sec">
+                                                                    <span>1.9M</span><i>Followers</i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="feed-lower-sec">
+                                                            <h3><i>- Famous Recipes -</i></h3>
+                                                            <div class="feed-inner-sec clearfix">
+                                                                <div class="feed-lower-info">
+                                                                    <a href="#"><img src="img/NYCRooftop-8oz_large.jpg" alt=""></a>
+                                                                </div>
+                                                                <div class="feed-lower-info">
+                                                                    <a href="#"><img src="img/NYCRooftop-8oz_large.jpg" alt=""></a>
+                                                                </div>
+                                                            </div>
+                                                            <a class="more-btn" href="#">more</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="comment-chat-info">
+                                                    <h4 class="clearfix"><a href="#">Akilli M. Johnson</a> . 19 Days ago <span><i class="material-icons">favorite</i> 2</span></h4>
+                                                    <p><a href="#">@tsipras_eu As a</a> European, as a classicist, i know that i will never be enough grateful to all the greeks, for what you are doing. </p>
+                                                    <div class="clearfix">
+                                                        <div class="share-reply">
+                                                            <a href=""><span>9</span><span><i class="fa fa-angle-down"></i></span>|<span><i class="fa fa-angle-up"></i></span></a> . <a href="#">Reply</a> . <a href="#">Share <i class="fa fa-angle-right"></i></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="comment-chat-sec">
+                                                <div class="comment-chat-fig">
+                                                    <a href="#"><img src="img/chat-icon1.jpg" alt=""></a>
+                                                    <div class="feed-person-sec">
+                                                        <span class="clip-btn"></span>
+                                                        <div class="feed-upper-sec">
+                                                            <a href="#"><img src="img/profile-img2.png" alt=""></a>
+                                                            <h3>Cristhofer Andana Alcanio</h3>
+                                                            <address><i class="material-icons">location_on</i> SAN FANCISCO</address>
+                                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit inventore commodi hic quam minima!</p>
+                                                            <a class="btn follow-btn" href="#">Follow</a>
+                                                            <div class="follow-sec clearfix">
+                                                                <div class="follow-left-sec">
+                                                                    <span>200</span><i>Connections</i>
+                                                                </div>
+                                                                <div class="follow-right-sec">
+                                                                    <span>1.9M</span><i>Followers</i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="feed-lower-sec">
+                                                            <h3><i>- Famous Recipes -</i></h3>
+                                                            <div class="feed-inner-sec clearfix">
+                                                                <div class="feed-lower-info">
+                                                                    <a href="#"><img src="img/NYCRooftop-8oz_large.jpg" alt=""></a>
+                                                                </div>
+                                                                <div class="feed-lower-info">
+                                                                    <a href="#"><img src="img/NYCRooftop-8oz_large.jpg" alt=""></a>
+                                                                </div>
+                                                            </div>
+                                                            <a class="more-btn" href="#">more</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="comment-chat-info">
+                                                    <h4 class="clearfix"><a href="#">Akilli M. Johnson</a> . 19 Days ago <span><i class="material-icons">favorite</i> 2</span></h4>
+                                                    <p><a href="#">@tsipras_eu As a</a> European, as a classicist, i know that i will never be enough grateful to all the greeks, for what you are doing. </p>
+                                                    <div class="clearfix">
+                                                        <div class="share-reply">
+                                                            <a href=""><span>9</span><span><i class="fa fa-angle-down"></i></span>|<span><i class="fa fa-angle-up"></i></span></a> . <a href="#">Reply</a> . <a href="#">Share <i class="fa fa-angle-right"></i></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <a href="#" class="show-btn">Show More</a>
+                                            <div class="comment-chat-sec">
+                                                <div class="comment-chat-fig">
+                                                    <a href="#"><img src="img/chat-icon1.jpg" alt=""></a>
+                                                    <div class="feed-person-sec">
+                                                        <span class="clip-btn"></span>
+                                                        <div class="feed-upper-sec">
+                                                            <a href="#"><img src="img/profile-img2.png" alt=""></a>
+                                                            <h3>Cristhofer Andana Alcanio</h3>
+                                                            <address><i class="material-icons">location_on</i> SAN FANCISCO</address>
+                                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit inventore commodi hic quam minima!</p>
+                                                            <a class="btn follow-btn" href="#">Follow</a>
+                                                            <div class="follow-sec clearfix">
+                                                                <div class="follow-left-sec">
+                                                                    <span>200</span><i>Connections</i>
+                                                                </div>
+                                                                <div class="follow-right-sec">
+                                                                    <span>1.9M</span><i>Followers</i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="feed-lower-sec">
+                                                            <h3><i>- Famous Recipes -</i></h3>
+                                                            <div class="feed-inner-sec clearfix">
+                                                                <div class="feed-lower-info">
+                                                                    <a href="#"><img src="img/NYCRooftop-8oz_large.jpg" alt=""></a>
+                                                                </div>
+                                                                <div class="feed-lower-info">
+                                                                    <a href="#"><img src="img/NYCRooftop-8oz_large.jpg" alt=""></a>
+                                                                </div>
+                                                            </div>
+                                                            <a class="more-btn" href="#">more</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="comment-chat-info">
+                                                    <h4 class="clearfix"><a href="#">Akilli M. Johnson</a> . 19 Days ago <span><i class="material-icons">favorite</i> 2</span></h4>
+                                                    <p><a href="#">@tsipras_eu As a</a> European, as a classicist, i know that i will never be enough grateful to all the greeks, for what you are doing. </p>
+                                                    <div class="clearfix">
+                                                        <div class="share-reply">
+                                                            <a href=""><span>9</span><span><i class="fa fa-angle-down"></i></span>|<span><i class="fa fa-angle-up"></i></span></a> . <a href="#">Reply</a> . <a href="#">Share <i class="fa fa-angle-right"></i></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <a href="#" class="home-link"><img src="img/header-logo.png" alt=""></a>
+                                        </div>
+                                    </div>
+                                    <div class="sidebarWrap">
+                                        <div class="post-sidebar contentSidebar">
+                                            <span class="arrow-close anim-icon close"></span>
+                                            <div class="post-sidebar-inner">
+                                                <div class="sidebar_slider-sec">
+                                                    <div class="flexslider">
+                                                        <ul class="slides clearfix">
+                                                            <li>
+                                                                <a href="product"><img src="img/gray-bg.jpg" /></a>
+                                                                <a href="#" class="formBtn form_slide_price"><sup>$</sup><span>137</span></a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="product"><img src="img/gray-bg.jpg" /></a>
+                                                                <a href="#" class="formBtn form_slide_price"><sup>$</sup><span>37</span></a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="product"><img src="img/gray-bg.jpg" /></a>
+                                                                <a href="#" class="formBtn form_slide_price"><sup>$</sup><span>3</span></a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="product"><img src="img/gray-bg.jpg" /></a>
+                                                                <a href="#" class="formBtn form_slide_price"><sup>$</sup><span>43</span></a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="chat-wrap">
+                                                    <div class="clearfix">
+                                                        <div class="chat-com-sec chat-left-sec">
+                                                            <a class="" href="#"><i class="material-icons">chat</i> 26 Comment</a>
+                                                        </div>
+                                                        <div class="chat-com-sec chat-right-sec">
+                                                            <span><i class="material-icons">favorite</i></span><span><i class="material-icons">autorenew</i></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="donate-form-sec">
+                                                    <form class="donate-form-inner donate-discription-sec">
+                                                        <div class="donate-discription-info">
+                                                            <h2 class="clearfix"><a href="product">Lorem ipsum dolor sit amet.</a>
+                                                                <span class="star-sec"><i><img src="img/star.png" alt="">
+                                                                    </i><i><img src="img/star.png" alt="">
+                                                                    </i><i><img src="img/star.png" alt="">
+                                                                    </i><i><img src="img/star.png" alt="">
+                                                                    </i><i><img src="img/star-o.png" alt=""></i>
+                                                                </span>
+                                                            </h2>
+                                                            <p class="clearfix">consectetur adipisicing elit. Cumque inventore et laboriosam vel neque laborum, optio quis dicta magni consequatur distinctio hic nemo veniam temporibus, necessitatibus <span class="hidden-txt">repellat culpa facilis iure consectetur adipisicing elit. Cumque inventore et laboriosam vel neque</span><a href="#" class="more-info-btn"></a></p>
+                                                            <div class="donate-discription-inner clearfix">
+                                                                <div class="discription-inner-detail">
+                                                                    <p>Estamailted: <span>May 2016</span></p>
+                                                                </div>
+                                                                <div class="discription-inner-detail">
+                                                                    <p>Estamailted devlivery: <span>May 2016</span></p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-agreed-sec catagary-sec">
+                                                            <div class="clearfix">
+                                                                <div class="form-agreed-left">
+                                                                    <a href="#"><i class="material-icons">loyalty</i> Technology</a>
+                                                                    <a href="#"><i class="material-icons">location_on</i> Sans Fancisco</a>
+                                                                </div>
+                                                                <div class="form-agreed-right">
+                                                                    <a href="#" class="btn btn-purchase formBtn">Checkout</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="post-sidebar formSidebar">
+                                            <span class="arrow-close anim-icon close"></span>
+                                            <div class="post-sidebar-inner">
+                                                <div class="side-slider-outer">
+                                                    <ul class="slides clearfix">
+                                                        <li>
+                                                            <div class="clearfix">
+                                                                <div class="side-slider-fig">
+                                                                    <img src="img/product-img4.jpg" alt="">
+                                                                    <a href="#" class="formBtn form_slide_price"><sup>$</sup><span>37</span></a>
+                                                                </div>
+                                                                <div class="side-slider-info">
+                                                                    <h3>GRILLED SHRIMP<br>WITH VINAIGRETTE</h3>
+                                                                    <p class="product-detail">
+                                                                        <em>Cilantro</em>.
+                                                                        <em>390 g</em>.
+                                                                        <em>610 kcal</em>
+                                                                    </p>
+                                                                    <p><span>25m cooking</span><span>15m delivery</span></p>
+                                                                    <div class="side-slider-btn-sec clearfix">
+                                                                        <div class="slider-btn-left">
+                                                                            <img src="img/product-slider.jpg" alt="">
+                                                                        </div>
+                                                                        <div class="slider-btn-right">
+                                                                            <a href="#" class="btn btn-purchase">Order</a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="clearfix">
+                                                                <div class="side-slider-fig">
+                                                                    <img src="img/product-img4.jpg" alt="">
+                                                                    <a href="#" class="formBtn form_slide_price"><sup>$</sup><span>37</span></a>
+                                                                </div>
+                                                                <div class="side-slider-info">
+                                                                    <h3>GRILLED SHRIMP<br>WITH VINAIGRETTE</h3>
+                                                                    <p class="product-detail">
+                                                                        <em>Cilantro</em>.
+                                                                        <em>390 g</em>.
+                                                                        <em>610 kcal</em>
+                                                                    </p>
+                                                                    <p><span>25m cooking</span><span>15m delivery</span></p>
+                                                                    <div class="side-slider-btn-sec clearfix">
+                                                                        <div class="slider-btn-left">
+                                                                            <img src="img/product-slider.jpg" alt="">
+                                                                        </div>
+                                                                        <div class="slider-btn-right">
+                                                                            <a href="#" class="btn btn-purchase">Order</a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="clearfix">
+                                                                <div class="side-slider-fig">
+                                                                    <img src="img/product-img4.jpg" alt="">
+                                                                    <a href="#" class="formBtn form_slide_price"><sup>$</sup><span>37</span></a>
+                                                                </div>
+                                                                <div class="side-slider-info">
+                                                                    <h3>GRILLED SHRIMP<br>WITH VINAIGRETTE</h3>
+                                                                    <p class="product-detail">
+                                                                        <em>Cilantro</em>.
+                                                                        <em>390 g</em>.
+                                                                        <em>610 kcal</em>
+                                                                    </p>
+                                                                    <p><span>25m cooking</span><span>15m delivery</span></p>
+                                                                    <div class="side-slider-btn-sec clearfix">
+                                                                        <div class="slider-btn-left">
+                                                                            <img src="img/product-slider.jpg" alt="">
+                                                                        </div>
+                                                                        <div class="slider-btn-right">
+                                                                            <a href="#" class="btn btn-purchase">Order</a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="clearfix">
+                                                                <div class="side-slider-fig">
+                                                                    <img src="img/product-img4.jpg" alt="">
+                                                                    <a href="#" class="formBtn form_slide_price"><sup>$</sup><span>37</span></a>
+                                                                </div>
+                                                                <div class="side-slider-info">
+                                                                    <h3>GRILLED SHRIMP<br>WITH VINAIGRETTE</h3>
+                                                                    <p class="product-detail">
+                                                                        <em>Cilantro</em>.
+                                                                        <em>390 g</em>.
+                                                                        <em>610 kcal</em>
+                                                                    </p>
+                                                                    <p><span>25m cooking</span><span>15m delivery</span></p>
+                                                                    <div class="side-slider-btn-sec clearfix">
+                                                                        <div class="slider-btn-left">
+                                                                            <img src="img/product-slider.jpg" alt="">
+                                                                        </div>
+                                                                        <div class="slider-btn-right">
+                                                                            <a href="#" class="btn btn-purchase">Order</a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div class="donate-form-sec">
+                                                    <form class="donate-form-inner">
+                                                        <section>
+                                                            <h3>Payment information</h3>
+                                                            <p>Your payment method will not be changed at this time if the project is successfully funded, your payment method will be changed 178.00 when the projects ends.</p>
+                                                        </section>
+                                                        <section>
+                                                            <h3 class="clearfix">Select payment method</h3>
+                                                            <span><input name="payment" id="radio1" checked="" type="radio"><label for="radio1"><img src="img/visa.png" alt=""><p><b>Card ending in 8080</b>Expires 7-20-29</p><i class="material-icons">edit</i></label></span>
+                                                            <span><input name="payment" id="radio2" type="radio"><label for="radio2">Use a new card<i class="material-icons">edit</i></label></span>
+                                                        </section>
+                                                        <section class="lowersec">
+                                                            <h3 class="clearfix">Select a shipping address</h3>
+                                                            <span><input name="payment1" id="radio3" checked="" type="radio"><label for="radio3"><p>Mykal Michael,<br> 2717 howell st apt 4302, dalla,tx, 75204</p><i class="material-icons">edit</i></label></span>
+                                                            <span><input name="payment1" id="radio4" type="radio"><label for="radio4">Use a new address<i class="material-icons">edit</i></label></span>
+                                                        </section>
+                                                        <div class="form-agreed-sec">
+                                                            <p>By pledging you agree to kickstarter’s <a href="#">Terms of use</a> and <a href="#">Privacy policy</a></p>
+                                                            <div class="clearfix">
+                                                                <div class="form-agreed-left">
+                                                                    <a href="#" class="btn btn-addcart">ADD TO CART</a>
+                                                                </div>
+                                                                <div class="form-agreed-right">
+                                                                    <a href="#" class="btn btn-purchase donateBtn">Purchase</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -3075,7 +6567,199 @@ label.star:before {
     </div>
 </div>
 
-
+<!-- <div class="feed-product-popup feed-popup1 feed-popup3">
+    <div class="feed-modal-dialog">
+        <div class="material-top">
+            <h2>Written Annotations</h2>
+            <i class="material-icons">close</i>
+        </div>
+        <div class="feed-modal-body">
+            <div class="feed-body-main clearfix">
+                <div class="feed-main-lt">
+                    <div class="feed-main-top">
+                        <div class="feed-top-fig">
+                            <img src="img/spon-img1.jpg" alt="">
+                        </div>
+                    </div>
+                    <h4>Discription</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed pariatur nisi, vel. Minima, culpa tempore libero aspernatur consequatur ratione distinctio! Asperiores dolores tempora neque aperiam explicabo quidem temporibus possimus sunt.</p>
+                    <p>From United States of America</p>
+                    <p>From United States of America</p>
+                </div>
+                <div class="feed-main-rt">
+                    <div class="feed-product-info">
+                        <form>                            
+                            <label>Flavor</label>
+                            <span class="arrow-sign">
+                                <select>
+                                    <option value="">Select</option>
+                                    <option value="0">Apple</option>
+                                    <option value="1">Mango</option>
+                                    <option value="2">Mint</option>
+                                </select>
+                            </span>
+                            <div class="clearfix">
+                                <div class="form-selected-left">
+                                    <span><i>qty</i><select class="select1" name="" id="">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                    </select></span><b>$10.00</b>
+                                </div>
+                                <div class="form-selected-right">
+                                    <a href="product-card">Add to Cart</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="delivery-data-sec clearfix">
+                        <h3><a href="#"><img src="img/tweet-fig.png"></a> How to get started</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur et asperiores veritatis explicabo. Nobis, ut, laboriosam. Necessitatibus hic unde maxime alias in rem, odio iusto, amet eos praesentium voluptatem soluta!</p>
+                        <a href="#">Edit</a>
+                    </div>
+                    <div class="delivery-sec">
+                        <table>
+                            <tr>
+                                <td><span>Estimated Delivery:</span></td>
+                                <td>2-5 days to <a href="#">USA</a></td>
+                            </tr>
+                            <tr>
+                                <td><span>Ships from</span></td>
+                                <td>USA</td>
+                            </tr>
+                            <tr>
+                                <td><span>Return Policy</span></td>
+                                <td>30 day returns. <a href="#">View details</a></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="detail-sidebar">
+                        <div class="flip-container">
+                            <div class="flipper">
+                                <div class="front">
+                                    <div class="card-detail">
+                                        <h2>Choose your payment method</h2>
+                                        <div class="card-sec clearfix">
+                                            <div class="card-fig">
+                                                <img src="img/card.jpg" alt="">
+                                            </div>
+                                            <div class="card-info">
+                                                <p>Michael Morton 2817 southern cross garland. TX, 75041</p>
+                                                <input name="card" id="redio1" type="radio"><label for="redio1">Use this card</label>
+                                            </div>
+                                        </div>
+                                        <div class="card-sec clearfix">
+                                            <div class="card-fig">
+                                                <img src="img/card.jpg" alt="">
+                                            </div>
+                                            <div class="card-info">
+                                                <p>Michael Morton 2817 southern cross garland. TX, 75041</p>
+                                                <input name="card" id="redio2" type="radio"><label for="redio2">Use this card</label>
+                                            </div>
+                                        </div>
+                                        <div class="place-btn-sec">
+                                            <a href="#">place order</a>
+                                        </div>
+                                        <div class="card-sec clearfix">
+                                            <a class="addCardLink" href="#">add a new card</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="back">
+                                    <div class="card-outer">
+                                        <h3>payment<span><i class="material-icons">lock</i> Secured by <a href="#">stripe</a></span></h3>
+                                        <div class="card-inner">
+                                            <div class="card-wrapper"></div>
+                                            <div id="form-container" class="active">
+                                                <form class="card-form" action="">
+                                                    <div>
+                                                        <span>
+                                                            <label for="">Name on card</label>
+                                                            <input placeholder="Name on Card" name="name" type="text">
+                                                        </span>                                    
+                                                        <span>
+                                                            <label for="">Card Number</label>
+                                                            <input class="visa identified jp-card-invalid" placeholder="Card Number" name="number" type="text">
+                                                        </span>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-6 columns">
+                                                            <label for="">Expire Date</label>
+                                                            <input placeholder="MM/YY" name="expiry" type="text">
+                                                        </div>
+                                                
+                                                        <div class="col-sm-6 columns">
+                                                            <label for="">Card Code <i class="material-icons">help</i></label>
+                                                            <input placeholder="CVC" name="cvc" type="text">
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <p class="small">You won't to changed until the <a href="#">lockdown date.</a></p>
+                                    </div>
+                                    <div class="place-btn-sec">
+                                        <a href="#">place order</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="knoop-checkout-sec">
+                        <h3>Checkout <span>Ref. 201610-6233</span></h3>
+                        <p>Being the savage's bowsman. that is, the person who pulled the in his boat the second one from forward, it was my</p>
+                        <table>
+                            <tr>
+                                <td>Plan Without Tax</td>
+                                <td>$3999.00</td>
+                            </tr>
+                            <tr>
+                                <td>Val (20%)</td>
+                                <td>$799.80</td>
+                            </tr>
+                            <tr>
+                                <td>Final Price</td>
+                                <td class="final-check">$4798.80</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="knoop-checkout-card">
+                        <h4>invoices informations</h4>
+                        <form action="">
+                            <div class="half-sec clearfix">
+                                <div class="half"><label for="">Company Name</label><span><input type="text"></span></div>
+                                <div class="half"><label for="">VAT</label><span><input type="text"></span></div>
+                            </div>
+                            <div class="full"><label for="">Card Number</label><span><input maxlength="19" type="text"><img src="img/visa.png" alt=""></span></div>
+                            <div class="multy-sec clearfix">
+                                <div class="multy"><label for="">Card Holder</label><span><input type="text" placeholder="Name"></span></div>
+                                <div class="multy-sel">
+                                    <label for="">Expiration Date</label>
+                                    <span><select name="" id="">
+                                        <option value="0">1</option>
+                                        <option value="1">2</option>
+                                        <option value="2">3</option>
+                                    </select>
+                                    </span><span><select name="" id="">
+                                        <option value="0">2017</option>
+                                        <option value="1">2018</option>
+                                        <option value="2">2019</option>
+                                    </select></span>
+                                </div>
+                                <div class="multy-one"><label for="">CVC</label><span><input maxlength="3" type="text" placeholder="123"><i class="material-icons">help</i></span></div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="feed-modal-foot clearfix">
+            <div class="feed-foot-rt">
+                <a class="rback" href="#"><span>$49.99 . Pay Now</span></a><a class="next" href="#"><i class="material-icons">lock</i><span>Next</span></a>
+            </div>
+        </div>
+    </div>
+</div> -->
 <div class="feed-product-popup feed-popup1 feed-popup3">
     <div class="feed-modal-dialog">
         <div class="material-top">
@@ -3823,37 +7507,48 @@ label.star:before {
                         updateProfile(file.name,evt.target.responseText,"avatar");
                     }
                     
-                    function updateLike(post_id,value,newVal){
+                    function updateLike(post_id){
+                        // value=0;                        
+                        // if($("#heart_icon_"+post_id).hasClass('active')){
+                        //     value='1';
+                        // }
+                        // else
+                        // {
+                        //     value='0';
+                        // }
+                        curObj=$("#heart_icon_"+post_id);
+                        if ( curObj.hasClass('active') ) {
+                            curObj.removeClass('active');
+                            curObj.parent().removeClass("red");
+                            curObj.parents('.block-add').find('.post-time-sec').removeClass('red');
+                            value=0;
+                        }else{
+                            curObj.addClass('active');
+                            curObj.removeClass('in');
+                            curObj.parent().addClass("red");
+                            curObj.parents('.block-add').find('.post-time-sec').addClass('red');
+                            value=1;
+                        }
+                        Val=$("#like_count_"+post_id).html();
+                            if(value==1)
+                                $("#like_count_"+post_id).html(""+(parseInt(Val)+1));
+                            else{
+                                $("#like_count_"+post_id).html(""+(parseInt(Val)-1));
+                            }
                         var formData;
                         formData='post_id=' + post_id;
-                        formData=formData+'&like_=' + value;
+                        formData=formData+'&like_=' + value;//alert(value);
                         $.ajax({
                           url:'feed/updateLike',
                           type:'GET',
                           data:formData,
-                          success:function(data){                            
-                            $("#like_count_"+post_id).html(""+newVal);
+                          success:function(data){
+                            //$(this).attr('src','ddd');
+                            //alert("Succeeded.");
+                            
                           },
                           error: function (data) {
                               alert("Updating failed.");
-                          }
-                        });
-                    }
-                    function sendComment(sender_id,receiver_id,post_id,content){
-                        var formData;
-                        formData='sender_id=' + sender_id;
-                        formData='&receiver_id=' + receiver_id;
-                        formData='&post_id=' + post_id;
-                        formData='&content=' + content;
-                        $.ajax({
-                          url:'comment/addComment',
-                          type:'GET',
-                          data:formData,
-                          success:function(data){                            
-                            alert("add comment");
-                          },
-                          error: function (data) {
-                            alert("Updating failed.");
                           }
                         });
                     }

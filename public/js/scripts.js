@@ -85,14 +85,14 @@ $(".flyout").find("a").click(function(){
 	$(".flyout-overlay").removeClass("active");
 })
 $('.anim-icon').click(function(){
-    if ( $(this).hasClass('active') ) {
-		$(this).addClass('in');
-		$(this).removeClass('active');
-	}else{
-		$(this).addClass('active');
-		$(this).removeClass('in');
-        $(this).parent().addClass("red");
-	}
+ //    if ( $(this).hasClass('active') ) {
+	// 	$(this).addClass('in');
+	// 	$(this).removeClass('active');
+	// }else{
+	// 	$(this).addClass('active');
+	// 	$(this).removeClass('in');
+ //        $(this).parent().addClass("red");
+	// }
 })
 
 $('.chat-btn').click(function(){

@@ -174,13 +174,13 @@ if ( $('.wow').length > 0 ) {
 }
 
 $('.anim-icon').click(function(){
-    if ( $(this).hasClass('active') ) {
-        $(this).addClass('in');
-        $(this).removeClass('active');
-    }else{
-        $(this).addClass('active');
-        $(this).removeClass('in');
-    }
+    // if ( $(this).hasClass('active') ) {
+    //     $(this).addClass('in');
+    //     $(this).removeClass('active');
+    // }else{
+    //     $(this).addClass('active');
+    //     $(this).removeClass('in');
+    // }
 })
 
 $('.addNewCard').click(function(){
