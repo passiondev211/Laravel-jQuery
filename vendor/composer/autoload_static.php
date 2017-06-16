@@ -357,6 +357,7 @@ class ComposerStaticInit265349c6df59d15bcc423ff9baed00b5
         'CreateCommentsTable' => __DIR__ . '/../..' . '/database/migrations/2017_06_07_184250_create_comments_table.php',
         'CreateFeedsTable' => __DIR__ . '/../..' . '/database/migrations/2017_06_07_183909_create_feeds_table.php',
         'CreateFollowTable' => __DIR__ . '/../..' . '/database/migrations/2017_06_07_184316_create_follow_table.php',
+        'CreateLikeTable' => __DIR__ . '/../..' . '/database/migrations/2017_06_15_202948_create_like_table.php',
         'CreatePasswordResetsTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
         'CreatePostTable' => __DIR__ . '/../..' . '/database/migrations/2017_05_18_181248_create_post_table.php',
         'CreateProfilesTable' => __DIR__ . '/../..' . '/database/migrations/2017_06_13_045238_create_profiles_table.php',

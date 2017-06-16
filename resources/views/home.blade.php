@@ -220,8 +220,8 @@
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum eos illo fuga officiis aperiam.</p>
                         <form>
                             <input type="text" #fullname name="fullname1" id="fullname1" placeholder="Full name">
-                            <input type="email" #email name="email1" id="email1" placeholder="Email">
-                            <input type="text" #password name="password" id="password" placeholder="Create a password">
+                            <input type="email" #email name="email1" id="email1" placeholder="Email2">
+                            <input type="password" #password name="password" id="password" placeholder="Create a password">
                             <input type="text" #username name="username" id="username" placeholder="User name">
                             <p><small>Our kanoop page: <a href="#">http://kanoop.com/<span></span></a></small></p>
                             <button class="join-next-step" type="button">Join kanoop</button>
@@ -2492,11 +2492,10 @@
                         data:data1,
                         processData: false,
                         success:function(data){
-                            var userdata = data['user'];
+                            var userdata = data['user'];              
                               localStorage.setItem('fullname',userdata['fullname']);
                               localStorage.setItem('email',userdata['email']);
-                              //localStorage.setItem('currentUser',userdata);                              
-                              //console.log(userdata);
+                              localStorage.setItem('currentUser',userdata);
                               location.href="feed";
                         },
                         error: function (data) {

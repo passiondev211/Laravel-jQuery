@@ -148,7 +148,7 @@ $('.tweet-fig-link').click(function(){
     return false;
 })
 $(document).ready(function(){
-    $('body').addClass('notic-body');
+    //$('body').addClass('notic-body');
 })
 $('.notic-close-link, .close-noti-btn,.notification-btn').click(function(){
     $('body').removeClass('notic-body');

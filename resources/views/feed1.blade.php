@@ -1802,14 +1802,14 @@ label.star:before {
                                                 <p>I bet you didn't think you could make cookies using the Anova Precision Cooker. Sous vide cookies might look a little different than the typical oven recipe — here I've cooked the batter in small canning jars and then cut the results into round bars — but they're far more fun to make. You can't just use any dough recipe</p>
                                                 <div class="expand-sec">
                                                     <div class="comment-bar">
-                                                        <span>{{count($article->comments)}} Comments</span>
+                                                        <span>14 Comments</span>
                                                     </div>
                                                     <div class="expand-left-sec">
                                                         <div class="visible-active">
                                                             <span class="chat-btn active"><i class="material-icons">chat</i></span><span><i class="equalizerBtn material-icons">equalizer</i></span>
                                                         </div>
                                                         <div class="hide-active">
-                                                            <span class="chat-btn"><i class="material-icons">chat</i> <span>{{count($article->comments)}} Comment</span></span>
+                                                            <span class="chat-btn"><i class="material-icons">chat</i> <span>32 Comment</span></span>
                                                         </div>
                                                     </div>
                                                     <div class="expand-right-sec">
@@ -2328,10 +2328,10 @@ label.star:before {
                                             </div>
                                             <div class="block-info-sec">
                                                 <div class="expand-sec">
-                                                    <div class="expand-right-sec" id="heart_{{$article->id}}" >
+                                                    <div class="expand-right-sec" id="heart_{{$article->id}}" onclick="javascript:updateLike({{$article->id}})">
                                                         <span></span>
                                                         @if($article->like=='0')
-                                                            <span class="heart-sec" onclick="javascript:updateLike({{$article->id}},1,{{$article->like_count+1}})"><i class="anim-icon heart">
+                                                            <span class="heart-sec"><i class="anim-icon heart">
                                                             </i></span>
                                                         @else
                                                             <span class="heart-sec red"><i id="heart_icon_{{$article->id}}" class="anim-icon heart active">
@@ -3823,37 +3823,34 @@ label.star:before {
                         updateProfile(file.name,evt.target.responseText,"avatar");
                     }
                     
-                    function updateLike(post_id,value,newVal){
+                    function updateLike(post_id){
+                        value=0;                        
+                        if($("#heart_icon_"+post_id).hasClass('active')){
+                            value='1';
+                        }
+                        else
+                        {
+                            value='0';
+                        }
                         var formData;
                         formData='post_id=' + post_id;
-                        formData=formData+'&like_=' + value;
+                        formData=formData+'&like_=' + value;alert(value);
                         $.ajax({
                           url:'feed/updateLike',
                           type:'GET',
                           data:formData,
-                          success:function(data){                            
-                            $("#like_count_"+post_id).html(""+newVal);
+                          success:function(data){
+                            //$(this).attr('src','ddd');
+                            //alert("Succeeded.");
+                            Val=$("#like_count_"+post_id).html();
+                            if(value=='1')
+                                $("#like_count_"+post_id).html(""+(parseInt(Val)+1));
+                            else{
+                                $("#like_count_"+post_id).html(""+(parseInt(Val)-1));
+                            }
                           },
                           error: function (data) {
                               alert("Updating failed.");
-                          }
-                        });
-                    }
-                    function sendComment(sender_id,receiver_id,post_id,content){
-                        var formData;
-                        formData='sender_id=' + sender_id;
-                        formData='&receiver_id=' + receiver_id;
-                        formData='&post_id=' + post_id;
-                        formData='&content=' + content;
-                        $.ajax({
-                          url:'comment/addComment',
-                          type:'GET',
-                          data:formData,
-                          success:function(data){                            
-                            alert("add comment");
-                          },
-                          error: function (data) {
-                            alert("Updating failed.");
                           }
                         });
                     }

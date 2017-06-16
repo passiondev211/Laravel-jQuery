@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProfilesTable extends Migration
+class CreateLikeTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,14 +12,11 @@ class CreateProfilesTable extends Migration
      */
     public function up()
     {
-        Schema::create('profiles',function(Blueprint $table){
+        Schema::create('likes',function(Blueprint $table){
             $table->increments('id');
             $table->string('user_id');
-            $table->string('avatar');
-            $table->string('description');
-            $table->string('birthYear');
-            $table->string('birthMonth');
-            $table->string('birthDate');
+            $table->string('post_id');
+            $table->integer('like_');
             $table->timestamps();
         });
     }

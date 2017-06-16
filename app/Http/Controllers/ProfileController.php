@@ -46,6 +46,19 @@ class ProfileController extends Controller
         \Session::set('cur_user_profile',$curProfile);
         return $curProfile;
     }
+    public static function getProfileFromUserId($user_id){  
+        $matchThese = ['user_id' =>$user_id];
+        $curProfile = Profile::where($matchThese)->get();
+        $profile = new Profile;
+        
+        if($curProfile==null || $curProfile->first()==null){
+            $curProfile=new Profile;
+        }
+        else{
+            $curProfile=$curProfile->first();
+        }
+        return $curProfile;
+    }
     public function avatar_upload(Request $request){
         $fileInfo="";
     	if ($request->hasFile('video')) {

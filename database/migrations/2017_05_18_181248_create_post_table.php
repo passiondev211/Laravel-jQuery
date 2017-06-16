@@ -25,6 +25,7 @@ class CreatePostTable extends Migration
             $table->string('file_encname');
             $table->string('type');
             $table->string('note');
+            $table->integer('like');
             $table->timestamps();
         });
     }

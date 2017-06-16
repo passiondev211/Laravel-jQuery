@@ -85,12 +85,13 @@ $(".flyout").find("a").click(function(){
 	$(".flyout-overlay").removeClass("active");
 })
 $('.anim-icon').click(function(){
-	if ( $(this).hasClass('active') ) {
+    if ( $(this).hasClass('active') ) {
 		$(this).addClass('in');
 		$(this).removeClass('active');
 	}else{
 		$(this).addClass('active');
 		$(this).removeClass('in');
+        $(this).parent().addClass("red");
 	}
 })
 
@@ -205,7 +206,7 @@ $('.block-right textarea, #contents > .block-textarea-outer textarea').not('.ico
         if (!$(this).hasClass("expand")) {
             click_elem.parents('.block-textarea-outer').find('.post-title').show().focus();
             click_elem.addClass('post-text');
-            click_elem.val("");
+            //click_elem.val("");
             $(this).addClass('expand');
             click_elem.parents('.block-textarea-outer').find('.block-textarea-left i.material-icons').text('public');
             click_elem.attr("placeholder", "Add a description");
@@ -218,7 +219,7 @@ $(document).click(function() {
     var outer_elem = $('.block-right textarea, #contents > .block-textarea-outer textarea').not('.icon-sec ,.icon-sec-right').parents('.block-textarea-outer');
     $('.block-right textarea, #contents > .block-textarea-outer textarea').not('.icon-sec ,.icon-sec-right')
         .attr("placeholder", "What's happening?")
-        .val("What's happening")
+        //.val("What's happening")
         .removeClass('post-text');
     outer_elem.find('.post-title').hide();
     outer_elem.find('.block-textarea-left i.material-icons').text('select_all');

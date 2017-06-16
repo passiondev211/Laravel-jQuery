@@ -53,7 +53,7 @@ class UserController extends AppBaseController
     public function store(CreateUserRequest $request)
     {
         $user = $this->userRepository->create([
-            'fullname' => $request->name,
+            'fullname' => $request->fullname,
             'email' => $request->email,
             'password' => bcrypt($request->password),
             'username' => $request->username,

@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
-
+use App\Http\Controllers\ProfileController;
 class User extends Authenticatable
 {
     /**
@@ -12,7 +12,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'provider', 'provider_id'
+        'id', 'fullname', 'email','password','username','state','phonenum','verifycode','avatar'
     ];
 
     /**
@@ -20,6 +20,15 @@ class User extends Authenticatable
      *
      * @var array
      */
+
+    public function getProfile(){
+        return ProfileController::getProfileFromUserId($this->id);
+    }
+
+    public static function getAllUsers(){
+        return User::selectRaw('id,fullname,email,username')
+                ->get();
+    }
     protected $hidden = [
         'password', 'remember_token',
     ];

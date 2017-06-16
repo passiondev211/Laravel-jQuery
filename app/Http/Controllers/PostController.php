@@ -15,6 +15,7 @@ class PostController extends Controller
         $blog = new Post;
         $blog->title = $data['title'];   
         $blog->author = $data['author'];
+        $blog->user_id = \Session::get('cur_user')->id;
         $blog->content = $data['content'];    
         $blog->category = $data['category'];
         $blog->location = $data['location'];

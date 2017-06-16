@@ -17,14 +17,15 @@ Route::post('/adver/register','Advers@store');
 Route::get('/adver/show','Advers@getArticles');
 Route::get('/post/show', 'PostController@getArticles');
 Route::get('/feed/updateMark', 'FeedController@updateMark');
+Route::get('/feed/updateLike', 'FeedController@updateLike');
 Route::post('register', 'AuthenticateController@register');
 Route::post('authenticate', 'AuthenticateController@authenticate');
 Route::get('authenticate/user', 'AuthenticateController@getAuthenticatedUser');
 Route::post('adver/register','Advers@store');
 Route::post('profile/avatar_upload', 'ProfileController@avatar_upload');
 Route::post('profile/update_profile', 'ProfileController@store');
-
-Route::get('/', function () {
+Route::get('/verification3_4', 'FollowController@showOtherUsers');
+ Route::get('/', function () {
     return view('home');
 });
 Route::get('/login', 'AuthenticateController@authenticate');
@@ -57,9 +58,9 @@ Route::get('/verification3_2', function () {
 Route::get('/verification3_3', function () {
     return view('verification3_3');
 });
-Route::get('/verification3_4', function () {
-    return view('verification3_4');
-});
+// Route::get('/verification3_4', function () {
+//     return view('verification3_4');
+// });
 Route::get('/verification3_5', function () {
     return view('verification3_5');
 });

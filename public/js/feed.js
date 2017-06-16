@@ -161,7 +161,9 @@ var sc_project = 3967696;
         $.ajax({
           url:'feed/updateMark',
           type:'GET',
-          data:formData,
+          data method_name: function(attribute) {
+            
+          },ormData,
           success:function(data){
             //$(this).attr('src','ddd');
             //alert("Succeeded.");
@@ -217,7 +219,7 @@ var sc_project = 3967696;
       formData=formData+'&type=' + type;
       formData=formData+'&note=' + "testnotes`+newcontent.author+`";
       $.ajax({
-          url:'post/register',
+          url:'post/register', 
           type:'POST',
           data:formData,
           success:function(data){
@@ -319,7 +321,8 @@ var sc_project = 3967696;
           $('#newMedia').children().first().slideDown("slow");
           $("#newMedia").slideUp("fast");                    
           $("#newMedia").slideDown("slow");
-
+          $('[name="title"]').val("");
+          $('[content="content"]').val("");
           // $('.dropdown-toggle').click(function(){
           //   $(this).parent().find('.dropdown-menu').fadeToggle();
           // });
@@ -346,13 +349,6 @@ var sc_project = 3967696;
       // $(this).parents('.block-add').css('display','none');
       // alert($(this).css('display'));
     }
-
-    $(document).ready(function(){
-        $('.ffff').click(function(){
-            alert('asdfsdf');          
-        })
-    });
-
   
   function checkInputValues(title,content){
     if(title==null || title==""){

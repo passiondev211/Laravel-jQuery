@@ -55,12 +55,13 @@
                     <h4 class="clearfix">Experiences <span><input id="sel-knoop1" checked="" type="checkbox"><label for="sel-knoop1">Select all</label></span></h4>
                     <div class="knoop-slider-inner">
                         <div class="owl-slider1 owl-carousel owl-theme">
+                            @foreach ($otherUsers as $user)
                             <div class="item">
                                 <div class="knoop-item-inner">
                                     <div class="knoop-item-inner-top">
                                         <img src="img/slides.png" alt="">
-                                        <input type="checkbox" id="check1">
-                                        <label for="check1">
+                                        <input type="checkbox" id="check{{$user->id}}">
+                                        <label for="check{{$user->id}}">
                                             <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                                                  viewBox="0 0 98.5 98.5" enable-background="new 0 0 98.5 98.5" xml:space="preserve">
                                               <path class="checkmark" fill="none" stroke-width="8" stroke-miterlimit="10" d="M81.7,17.8C73.5,9.3,62,4,49.2,4
@@ -69,12 +70,13 @@
                                         </label>
                                     </div>
                                     <div class="knoop-item-inner-bot">
-                                        <h5><a href="#"><b>Name</b> <i class="material-icons">check_circle</i><span>@idname</span></a></h5>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                                        <h5><a href="#"><b>{{$user->fullname}}</b> <i class="material-icons">check_circle</i><span>{{$user->username}}</span></a></h5>
+                                        <p>{{$user->getProfile()->description}}</p>
                                     </div>
                                 </div>
                             </div>
-                            <div class="item">
+                            @endforeach
+                            <!-- <div class="item">
                                 <div class="knoop-item-inner">
                                     <div class="knoop-item-inner-top">
                                         <img src="img/slides.png" alt="">
@@ -187,7 +189,7 @@
                                     <h5><a href="#"><b>Name</b> <i class="material-icons">check_circle</i><span>@idname</span></a></h5>
                                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -626,6 +628,7 @@
     function nextVerify(){
         var formData = "";
         formData=formData+'fullname=' + localStorage.getItem('fullname');
+        //alert(formData);
         formData=formData+'&email=' + localStorage.getItem('email');
         formData=formData+'&password=' + localStorage.getItem('password');
         formData=formData+'&username=' + localStorage.getItem('username');
@@ -636,7 +639,7 @@
             url:'register',
             type:'POST',
             data:formData,
-                success:function(data){
+            success:function(data){
                 location.href="verification3_5";
             },
             error:function(data){
