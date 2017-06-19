@@ -1802,14 +1802,14 @@ label.star:before {
                                                 <p>I bet you didn't think you could make cookies using the Anova Precision Cooker. Sous vide cookies might look a little different than the typical oven recipe — here I've cooked the batter in small canning jars and then cut the results into round bars — but they're far more fun to make. You can't just use any dough recipe</p>
                                                 <div class="expand-sec">
                                                     <div class="comment-bar">
-                                                        <span>14 Comments</span>
+                                                        <span>{{count($article->comments)}} Comments</span>
                                                     </div>
                                                     <div class="expand-left-sec">
                                                         <div class="visible-active">
                                                             <span class="chat-btn active"><i class="material-icons">chat</i></span><span><i class="equalizerBtn material-icons">equalizer</i></span>
                                                         </div>
                                                         <div class="hide-active">
-                                                            <span class="chat-btn"><i class="material-icons">chat</i> <span>32 Comment</span></span>
+                                                            <span class="chat-btn"><i class="material-icons">chat</i> <span>{{count($article->comments)}} Comment</span></span>
                                                         </div>
                                                     </div>
                                                     <div class="expand-right-sec">
@@ -1831,13 +1831,13 @@ label.star:before {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="comment-chat-wrap">
+                                            <div class="comment-chat-wrap">                                                
                                                 <div class="comment-chat-bar">
                                                     <form class="pushing-form">
                                                         <a href="#"><img src="img/jeff.jpg" alt=""></a>
-                                                        <span><i class="anim-icon camera"></i><textarea placeholder="What do you want to share?"></textarea></span>
+                                                        <span><i class="anim-icon camera"></i><textarea id="comment_{{$article->id}}" placeholder="What do you want to share?"></textarea></span>
                                                         <div class="icon-sec clearfix">
-                                                            <button type="submit">Send</button>
+                                                            <button onclick="javascript:sendComment({{Session::get('cur_user')->id}},{{$article->user_id}},{{$article->id}},'{{Session::get('cur_user')->username}}','{{Session::get('cur_user')->fullname}}')" type="button">Send</button>
                                                             <div class="icon-sec-right">
                                                                 <em href="#"><span class="anim-icon camera"></span> media</em>
                                                                 <em href="#"><i class="material-icons">location_on</i> <b>Location</b></em>
@@ -1846,63 +1846,8 @@ label.star:before {
                                                         </div>
                                                     </form>
                                                 </div>
-                                                <div class="latest-comment-chat comment-chat-sec">
-                                                    <div class="comment-chat-fig">
-                                                        <a href="#"><img src="img/chat-icon1.jpg" alt=""></a>
-                                                        <div class="feed-person-sec">
-                                                            <!-- <span class="clip-btn"></span> -->
-                                                            <div class="feed-upper-sec">
-                                                                <div class="feed-upper-banner">
-                                                                    <a class="btn follow-btn" href="#"><img src="img/blue-buzz.png" alt=""><span>Follow</span></a>
-                                                                </div>
-                                                                <div class="feed-banner-botsec">
-                                                                    <div class="clearfix">
-                                                                        <div class="feed-banner-botinfo">
-                                                                            <a href="#"><img src="/uploads/avatar/{{$article->authorProfile->avatar}}" alt=""></a>
-                                                                            <h3>{{$article->author}}<span>@mykalmorton(what's this?)</span></h3>
-                                                                        </div>
-                                                                        <div class="feed-banner-botsocial">
-                                                                            <a href="#"><img src="img/feed_social-icon1.jpg" alt=""></a>
-                                                                            <a href="#"><img src="img/feed_social-icon2.jpg" alt=""></a>
-                                                                            <a href="#"><img src="img/feed_social-icon3.jpg" alt=""></a>
-                                                                        </div>
-                                                                    </div>
-                                                                    <p>{{$article->authorProfile->description}}</p>
-                                                                </div>
-                                                                <div class="follow-sec clearfix">
-                                                                    <div class="follow-left-sec">
-                                                                        <span>200</span><i>Connections</i>
-                                                                    </div>
-                                                                    <div class="follow-right-sec">
-                                                                        <span>1.9M</span><i>Followers</i>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="feed-lower-sec">
-                                                                <h3><i>- Famous Recipes -</i></h3>
-                                                                <div class="feed-inner-sec clearfix">
-                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
-                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
-                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
-                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
-                                                                </div>
-                                                                <a class="more-btn" href="#">more</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="comment-chat-info">
-                                                        <h4 class="clearfix"><a href="#">Akilli M. Johnson</a> . 19 Days ago <span><i class="material-icons">favorite</i> 2</span></h4>
-                                                        <p><a href="#">@tsipras_eu As a</a> European, as a classicist, i know that i will never be enough grateful to all the greeks, for what you are doing. </p>
-                                                        <div class="clearfix">
-                                                            <div class="share-reply share-reply-left">
-                                                                <a href="#"><span>9</span><span><i class="fa fa-angle-down"></i></span>|<span><i class="fa fa-angle-up"></i></span></a> <a href="#">Share <i class="fa fa-angle-right"></i></a>
-                                                            </div>
-                                                            <div class="share-reply">
-                                                                <a href="#">Reply</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                
+                                                @if(($comment = $article->latestComment)!=null)
                                                 <div class="comment-chat-sec">
                                                     <div class="comment-chat-fig">
                                                         <a href="#"><img src="img/chat-icon1.jpg" alt=""></a>
@@ -1916,7 +1861,7 @@ label.star:before {
                                                                     <div class="clearfix">
                                                                         <div class="feed-banner-botinfo">
                                                                             <a href="#"><img src="img/profile-img2.png" alt=""></a>
-                                                                            <h3>mykal <span>@mykalmorton</span></h3>
+                                                                            <h3>{{$comment->author->fullname}}<span>@ {{$comment->author->username}}</span></h3>
                                                                         </div>
                                                                         <div class="feed-banner-botsocial">
                                                                             <a href="#"><img src="img/feed_social-icon1.jpg" alt=""></a>
@@ -1924,7 +1869,7 @@ label.star:before {
                                                                             <a href="#"><img src="img/feed_social-icon3.jpg" alt=""></a>
                                                                         </div>
                                                                     </div>
-                                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit inventore commodi hic quam minima!</p>
+                                                                    <p>{{$comment->author->description}}</p>
                                                                 </div>
                                                                 <div class="follow-sec clearfix">
                                                                     <div class="follow-left-sec">
@@ -1948,8 +1893,8 @@ label.star:before {
                                                         </div>
                                                     </div>
                                                     <div class="comment-chat-info">
-                                                        <h4 class="clearfix"><a href="#">Akilli M. Johnson</a> . 19 Days ago <span><i class="material-icons">favorite</i> 2</span></h4>
-                                                        <p><a href="#">@tsipras_eu As a</a> European, as a classicist, i know that i will never be enough grateful to all the greeks, for what you are doing. </p>
+                                                        <h4 class="clearfix"><a href="#">{{$comment->author->fullname}}</a> . {{$comment->period}} Hours ago <span><i id="favourite_icon_{{$comment->id}}" class="material-icons @if($comment->favourite!=0) red @endif" onclick="javascript:updateFavourite({{$comment->id}})">favorite</i><mydiv id="favourite_count_{{$comment->id}}">{{$comment->favourite_count}}</mydiv></span></h4>
+                                                        <p><a href="#">{{$comment->content}}</a></p>
                                                         <div class="clearfix">
                                                             <div class="share-reply share-reply-left">
                                                                 <a href="#"><span>9</span><span><i class="fa fa-angle-down"></i></span>|<span><i class="fa fa-angle-up"></i></span></a> <a href="#">Share <i class="fa fa-angle-right"></i></a>
@@ -1960,7 +1905,16 @@ label.star:before {
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <a href="#" class="show-btn">Show More</a>
+                                                <div class="newest_chat_sec">
+                                                </div>
+                                                <a onclick="javascript:showDetailComment('{{$article->id}}')" id="showHideBtn_{{$article->id}}" href="#" class="show-btn">Show More</a>  
+                                                @else
+                                                <div class="newest_chat_sec">
+                                                </div>                                                
+                                                @endif
+                                                
+                                                <div class="chat_sec" id="chat_sec_{{$article->id}}" style="display: none;">
+                                                @foreach ($article->comments as $comment)
                                                 <div class="comment-chat-sec">
                                                     <div class="comment-chat-fig">
                                                         <a href="#"><img src="img/chat-icon1.jpg" alt=""></a>
@@ -1974,7 +1928,7 @@ label.star:before {
                                                                     <div class="clearfix">
                                                                         <div class="feed-banner-botinfo">
                                                                             <a href="#"><img src="img/profile-img2.png" alt=""></a>
-                                                                            <h3>mykal <span>@mykalmorton</span></h3>
+                                                                            <h3>{{$comment->author->fullname}}<span>@ {{$comment->author->username}}</span></h3>
                                                                         </div>
                                                                         <div class="feed-banner-botsocial">
                                                                             <a href="#"><img src="img/feed_social-icon1.jpg" alt=""></a>
@@ -1982,7 +1936,7 @@ label.star:before {
                                                                             <a href="#"><img src="img/feed_social-icon3.jpg" alt=""></a>
                                                                         </div>
                                                                     </div>
-                                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit inventore commodi hic quam minima!</p>
+                                                                    <p>{{$comment->author->description}}</p>
                                                                 </div>
                                                                 <div class="follow-sec clearfix">
                                                                     <div class="follow-left-sec">
@@ -2006,8 +1960,8 @@ label.star:before {
                                                         </div>
                                                     </div>
                                                     <div class="comment-chat-info">
-                                                        <h4 class="clearfix"><a href="#">Akilli M. Johnson</a> . 19 Days ago <span><i class="material-icons">favorite</i> 2</span></h4>
-                                                        <p><a href="#">@tsipras_eu As a</a> European, as a classicist, i know that i will never be enough grateful to all the greeks, for what you are doing. </p>
+                                                        <h4 class="clearfix"><a href="#">{{$comment->author->fullname}}</a> . {{$comment->period}} Hours ago <span><i id="favourite_icon_{{$comment->id}}" class="material-icons @if($comment->favourite!=0) red @endif" onclick="javascript:updateFavourite({{$comment->id}})">favorite</i><mydiv id="favourite_count_{{$comment->id}}">{{$comment->favourite_count}}</mydiv></span></h4>
+                                                        <p><a href="#">{{$comment->content}}</a></p>
                                                         <div class="clearfix">
                                                             <div class="share-reply share-reply-left">
                                                                 <a href="#"><span>9</span><span><i class="fa fa-angle-down"></i></span>|<span><i class="fa fa-angle-up"></i></span></a> <a href="#">Share <i class="fa fa-angle-right"></i></a>
@@ -2018,6 +1972,8 @@ label.star:before {
                                                         </div>
                                                     </div>
                                                 </div>
+                                                @endforeach
+                                                </div>                                        
                                                 <a href="#" class="home-link"><img src="img/header-logo.png" alt=""></a>
                                             </div>
                                         </div>
@@ -2238,7 +2194,7 @@ label.star:before {
                                             </div>
                                         </div>
                                     </div>
-                                </div> 
+                                </div>  
                                 @else                                
                                 <div class="block-add">
                                     <div class="block-left">
@@ -7552,6 +7508,81 @@ label.star:before {
                           }
                         });
                     }
+
+                    function updateFavourite(post_id){
+                        //alert(post_id);
+                        // value=0;                        
+                        // if($("#heart_icon_"+post_id).hasClass('active')){
+                        //     value='1';
+                        // }
+                        // else
+                        // {
+                        //     value='0';
+                        // }
+                        curObj=$("#favourite_icon_"+post_id);
+                        if ( curObj.hasClass('red') ) {
+                            curObj.removeClass('red');
+                            value=0;
+                        }else{
+                            curObj.addClass('red');
+                            value=1;
+                        }
+                        Val=$("#favourite_count_"+post_id).html();
+                            if(value==1)
+                                $("#favourite_count_"+post_id).html(""+(parseInt(Val)+1));
+                            else{
+                                $("#favourite_count_"+post_id).html(""+(parseInt(Val)-1));
+                            }
+                        var formData;
+                        formData='post_id=' + post_id;
+                        formData=formData+'&like_=' + value;//alert(value);
+                        $.ajax({
+                          url:'feed/updateFavourite',
+                          type:'GET',
+                          data:formData,
+                          success:function(data){
+                            //$(this).attr('src','ddd');
+                            //alert("Succeeded.");
+                            
+                          },
+                          error: function (data) {
+                              alert("Updating failed.");
+                          }
+                        });
+                    }
+
+                    function sendComment(sender_id,receiver_id,post_id,username,fullname){
+                        content=$("#comment_"+post_id).val();
+                        // alert("sdfsdfsdfsf");
+                        var formData;
+                        formData='sender_id=' + sender_id;
+                        formData=formData + '&receiver_id=' + receiver_id;
+                        formData=formData + '&post_id=' + post_id;
+                        formData=formData + '&content=' + content;
+                        $.ajax({
+                          url:'comment/send',
+                          type:'POST',
+                          data:formData,
+                          success:function(data){
+                            insertCommentElement(username,fullname,content);
+                          },
+                          error: function (data) {
+                            alert("Updating failed.");
+                          }
+                        });
+                    }
+
+                    function showDetailComment(post_id){
+                        if($("#chat_sec_"+post_id).css("display")=='none'){                            
+                            $("#showHideBtn_"+post_id).html("Hide");
+                        }
+                        else{
+                           $("#showHideBtn_"+post_id).html("Show More");
+                        }
+                        $("#chat_sec_"+post_id).slideToggle();                        
+                    }
+
+
                 </script>
 
 </body>

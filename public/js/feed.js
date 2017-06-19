@@ -316,9 +316,10 @@ var sc_project = 3967696;
           `;
           $('#newMedia').after($('#newMedia').children().first());
           $('#newMedia').html(xx);
-          $('#newMedia').children().first().slideDown("slow");
-          $("#newMedia").slideUp("fast");                    
-          $("#newMedia").slideDown("slow");
+          $("#newMedia").find(".block-outer").slideDown("slow");
+          // $('#newMedia').children().first().slideDown("slow");
+          $("#newMedia").slideDown("fast");                    
+          // $("#newMedia").slideDown("slow");
           $('[name="title"]').val("");
           $('[content="content"]').val("");
           // $('.dropdown-toggle').click(function(){
@@ -337,9 +338,11 @@ var sc_project = 3967696;
     }
 
     $('.hide-block').click(function(){
-        $(this).parents('.block-add').css('display','none');
-        $(this).parents('.block-add').find('.post-time-sec').toggleClass('red');
-        $(this).toggleClass('red');
+        $(this).parents('.block-outer').slideUp("slow");
+        //$(this).parents('.block-add').slideUp("slow");
+        //$(this).parents('.block-add').slideDown("slow");
+        //$(this).parents('.block-add').find('.post-time-sec').toggleClass('red');
+        //$(this).toggleClass('red');
     })
 
   
@@ -353,6 +356,72 @@ var sc_project = 3967696;
       return false;
     }
     return true;
+  }
+
+  function insertCommentElement(username,fullname,content){
+    var xx = `<div class="comment-chat-sec">
+                                                    <div class="comment-chat-fig">
+                                                        <a href="#"><img src="img/chat-icon1.jpg" alt=""></a>
+                                                        <div class="feed-person-sec">
+                                                            <!-- <span class="clip-btn"></span> -->
+                                                            <div class="feed-upper-sec">
+                                                                <div class="feed-upper-banner">
+                                                                    <a class="btn follow-btn" href="#"><img src="img/blue-buzz.png" alt=""><span>Follow</span></a>
+                                                                </div>
+                                                                <div class="feed-banner-botsec">
+                                                                    <div class="clearfix">
+                                                                        <div class="feed-banner-botinfo">
+                                                                            <a href="#"><img src="img/profile-img2.png" alt=""></a>
+                                                                            <h3>{{`+username+`<span>@mykalmorton</span></h3>
+                                                                        </div>
+                                                                        <div class="feed-banner-botsocial">
+                                                                            <a href="#"><img src="img/feed_social-icon1.jpg" alt=""></a>
+                                                                            <a href="#"><img src="img/feed_social-icon2.jpg" alt=""></a>
+                                                                            <a href="#"><img src="img/feed_social-icon3.jpg" alt=""></a>
+                                                                        </div>
+                                                                    </div>
+                                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit inventore commodi hic quam minima!</p>
+                                                                </div>
+                                                                <div class="follow-sec clearfix">
+                                                                    <div class="follow-left-sec">
+                                                                        <span>200</span><i>Connections</i>
+                                                                    </div>
+                                                                    <div class="follow-right-sec">
+                                                                        <span>1.9M</span><i>Followers</i>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="feed-lower-sec">
+                                                                <h3><i>- Famous Recipes -</i></h3>
+                                                                <div class="feed-inner-sec clearfix">
+                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                </div>
+                                                                <a class="more-btn" href="#">more</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="comment-chat-info">
+                                                        <h4 class="clearfix"><a href="#">`+fullname+`</a> . 0 Hours ago <span><i class="material-icons">favorite</i> 2</span></h4>
+                                                        <p><a href="#">`+content+`</a></p>
+                                                        <div class="clearfix">
+                                                            <div class="share-reply share-reply-left">
+                                                                <a href="#"><span>9</span><span><i class="fa fa-angle-down"></i></span>|<span><i class="fa fa-angle-up"></i></span></a> <a href="#">Share <i class="fa fa-angle-right"></i></a>
+                                                            </div>
+                                                            <div class="share-reply">
+                                                                <a href="#">Reply</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>`;
+                                                $('.newest_chat_sec').before($('.newest_chat_sec').children().first());
+          $('.newest_chat_sec').html(xx);
+          $('.newest_chat_sec').children().first().slideDown("slow");
+          $(".newest_chat_sec").slideUp("fast");                    
+          $(".newest_chat_sec").slideDown("slow");
+
   }
 
   

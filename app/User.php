@@ -25,6 +25,10 @@ class User extends Authenticatable
         return ProfileController::getProfileFromUserId($this->id);
     }
 
+    public static function getUser($id) {
+        return User::find($id);
+    }
+
     public static function getAllUsers(){
         return User::selectRaw('id,fullname,email,username')
                 ->get();

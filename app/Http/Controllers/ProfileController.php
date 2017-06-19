@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Storage;
 use App\Profile;
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -49,6 +50,8 @@ class ProfileController extends Controller
     public static function getProfileFromUserId($user_id){  
         $matchThese = ['user_id' =>$user_id];
         $curProfile = Profile::where($matchThese)->get();
+
+        $user=User::getUser($user_id);
         $profile = new Profile;
         
         if($curProfile==null || $curProfile->first()==null){
@@ -57,6 +60,9 @@ class ProfileController extends Controller
         else{
             $curProfile=$curProfile->first();
         }
+        $curProfile->fullname=$user->fullname;
+        $curProfile->username=$user->username;
+        //$curProfile->fullname=$user->fullname;
         return $curProfile;
     }
     public function avatar_upload(Request $request){

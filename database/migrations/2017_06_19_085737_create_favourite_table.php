@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCommentsTable extends Migration
+class CreateFavouriteTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,12 +12,11 @@ class CreateCommentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('comments',function(Blueprint $table){
+        Schema::create('favourites',function(Blueprint $table){
             $table->increments('id');
-            $table->string('sender_id');
-            $table->string('receiver_id');
+            $table->string('user_id');
             $table->string('post_id');
-            $table->string('content');
+            $table->integer('like_');
             $table->timestamps();
         });
     }

@@ -5,6 +5,7 @@ use App;
 use App\Adver;
 use App\Feed;
 use App\Like;
+use App\Favourite;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Requests;
@@ -62,6 +63,28 @@ class FeedController extends Controller
             $newlike=$curlike->first();
             $newlike->like_=$like->like_;
             $newlike->save();
+        }
+    }
+
+    public function updateFavourite(Request $request){
+        $curUserId=\Session::get('cur_user')->id;
+        $data = $request->all();
+        $favourite = new Favourite;
+        $favourite->user_id = $curUserId;
+        $favourite->post_id = $data['post_id'];
+        $favourite->like_ = $data['like_'];
+
+        $matchThese = ['user_id' =>$curUserId, 'post_id' => $favourite->post_id];
+        $curfavourite = Favourite::where($matchThese)->get();
+
+        //$curfavourite = Like::where('user_id', '=', $favourite->user_id)->get();
+        if($curfavourite==null || $curfavourite->first()==null){
+           $favourite->save();
+        }
+        else{            
+            $newfavourite=$curfavourite->first();
+            $newfavourite->like_=$favourite->like_;
+            $newfavourite->save();
         }
     }
 
@@ -131,7 +154,9 @@ class FeedController extends Controller
                 else
                     $data[$i]->like = '0';
             }
-            $data[$i]->authorProfile = ProfileController::getProfileFromUserId($data[$i]->user_id);
+            $data[$i]->comments=CommentController::getComments($post->id);
+            $data[$i]->latestComment=CommentController::getLatestComment($post->id);
+            $data[$i]->authorProfile = ProfileController::getProfileFromUserId($post->user_id);
         }
         return view('feed')->with('articles',$data);
     }

@@ -18,12 +18,14 @@ Route::get('/adver/show','Advers@getArticles');
 Route::get('/post/show', 'PostController@getArticles');
 Route::get('/feed/updateMark', 'FeedController@updateMark');
 Route::get('/feed/updateLike', 'FeedController@updateLike');
+Route::get('/feed/updateFavourite', 'FeedController@updateFavourite');
 Route::post('register', 'AuthenticateController@register');
 Route::post('authenticate', 'AuthenticateController@authenticate');
 Route::get('authenticate/user', 'AuthenticateController@getAuthenticatedUser');
 Route::post('adver/register','Advers@store');
 Route::post('profile/avatar_upload', 'ProfileController@avatar_upload');
 Route::post('profile/update_profile', 'ProfileController@store');
+Route::post('comment/send','CommentController@insertComment');
 Route::get('/verification3_4', 'FollowController@showOtherUsers');
  Route::get('/', function () {
     return view('home');
@@ -63,6 +65,10 @@ Route::get('/verification3_3', function () {
 // });
 Route::get('/verification3_5', function () {
     return view('verification3_5');
+});
+
+Route::get('/profile', function () {
+    return view('profile');
 });
 
 // Route::get('/', function () {

@@ -355,6 +355,7 @@ class ComposerStaticInit265349c6df59d15bcc423ff9baed00b5
         'CorsKernel' => __DIR__ . '/..' . '/barryvdh/laravel-cors/tests/CorsKernel.php',
         'CorsServiceTest' => __DIR__ . '/..' . '/barryvdh/laravel-cors/tests/CorsServiceTest.php',
         'CreateCommentsTable' => __DIR__ . '/../..' . '/database/migrations/2017_06_07_184250_create_comments_table.php',
+        'CreateFavouriteTable' => __DIR__ . '/../..' . '/database/migrations/2017_06_19_085737_create_favourite_table.php',
         'CreateFeedsTable' => __DIR__ . '/../..' . '/database/migrations/2017_06_07_183909_create_feeds_table.php',
         'CreateFollowTable' => __DIR__ . '/../..' . '/database/migrations/2017_06_07_184316_create_follow_table.php',
         'CreateLikeTable' => __DIR__ . '/../..' . '/database/migrations/2017_06_15_202948_create_like_table.php',

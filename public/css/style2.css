@@ -10282,7 +10282,7 @@ ______________________*/
   margin-top: -5px;
   line-height: 30px;
   font-weight: 600;
-  background: #b7dbe9;
+  background: #337ab7;
   color: #fff;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
@@ -14050,6 +14050,24 @@ textarea:focus {
   /* Support for IE. */
   -moz-font-feature-settings: 'liga';
   font-feature-settings: 'liga';
+}
+
+.feed-page .comment-chat-wrap .material-icons:hover {
+    opacity: 1;
+    color: #f33;
+}
+.feed-page .comment-chat-wrap .material-icons{
+    opacity: 0.5;
+}
+
+
+.feed-page .comment-chat-wrap .material-icons.red:hover {
+    opacity: 1;
+    color: #f33;
+}
+.feed-page .comment-chat-wrap .material-icons.red{
+    opacity: 0.5;
+    color: #f33;
 }
 
 .outer-shadow-sec {
