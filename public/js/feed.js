@@ -404,7 +404,7 @@ var sc_project = 3967696;
                                                         </div>
                                                     </div>
                                                     <div class="comment-chat-info">
-                                                        <h4 class="clearfix"><a href="#">`+fullname+`</a> . 0 Hours ago <span><i class="material-icons">favorite</i> 2</span></h4>
+                                                        <h4 class="clearfix"><a href="#">`+fullname+`</a> . 0 Hours ago <span><i class="material-icons">favorite</i> 0</span></h4>
                                                         <p><a href="#">`+content+`</a></p>
                                                         <div class="clearfix">
                                                             <div class="share-reply share-reply-left">
