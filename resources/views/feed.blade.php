@@ -7434,6 +7434,7 @@ label.star:before {
                     function uploadComplete(evt) {
                         var file = document.getElementById('upload_image').files[0];
                         uploadPost(file.name,evt.target.responseText,"feed");
+                        $(document).click();
                       //uploadPost(evt.target.responseText)
                       //alert(evt.target.responseText);
                     }
@@ -7564,6 +7565,7 @@ label.star:before {
                           type:'POST',
                           data:formData,
                           success:function(data){
+                            $(document).click();
                             insertCommentElement(username,fullname,content);
                           },
                           error: function (data) {

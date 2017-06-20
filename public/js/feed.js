@@ -305,7 +305,7 @@ var sc_project = 3967696;
                             <div class="block-info-sec">
                                 <div class="expand-sec">
                                     <div class="expand-right-sec">
-                                        <span></span><span class="heart-sec"><i class="anim-icon heart"></i>14</span>
+                                        <span></span><span class="heart-sec"><i class="anim-icon heart"></i>0</span>
                                     </div>
                                 </div>
                             </div>
@@ -317,19 +317,13 @@ var sc_project = 3967696;
           $('#newMedia').after($('#newMedia').children().first());
           $('#newMedia').html(xx);
           $("#newMedia").find(".block-outer").slideDown("slow");
-          // $('#newMedia').children().first().slideDown("slow");
-          $("#newMedia").slideDown("fast");                    
-          // $("#newMedia").slideDown("slow");
+          $('#newMedia').children().first().slideDown("slow");
+          $("#newMedia").slideDown("slow");
           $('[name="title"]').val("");
           $('[content="content"]').val("");
-          // $('.dropdown-toggle').click(function(){
-          //   $(this).parent().find('.dropdown-menu').fadeToggle();
-          // });
           $('.dropdown-toggle').click(function() { return false; }); // Adds another click event
           $('.dropdown-toggle').off('click');
           $.getScript("js/out_scripts.js");
-          //document.write('js/out_scripts.js');
-          
           },
           error: function (data) {
               alert("Posting data failed.");
