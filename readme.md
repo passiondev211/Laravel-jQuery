@@ -1,1 +1,3 @@
 Add social Authentication to a Laravel App
+
+Laravel is perhaps the most used PHP framework in 2017 so far. One of the main reasons why it’s so popular is that in addition to being very simple it’s documentation is very well structured which eases the learning process. It’s Eloquent ORM is very handy as it almost removes the need for SQL language. By default, it comes with many included functionalities and it is partially built using Symfony. It also uses Blade templating engine which simplifies the code syntax and makes it very convenient to work with.
