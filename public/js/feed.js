@@ -57,8 +57,9 @@ function openAvatarFile(){
       var max = min + window.innerHeight;
 
       videoPos.forEach(function(vidObj) {
-        console.log(vidObj);
+       // console.log(vidObj);
         // the top of our video is visible
+        //alert(vidObj);
         if (vidObj.top >= min && vidObj.top < max && vidObj.el.controls === false) {
           // play the video
           vidObj.el.play();
@@ -197,15 +198,49 @@ var sc_project = 3967696;
           }
         });
     }
+    var flg = 0;
+    $( "#content" ).focus(function() {
+      if(++flg==2){
+        $( "#content" ).val("");
+        $( "#content" ).attr('placeholder','');
+      }else if($( "#content" ).val()==''){
+        $( "#content" ).attr('placeholder','');
+      }
+    });
 
+    var txtarea = document.getElementById('content');
+
+    txtarea.onkeyup = function (event)
+    {
+       var txt = $( "#content" ).val();
+       var lastChar = txt.charAt(txt.length-2);
+       
+       if((event.keyCode==32 && lastChar==' ') || event.keyCode==13){
+          txt = txt.substring(0, txt.length-1);
+          $( "#content" ).val(txt);
+       }
+       if(event.keyCode==13)$( "#content" ).val($( "#content" ).val()+' ')
+       //alert(lastChar);
+    };
     function uploadPost(filename,file_encname,type){
       var fullname=localStorage.getItem('fullname');
       var location="Moscow";
       var category="category";
       var price=localStorage.getItem('price');
-      var formData = $("#postForm").serialize();
-      var title=$('[name="title"]').val();
+      
+      flg = 0;
+      var tmp = $('[name="title"]').val();
+      var arr1 = tmp.split(' ');
+      var arr2 = [];
+      for(var x=0;x<arr1.length;x++){
+        arr2.push(arr1[x].charAt(0).toUpperCase()+arr1[x].slice(1));
+      }
+      var title=arr2.join(' ');
+      $('[name="title"]').val(title);
       var content=$('[name="content"]').val();
+
+      var formData = $("#postForm").serialize();
+
       $('[name="title"]').val("");
       $('[name="content"]').val("");
       formData=formData+'&author=' + fullname;
@@ -221,99 +256,282 @@ var sc_project = 3967696;
           type:'POST',
           data:formData,
           success:function(data){
-              var newcontent = data;
-              var xx = `
-                <div class="block-add" style="display:none" id="fff">   
-                    <div class="block-left">
-                        <div class="block-left-inner">
-                            <div class="post-time-sec">
-                                <span class="time-zone">0</span>
-                                <i>day ago</i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="block-outer">
-                        <div class="block-post block-person-info">
-                            <div class="rating-sec">
-                                <div class="clearfix">
-                                    <div class="rating-left-sec">
-                                        <p><img src="uploads/`+newcontent.file_encname+`"  onclick = "javascript:alert();" alt="jjjj"></p>
-                                    </div>
-                                    <div class="rating-right-sec">
-                                        <div class="feed-top-sec clearfix">
-                                            <div class="feed-top-left">
-                                                <p><em class="feed-person-btn"><strong>`+newcontent.author+`</strong></em> <span>`+newcontent.title+`<b class="clip-marker"><img src="img/clip-icon.png" alt=""></b></span><i>`+newcontent.updated_at+`</i></p>
-                                                <div class="feed-person-sec">
-                                                    <!-- <span class="clip-btn"></span> -->
-                                                    <div class="feed-upper-sec">
-                                                        <div class="feed-upper-banner">
-                                                            <a class="btn follow-btn" href="#"><img src="img/blue-buzz.png" alt=""><span>Follow</span></a>
-                                                        </div>
-                                                        <div class="feed-banner-botsec">
-                                                            <div class="clearfix">
-                                                                <div class="feed-banner-botinfo">
-                                                                    <a href="#"><img src="img/profile-img2.png" alt=""></a>
-                                                                    <h3>mykal <span>@mykalmorton</span></h3>
-                                                                </div>
-                                                                <div class="feed-banner-botsocial">
-                                                                    <a href="#"><img src="img/feed_social-icon1.jpg" alt=""></a>
-                                                                    <a href="#"><img src="img/feed_social-icon2.jpg" alt=""></a>
-                                                                    <a href="#"><img src="img/feed_social-icon3.jpg" alt=""></a>
-                                                                </div>
-                                                            </div>
-                                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit inventore commodi hic quam minima!</p>
-                                                        </div>
-                                                        <div class="follow-sec clearfix">
-                                                            <div class="follow-left-sec">
-                                                                <span>200</span><i>Connections</i>
-                                                            </div>
-                                                            <div class="follow-right-sec">
-                                                                <span>1.9M</span><i>Followers</i>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="feed-lower-sec">
-                                                        <h3><i>- Famous Recipes -</i></h3>
-                                                        <div class="feed-inner-sec clearfix">
-                                                            <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
-                                                            <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
-                                                            <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
-                                                            <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
-                                                        </div>
-                                                        <a class="more-btn" href="#">more</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="feed-top-right">
-                                                <i class="dropdown-toggle material-icons pen-btn">sort</i>
-                                                <ul class="dropdown-menu">
-                                                    <li><a href="#"><i class="material-icons">visibility_off</i><span>I dont want to see this</span></a></li>
-                                                    <li><a href="#"><i class="material-icons">subject</i><span>Hide all for Chris Beek</span></a></li>
-                                                    <li><a href="#"><i class="material-icons">flag</i><span>Report abuse</span></a></li>
-                                                    <li><a href="#"><i class="material-icons">remove_circle</i><span>Remove connection</span></a></li>
-                                                </ul>
-                                            </div>
-                                            <!-- <div class="feed-top-right">
-                                                <i class="dropdown-toggle material-icons pin-btn">keyboard_arrow_down</i>
-                                                <ul class="dropdown-menu"> <li><a href="#">Action</a></li> <li><a href="#">Another action</a></li> <li><a href="#">Something else here</a></li> <li role="separator" class="divider"></li> <li><a href="#">Separated link</a></li> </ul>
-                                            </div> -->
-                                        </div>
-                                        <p>`+newcontent.content+`</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="block-info-sec">
-                                <div class="expand-sec">
-                                    <div class="expand-right-sec">
-                                        <span></span><span class="heart-sec"><i class="anim-icon heart"></i>0</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+              var newcontent = data;alert(newcontent.file_encname);
+              var xx;
+              if(newcontent.file_encname==''){
+                xx = `
+                  <div class="block-add" style="display:none" id="fff">   
+                      <div class="block-left">
+                          <div class="block-left-inner">
+                              <div class="post-time-sec">
+                                  <span class="time-zone">0</span>
+                                  <i>day ago</i>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="block-outer">
+                          <div class="block-post block-person-info">
+                              <div class="rating-sec">
+                                  <div class="clearfix">  
+                                      <div class="feed-top-sec clearfix">
+                                              <div class="feed-top-left">
+                                                  <p><em class="feed-person-btn"><img src="/uploads/avatar/{{$article->authorProfile->avatar}}" alt=""></em> <span>`+newcontent.title+`</span><i>by &nbsp;`+newcontent.author+` &nbsp; on &nbsp;`+newcontent.updated_at+`</i></p>
+                                                  <div class="feed-person-sec">
+                                                      <!-- <span class="clip-btn"></span> -->
+                                                      <div class="feed-upper-sec">
+                                                          <div class="feed-upper-banner">
+                                                              <a class="btn follow-btn" href="#"><img src="img/blue-buzz.png" alt=""><span>Follow</span></a>
+                                                          </div>
+                                                          <div class="feed-banner-botsec">
+                                                              <div class="clearfix">
+                                                                  <div class="feed-banner-botinfo">
+                                                                      <a href="#"><img src="/uploads/avatar/{{$article->authorProfile->avatar}}" alt=""></a>
+                                                                      <h3>`+newcontent.author+`<span>@mykalmorton</span></h3>
+                                                                  </div>
+                                                                  <div class="feed-banner-botsocial">
+                                                                      <a href="#"><img src="img/feed_social-icon1.jpg" alt=""></a>
+                                                                      <a href="#"><img src="img/feed_social-icon2.jpg" alt=""></a>
+                                                                      <a href="#"><img src="img/feed_social-icon3.jpg" alt=""></a>
+                                                                  </div>
+                                                              </div>
+                                                              <p>{{$article->authorProfile->description}}</p>
+                                                          </div>
+                                                          <div class="follow-sec clearfix">
+                                                              <div class="follow-left-sec">
+                                                                  <span>200</span><i>Connections</i>
+                                                              </div>
+                                                              <div class="follow-right-sec">
+                                                                  <span>1.9M</span><i>Followers</i>
+                                                              </div>
+                                                          </div>
+                                                      </div>
+                                                      <div class="feed-lower-sec">
+                                                          <h3><i>- Famous Recipes -</i></h3>
+                                                          <div class="feed-inner-sec clearfix">
+                                                              <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                              <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                              <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                              <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                          </div>
+                                                          <a class="more-btn" href="#">more</a>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <div class="feed-top-right">
+                                                  <a class="btn follow-btn" href="#"><img src="img/blue-buzz.png" alt=""><span>Follow</span></a>
+                                                  <a class="lock-btn" href="#"><i class="material-icons">https</i></a>
+                                                  <i class="dropdown-toggle material-icons pen-btn">sort</i>
+                                                  <ul class="dropdown-menu">
+                                                      <li class="hide-block"><a  class="hide-block"><i class="material-icons">visibility_off</i><span>I dont want to see this</span></a></li>
+                                                      <li><a href="#"><i class="material-icons">subject</i><span>Hide all for Chris Beek</span></a></li>
+                                                      <li><a href="#"><i class="material-icons">flag</i><span>Report abuse</span></a></li>
+                                                      <li><a href="#"><i class="material-icons">remove_circle</i><span>Remove connection</span></a></li>
+                                                  </ul>
+                                              </div>
+                                              <!-- <div class="feed-top-right">
+                                                  <i class="dropdown-toggle material-icons pin-btn">keyboard_arrow_down</i>
+                                                  <ul class="dropdown-menu"> <li><a href="#">Action</a></li> <li><a href="#">Another action</a></li> <li><a href="#">Something else here</a></li> <li role="separator" class="divider"></li> <li><a href="#">Separated link</a></li> </ul>
+                                              </div> -->
+                                          </div>                                                                                                     
+                                      <div class="rating-right-sec" style="width: 100%">
+                                          
+                                          <p>`+newcontent.content+`</p>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="block-info-sec">
+                                  <div class="expand-sec">
+                                      <div class="comment-bar">
+                                          <span>0 Comments</span>
+                                      </div>
+                                      <div class="expand-left-sec">
+                                          <div class="visible-active">
+                                              <span class="chat-btn active"><i class="material-icons">chat</i></span><span><i class="equalizerBtn material-icons">equalizer</i></span>
+                                          </div>
+                                          <div class="hide-active">
+                                              <span class="chat-btn"><i class="material-icons">chat</i> <span>0 Comment</span></span>
+                                              <span><i class="material-icons">transform</i></span><mydiv>0</mydiv>                                              
+                                              <span class="heart-sec" ><i  id="heart_icon_`+newcontent.id+`" class="anim-icon heart"onclick="javascript:updateLike(`+newcontent.id+`)">
+                                              </i></span>
+                                              
+                                              <mydiv id="like_count_`+newcontent.id+`">0</mydiv>
+                                              <span><i class="material-icons">email</i></span>
+                                          </div>
+                                      </div>
+                                      <div class="expand-right-sec">
+                                          <div class="visible-active">
+                                              <a class="dropdown-toggle" href="#">Sort by Best <i class="material-icons">arrow_drop_down</i></a>
+                                              <ul class="dropdown-menu"> <li><a href="#">Action</a></li> <li><a href="#">Another action</a></li> <li><a href="#">Something else here</a></li> <li role="separator" class="divider"></li> <li><a href="#">Separated link</a></li> </ul>
+                                          </div>
+                                          <div class="hide-active">
+                                              <span><i class="equalizerBtn material-icons">equalizer</i></span>                                                            
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="comment-chat-wrap">                                                
+                                  <div class="comment-chat-bar">
+                                      <form class="pushing-form">
+                                          <a href="#"><img src="img/jeff.jpg" alt=""></a>
+                                          <span><i class="anim-icon camera"></i><textarea id="comment_`+newcontent.id+`" placeholder="What do you want to share?"></textarea></span>
+                                          <div class="icon-sec clearfix">
+                                              <button onclick="javascript:sendComment({{Session::get('cur_user')->id}},{{$article->user_id}},{{$article->id}},'{{Session::get('cur_user')->username}}','{{Session::get('cur_user')->fullname}}')" type="button">Send</button>
+                                              <div class="icon-sec-right">
+                                                  <em href="#"><span class="anim-icon camera"></span> media</em>
+                                                  <em href="#"><i class="material-icons">location_on</i> <b>Location</b></em>
+                                                  <em href="#"><i class="material-icons">unarchive</i> <b>Poll</b></em>
+                                              </div>
+                                          </div>
+                                      </form>
+                                  </div>                               
+                                  <div class="newest_chat_sec">
+                                  </div>                                                
+                                  <div class="chat_sec" id="chat_sec_`+newcontent.id+`" style="display: none;">
+                                  </div>                                        
+                                  <a href="#" class="home-link"><img src="img/header-logo.png" alt=""></a>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
                 </div>
-              </div>
-          `;
+                `;
+              }else{
+                xx = `
+                  <div class="block-add" style="display:none" id="fff">   
+                      <div class="block-left">
+                          <div class="block-left-inner">
+                              <div class="post-time-sec">
+                                  <span class="time-zone">0</span>
+                                  <i>day ago</i>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="block-outer">
+                          <div class="block-post block-person-info">
+                              <div class="rating-sec">
+                                  <div class="clearfix">
+                                      <div class="feed-top-sec clearfix">
+                                              <div class="feed-top-left">
+                                                  <p><em class="feed-person-btn"><img src="/uploads/avatar/{{$article->authorProfile->avatar}}" alt=""></em> <span>`+newcontent.title+`</span><i>by &nbsp;`+newcontent.author+` &nbsp; on &nbsp;`+newcontent.updated_at+`</i></p>
+                                                  <div class="feed-person-sec">
+                                                      <!-- <span class="clip-btn"></span> -->
+                                                      <div class="feed-upper-sec">
+                                                          <div class="feed-upper-banner">
+                                                              <a class="btn follow-btn" href="#"><img src="img/blue-buzz.png" alt=""><span>Follow</span></a>
+                                                          </div>
+                                                          <div class="feed-banner-botsec">
+                                                              <div class="clearfix">
+                                                                  <div class="feed-banner-botinfo">
+                                                                      <a href="#"><img src="/uploads/avatar/{{$article->authorProfile->avatar}}" alt=""></a>
+                                                                      <h3>`+newcontent.author+`<span>@mykalmorton</span></h3>
+                                                                  </div>
+                                                                  <div class="feed-banner-botsocial">
+                                                                      <a href="#"><img src="img/feed_social-icon1.jpg" alt=""></a>
+                                                                      <a href="#"><img src="img/feed_social-icon2.jpg" alt=""></a>
+                                                                      <a href="#"><img src="img/feed_social-icon3.jpg" alt=""></a>
+                                                                  </div>
+                                                              </div>
+                                                              <p>{{$article->authorProfile->avatar}}</p>
+                                                          </div>
+                                                          <div class="follow-sec clearfix">
+                                                              <div class="follow-left-sec">
+                                                                  <span>200</span><i>Connections</i>
+                                                              </div>
+                                                              <div class="follow-right-sec">
+                                                                  <span>1.9M</span><i>Followers</i>
+                                                              </div>
+                                                          </div>
+                                                      </div>
+                                                      <div class="feed-lower-sec">
+                                                          <h3><i>- Famous Recipes -</i></h3>
+                                                          <div class="feed-inner-sec clearfix">
+                                                              <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                              <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                              <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                              <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                          </div>
+                                                          <a class="more-btn" href="#">more</a>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <div class="feed-top-right">
+                                                  <span><i class="material-icons" style="vertical-align: bottom;">transform</i></span>
+                                                  <mydiv style="vertical-align: bottom;">0</mydiv>
+                                                  <a class="btn follow-btn" href="#"><img src="img/blue-buzz.png" alt=""><span>Follow</span></a>
+                                                  <a class="lock-btn" href="#"><i class="material-icons">https</i></a>
+                                                  <i class="dropdown-toggle material-icons pen-btn">sort</i>
+                                                  <ul class="dropdown-menu">
+                                                      <li class="hide-block"><a  class="hide-block"><i class="material-icons">visibility_off</i><span>I dont want to see this</span></a></li>
+                                                      <li><a href="#"><i class="material-icons">subject</i><span>Hide all for Chris Beek</span></a></li>
+                                                      <li><a href="#"><i class="material-icons">flag</i><span>Report abuse</span></a></li>
+                                                      <li><a href="#"><i class="material-icons">remove_circle</i><span>Remove connection</span></a></li>
+                                                  </ul>
+                                              </div>
+                                              <!-- <div class="feed-top-right">
+                                                  <i class="dropdown-toggle material-icons pin-btn">keyboard_arrow_down</i>
+                                                  <ul class="dropdown-menu"> <li><a href="#">Action</a></li> <li><a href="#">Another action</a></li> <li><a href="#">Something else here</a></li> <li role="separator" class="divider"></li> <li><a href="#">Separated link</a></li> </ul>
+                                              </div> -->
+                                      </div>                                                    
+                                      <div class="rating-left-sec" style="width: 100%">
+                                          <p><img src="uploads/`+newcontent.file_encname+`" onclick = "javascript:alert();" alt=""></p>
+                                      </div>
+                                      <div class="rating-right-sec" style="width: 100%">                                                        
+                                          <p>`+newcontent.content+`</p>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="block-info-sec">
+                                  <div class="expand-sec">
+                                      <div class="expand-left-sec">
+                                          <div class="visible-active">
+                                              <span class="chat-btn active"><i class="material-icons">chat</i></span><span><i class="equalizerBtn material-icons">equalizer</i></span>
+                                          </div>
+                                          <div class="hide-active">
+                                              <span class="chat-btn"><i class="material-icons">chat</i> <span>0 Comment</span></span>                                              
+                                              <span><i class="material-icons">email</i></span>
+                                          </div>
+                                      </div>
+                                      <div class="expand-right-sec">
+                                          <div class="visible-active">
+                                              <a class="dropdown-toggle" href="#">Sort by Best <i class="material-icons">arrow_drop_down</i></a>
+                                              <ul class="dropdown-menu"> <li><a href="#">Action</a></li> <li><a href="#">Another action</a></li> <li><a href="#">Something else here</a></li> <li role="separator" class="divider"></li> <li><a href="#">Separated link</a></li> </ul>
+                                          </div>
+                                          <div class="hide-active">
+                                                  <span class="heart-sec" ><i  id="heart_icon_`+newcontent.id+`" class="anim-icon heart" onclick="javascript:updateLike(`+newcontent.id+`)">
+                                                  </i></span>                                                                      
+                                              <mydiv id="like_count_`+newcontent.id+`">0</mydiv>
+                                              <span><i class="equalizerBtn material-icons">equalizer</i></span>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="comment-chat-wrap">                                                
+                                  <div class="comment-chat-bar">
+                                      <form class="pushing-form">
+                                          <a href="#"><img src="img/jeff.jpg" alt=""></a>
+                                          <span><i class="anim-icon camera"></i><textarea id="comment_`+newcontent.id+`" placeholder="What do you want to share?"></textarea></span>
+                                          <div class="icon-sec clearfix">
+                                              <button onclick="javascript:sendComment({{Session::get('cur_user')->id}},`+newcontent.user_id+`,`+newcontent.id+`,'{{Session::get('cur_user')->username}}','{{Session::get('cur_user')->fullname}}')" type="button">Send</button>
+                                              <div class="icon-sec-right">
+                                                  <em href="#"><span class="anim-icon camera"></span> media</em>
+                                                  <em href="#"><i class="material-icons">location_on</i> <b>Location</b></em>
+                                                  <em href="#"><i class="material-icons">unarchive</i> <b>Poll</b></em>
+                                              </div>
+                                          </div>
+                                      </form>
+                                  </div>
+                                  <div class="newest_chat_sec">
+                                  </div>                                                
+                                  <div class="chat_sec" id="chat_sec_`+newcontent.id+`" style="display: none;">
+                                  </div>                                        
+                                  <a href="#" class="home-link"><img src="img/header-logo.png" alt=""></a>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                </div>
+                `;
+              }
           $('#newMedia').after($('#newMedia').children().first());
           $('#newMedia').html(xx);
           $("#newMedia").find(".block-outer").slideDown("slow");
@@ -354,62 +572,62 @@ var sc_project = 3967696;
 
   function insertCommentElement(username,fullname,content){
     var xx = `<div class="comment-chat-sec">
-                                                    <div class="comment-chat-fig">
-                                                        <a href="#"><img src="img/chat-icon1.jpg" alt=""></a>
-                                                        <div class="feed-person-sec">
-                                                            <!-- <span class="clip-btn"></span> -->
-                                                            <div class="feed-upper-sec">
-                                                                <div class="feed-upper-banner">
-                                                                    <a class="btn follow-btn" href="#"><img src="img/blue-buzz.png" alt=""><span>Follow</span></a>
-                                                                </div>
-                                                                <div class="feed-banner-botsec">
-                                                                    <div class="clearfix">
-                                                                        <div class="feed-banner-botinfo">
-                                                                            <a href="#"><img src="img/profile-img2.png" alt=""></a>
-                                                                            <h3>{{`+username+`<span>@mykalmorton</span></h3>
-                                                                        </div>
-                                                                        <div class="feed-banner-botsocial">
-                                                                            <a href="#"><img src="img/feed_social-icon1.jpg" alt=""></a>
-                                                                            <a href="#"><img src="img/feed_social-icon2.jpg" alt=""></a>
-                                                                            <a href="#"><img src="img/feed_social-icon3.jpg" alt=""></a>
-                                                                        </div>
-                                                                    </div>
-                                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit inventore commodi hic quam minima!</p>
-                                                                </div>
-                                                                <div class="follow-sec clearfix">
-                                                                    <div class="follow-left-sec">
-                                                                        <span>200</span><i>Connections</i>
-                                                                    </div>
-                                                                    <div class="follow-right-sec">
-                                                                        <span>1.9M</span><i>Followers</i>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="feed-lower-sec">
-                                                                <h3><i>- Famous Recipes -</i></h3>
-                                                                <div class="feed-inner-sec clearfix">
-                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
-                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
-                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
-                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
-                                                                </div>
-                                                                <a class="more-btn" href="#">more</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="comment-chat-info">
-                                                        <h4 class="clearfix"><a href="#">`+fullname+`</a> . 0 Hours ago <span><i class="material-icons">favorite</i> 0</span></h4>
-                                                        <p><a href="#">`+content+`</a></p>
-                                                        <div class="clearfix">
-                                                            <div class="share-reply share-reply-left">
-                                                                <a href="#"><span>9</span><span><i class="fa fa-angle-down"></i></span>|<span><i class="fa fa-angle-up"></i></span></a> <a href="#">Share <i class="fa fa-angle-right"></i></a>
-                                                            </div>
-                                                            <div class="share-reply">
-                                                                <a href="#">Reply</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>`;
+                  <div class="comment-chat-fig">
+                      <a href="#"><img src="img/chat-icon1.jpg" alt=""></a>
+                      <div class="feed-person-sec">
+                          <!-- <span class="clip-btn"></span> -->
+                          <div class="feed-upper-sec">
+                              <div class="feed-upper-banner">
+                                  <a class="btn follow-btn" href="#"><img src="img/blue-buzz.png" alt=""><span>Follow</span></a>
+                              </div>
+                              <div class="feed-banner-botsec">
+                                  <div class="clearfix">
+                                      <div class="feed-banner-botinfo">
+                                          <a href="#"><img src="img/profile-img2.png" alt=""></a>
+                                          <h3>{{`+username+`<span>@mykalmorton</span></h3>
+                                      </div>
+                                      <div class="feed-banner-botsocial">
+                                          <a href="#"><img src="img/feed_social-icon1.jpg" alt=""></a>
+                                          <a href="#"><img src="img/feed_social-icon2.jpg" alt=""></a>
+                                          <a href="#"><img src="img/feed_social-icon3.jpg" alt=""></a>
+                                      </div>
+                                  </div>
+                                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit inventore commodi hic quam minima!</p>
+                              </div>
+                              <div class="follow-sec clearfix">
+                                  <div class="follow-left-sec">
+                                      <span>200</span><i>Connections</i>
+                                  </div>
+                                  <div class="follow-right-sec">
+                                      <span>1.9M</span><i>Followers</i>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="feed-lower-sec">
+                              <h3><i>- Famous Recipes -</i></h3>
+                              <div class="feed-inner-sec clearfix">
+                                  <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                  <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                  <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                  <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                              </div>
+                              <a class="more-btn" href="#">more</a>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="comment-chat-info">
+                      <h4 class="clearfix"><a href="#">`+fullname+`</a> . 0 Hours ago <span><i class="material-icons">favorite</i> 0</span></h4>
+                      <p><a href="#">`+content+`</a></p>
+                      <div class="clearfix">
+                          <div class="share-reply share-reply-left">
+                              <a href="#"><span>9</span><span><i class="fa fa-angle-down"></i></span>|<span><i class="fa fa-angle-up"></i></span></a> <a href="#">Share <i class="fa fa-angle-right"></i></a>
+                          </div>
+                          <div class="share-reply">
+                              <a href="#">Reply</a>
+                          </div>
+                      </div>
+                  </div>
+                </div>`;
                                                 $('.newest_chat_sec').before($('.newest_chat_sec').children().first());
           $('.newest_chat_sec').html(xx);
           $('.newest_chat_sec').children().first().slideDown("slow");

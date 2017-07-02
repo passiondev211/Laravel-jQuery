@@ -24,7 +24,9 @@ class PostController extends Controller
         $blog->file_encname = $data['file_encname'];
         $blog->type = $data['type'];
         $blog->note = $data['note'];
+        $blog->filetype = $data['filetype'];
         $blog->save();
+        //return $data['filetype'];
         return Post::find($blog->id);
     }
     public static function getArticles(){
@@ -34,8 +36,12 @@ class PostController extends Controller
     }
     public function video_upload(Request $request){
         $fileInfo="";
-    	if ($request->hasFile('video')) {
+        if($request->hasFile('video')){
             $file = $request->video;
+        }else if($request->hasFile('file')){
+            $file = $request->file;
+        }
+    	if ($file) {
             $id = str_random(20);
             $fileInfo=$id.".".$file->getClientOriginalExtension();
             Storage::disk('local')->put($fileInfo, file_get_contents($file->getRealPath()));
@@ -43,7 +49,11 @@ class PostController extends Controller
             //$path = $request->video->store('public/uploads');
             //$fileInfo=basename($path);
         }
+        
         echo $fileInfo;
+    }
+    public function dragupload(Request $request){
+
     }
 
 }

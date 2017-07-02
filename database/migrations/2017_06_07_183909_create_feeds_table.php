@@ -16,7 +16,7 @@ class CreateFeedsTable extends Migration
             $table->increments('id');
             $table->string('user_id');
             $table->string('post_id');
-            $table->string('mark');
+            $table->int('mark');
             $table->timestamps();
         });
     }

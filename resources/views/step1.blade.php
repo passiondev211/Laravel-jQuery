@@ -7,11 +7,16 @@
     <title>Kanopp</title>
 
 
-    <link href="css/font-awesome.css" rel="stylesheet" type="text/css"/>
-    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
     <link href="css/bootstrap-select.min.css" rel="stylesheet" type="text/css"/>
     <link href="css/style.css" rel="stylesheet" type="text/css"/>
     <link href="css/style2.css" rel="stylesheet" type="text/css"/>
+    <style type="text/css">
+      html,body{
+        overflow:auto;
+      }
+    </style>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.js"></script>
 </head>
@@ -38,14 +43,14 @@
                                     <div class="row"> 
                                         <label class=" col-sm-12" ng-style="styleTitleLabel">Give your project a title: </label>
                                         <div class="col-sm-12"> 
-                                            <input ng-model="modelTitle" ng-style="styleTitle" ng-focus="checkHideTitleFunc('focus')" ng-blur="checkHideTitleFunc('blur')" id="title" name="title" type="text" placeholder="title" />
+                                            <input ng-model="modelTitle" ng-style="styleTitle" ng-focus="checkHideTitleFunc('focus')" ng-blur="checkHideTitleFunc('blur')" id="projecttitle" name="title" type="text" placeholder="title" />
                                         </div>
 
                                     </div>
                                 </div>
                                 <div ng-hide='checkHidePlace' class="custom-selct sel1"> 
                                     <p class="placeClass" ng-style="stylePlaceLabel">What kind of place do you have? </p>
-                                    <select id="category" name="category"  ng-model="dataplace.selectedOption"  ng-style="stylePlace" ng-focus="focusPlace('1')" ng-blur="focusPlace('0')"  ng-change="changePlace()" class="selectpicker" 
+                                    <select id="projectcategory" name="category"  ng-model="dataplace.selectedOption"  ng-style="stylePlace" ng-focus="focusPlace('1')" ng-blur="focusPlace('0')"  ng-change="changePlace()" class="selectpicker" 
                                     ng-options="option.name for option in dataplace.availableOptions track by option.id"
                                     > 
                                     </select>
@@ -56,7 +61,7 @@
                                         <label ng-style="styleCountryLabel" class="projLoc col-sm-12" >The Project Location: </label>
                                         <div class="col-sm-12"> 
                                             <div class="custom-selct sel2"> 
-                                                <select id="location" name="location"
+                                                <select id="p_location" name="p_location"
                                                 ng-model="dataCountry.selectedOption"
                                                 ng-options="option.name for option in dataCountry.availableOptions track by option.code"
                                                 ng-style="styleCountry" 
@@ -264,10 +269,10 @@ $scope.checkHideCont = true;
   
 $scope.checkHideTitleFunc = function($flag){
 
-if($flag=='focus'){
-//console.log($scope.modelTitle.length);
-$scope.styleTitle={'border-color':'#0278ff'};
-$scope.styleTitleLabel={'color':'#0278ff'};
+      if($flag=='focus'){
+        //console.log($scope.modelTitle.length);
+        $scope.styleTitle={'border-color':'#0278ff'};
+        $scope.styleTitleLabel={'color':'#0278ff'};
 
         $scope.$watch('modelTitle', function(newValue){
              if(newValue.length === 0){
@@ -279,12 +284,11 @@ $scope.styleTitleLabel={'color':'#0278ff'};
              }
           });
 
-}
-else if($flag=='blur'){
-$scope.styleTitle={'border-color':'#74849a'};
-$scope.styleTitleLabel={'color':'#74849a'};
-}
-
+      }
+      else if($flag=='blur'){
+        $scope.styleTitle={'border-color':'#74849a'};
+        $scope.styleTitleLabel={'color':'#74849a'};
+      }
 }
 
 
@@ -311,23 +315,23 @@ $scope.styleTitleLabel={'color':'#74849a'};
     };
 
 $scope.changePlace= function(){
-$scope.checkHideLocation = false;
+  $scope.checkHideLocation = false;
 } 
 
 $scope.focusPlace= function($flag){
-console.log($flag);
-if($flag==1){
+  console.log($flag);
+  if($flag==1){
 
-$scope.stylePlace={'border-color':'#0278ff'};
-$scope.stylePlaceLabel={'color':'#0278ff'};
+    $scope.stylePlace={'border-color':'#0278ff'};
+    $scope.stylePlaceLabel={'color':'#0278ff'};
 
-}
-else if($flag==0){
+  }
+  else if($flag==0){
 
-$scope.stylePlace={'border-color':'#74849a'};
-$scope.stylePlaceLabel={'color':'#74849a'};
+    $scope.stylePlace={'border-color':'#74849a'};
+    $scope.stylePlaceLabel={'color':'#74849a'};
 
-}
+  }
 }
 
 //Country
@@ -584,22 +588,22 @@ selectedOption:  {name:'Choose a country', code:'-1'}
 };
 
 $scope.countryChange= function(){
-$scope.checkHideCont = false;
+  $scope.checkHideCont = false;
 }
 $scope.focusCountry= function($flag){
-console.log($flag);
-if($flag==1){
+  console.log($flag);
+  if($flag==1){
 
-$scope.styleCountry={'border-color':'#0278ff'};
-$scope.styleCountryLabel={'color':'#0278ff'};
+    $scope.styleCountry={'border-color':'#0278ff'};
+    $scope.styleCountryLabel={'color':'#0278ff'};
 
-}
-else if($flag==0){
+  }
+  else if($flag==0){
 
-$scope.styleCountry={'border-color':'#74849a'};
-$scope.styleCountryLabel={'color':'#74849a'};
+    $scope.styleCountry={'border-color':'#74849a'};
+    $scope.styleCountryLabel={'color':'#74849a'};
 
-}
+  }
 }
 
 
@@ -611,7 +615,7 @@ $scope.styleCountryLabel={'color':'#74849a'};
   function gotoNextStep(){
     title=$('[name="title"]').val();
     category=$('[name="category"]').val();
-    location=$('[name="location"]').val();
+    p_location=$('[name="p_location"]').val();
     price=$('[name="price"]').val();
     if(title==null || title==""){
       $("#projecttitle").select();
@@ -623,19 +627,19 @@ $scope.styleCountryLabel={'color':'#74849a'};
       alert("Invalid Category!");
       return;
     }
-    if(location==null || location==""){
-      $("#projectlocation").select();
+    if(p_location==null || p_location==""){
+      $("#p_location").select();
       alert("Invalid Location!");
       return;
     }
     if(price==null || price==""){
-      $("#projectlocation").select();
+      $("#price").select();
       alert("Invalid Location!");
       return;
     }
     localStorage.setItem('title',title);
     localStorage.setItem('category',category);
-    localStorage.setItem('location',location);
+    localStorage.setItem('location',p_location);
     localStorage.setItem('price',price);
 
     //document.location.href="/step2";

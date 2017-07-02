@@ -22,9 +22,15 @@
     <link type="text/css" rel="stylesheet" href="css/today.css" />
     <link type="text/css" rel="stylesheet" href="css/rating.min.css" />
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+    <link type="text/css" rel="stylesheet" href="js/dropzone/dropzone.css" />
     <script async="" src="//www.google-analytics.com/analytics.js"></script>
     <script type="text/javascript" src="js/rating.min.js"></script>
     <script type="text/javascript" src="js/modernizr.min.js"></script>
+    <style type="text/css">
+      html,body{
+        overflow:auto;
+      }
+    </style>
     
     <!--[if lte IE 9]>
         <link type="text/css" rel="stylesheet" href="css/ie.css" />
@@ -37,39 +43,42 @@
     <![endif]-->    
     <style type="text/css">
         div.stars {
-  width: 270px;
-  display: inline-block;
-}
+          width: 270px;
+          display: inline-block;
+        }
 
-input.star { display: none; }
+        input.star { display: none; }
 
-label.star {
-  float: right;
-  padding: 3px;
-  font-size: 15px;
-  color: #ccc;
-  transition: all .2s;
-}
+        label.star {
+          float: right;
+          padding: 3px;
+          font-size: 15px;
+          color: #ccc;
+          transition: all .2s;
+        }
 
-input.star:checked ~ label.star:before {
-  content: '\f005';
-  color: #FB0;
-  transition: all .25s;
-}
+        input.star:checked ~ label.star:before {
+          content: '\f005';
+          color: #FB0;
+          transition: all .25s;
+        }
 
-input.star-5:checked ~ label.star:before {
-  color: #FB0;
-  
-}
+        input.star-5:checked ~ label.star:before {
+          color: #FB0;
+          
+        }
 
-input.star-1:checked ~ label.star:before { color: #FB0; }
+        input.star-1:checked ~ label.star:before { color: #FB0; }
 
-label.star:hover { transform: scale(1.3); }
+        label.star:hover { transform: scale(1.3); }
 
-label.star:before {
-  content: '\f005';
-  font-family: FontAwesome;
-}
+        label.star:before {
+          content: '\f005';
+          font-family: FontAwesome;
+        }
+        .feed-page .btn-create {
+            margin-left: 25px;
+        }
     </style>
 </head>
 
@@ -77,7 +86,10 @@ label.star:before {
 
 <span class="tweet-active-btn"><i class="active material-icons">arrow_back</i><i class="material-icons">arrow_forward</i></span>
 
-<div id="morphsearch" class="morphsearch container-fluid">
+
+<div id="container-fluid">
+
+<div id="morphsearch" class="morphsearch container-fluid fixed">
     <form class="morphsearch-form">
         <span class="magnify"></span>
         <input class="morphsearch-input" type="search" placeholder="Search">
@@ -97,8 +109,10 @@ label.star:before {
                 <div class="clearfix">
                     <div class="header-btn-sec">
                         <span class="off-canvas-btn anim-icon gamburger"></span>
-                        <a class="knoop-logo" href="feed"><!--<img class="cang-logo" src="img/cang-logo2.png" alt="">--><img class="logo-logo" src="img/logo-logo.png" alt=""></a>
+                        <a class="knoop-logo" href="feed"><!--<img class="cang-logo" src="img/cang-logo2.png" alt="">--><img class="lazy logo-logo" src="img/logo-logo.png" alt=""></a>
                         <a href="create" data-toggle="tooltip" data-placement="bottom" title="Upload" class="btn-create">CREATE</a>
+                        <a href="home" data-toggle="tooltip" data-placement="bottom" title="HomePage" class="btn-create">HOME</a>
+                        <a href="feed" data-toggle="tooltip" data-placement="bottom" title="HomePage" class="btn-create">FEED</a>
                     </div>
                 </div>
             </div>
@@ -124,9 +138,6 @@ label.star:before {
     </div>
 </div>
 <!--header end -->
-<div id="container-fluid">
-
-
 <!--App menu start -->
 <div class="app-menu">
     <div class="app-menu-inner">
@@ -695,8 +706,18 @@ label.star:before {
                                     </div>
                                 </div>
                                 <span><a class="cammal1 photo-link" href="#"><i data-toggle="tooltip" data-placement="top" title="Media" class="material-icons">photo_camera</i></a>
-                                <input class="post-title" type="text" id="title" name="title" placeholder="Title your Moment">
-                                <textarea id="content" name="content" placeholder="What's happening?">What's happening?</textarea></span>
+                                    <input class="post-title" type="text" id="title" name="title" placeholder="Title Your Moment">
+                                    <textarea id="content" name="content" placeholder="What's happening?">What's happening?</textarea>                                    
+                                </span>
+                                <div class="dropzone dz-preview dz-file-preview" id="previewdropzone" height="10%" style="display: none">
+                                  <div class="dz-details">
+                                    <div class="dz-filename"><span data-dz-name></span></div>
+                                    <div class="dz-size" data-dz-size></div>
+                                    <img data-dz-thumbnail />
+                                  </div>
+                                  <div class="dz-progress"><span class="dz-upload" data-dz-uploadprogress></span></div>
+                                  <div class="dz-error-message"><span data-dz-errormessage></span></div>
+                                </div>
                                 <div class="icon-sec clearfix ">
                                     <!--<button type="submit">Send</button>-->
                                     <div class="icon-block">
@@ -1676,7 +1697,7 @@ label.star:before {
                                     </div>
                                     <div class="block-outer">
                                         <div class="block-post block-post-cout">
-                                            <div class="clearfix feed-top-sec feed-top-sec1">
+                                            <!--<div class="clearfix feed-top-sec feed-top-sec1">
                                                 <div class="feed-top-left">
                                                     <p><em class="feed-person-btn"><img src="/uploads/avatar/{{$article->authorProfile->avatar}}" alt=""> <strong>{{$article->author}}</strong></em> <span>{{$article->title}}</span><i>{{$article->updated_at}}</i></p>
                                                     <div class="feed-person-sec">
@@ -1738,7 +1759,70 @@ label.star:before {
                                                         <li><a href="#"><i class="material-icons">remove_circle</i><span>Remove connection</span></a></li>
                                                     </ul>
                                                 </div>
-                                            </div>
+                                            </div>-->
+                                            <div class="feed-top-sec clearfix">
+                                                            <div class="feed-top-left">
+                                                                <p><em class="feed-person-btn"><img src="/uploads/avatar/{{$article->authorProfile->avatar}}" alt=""></em> <span>{{$article->title}}</span><i>by &nbsp;{{$article->author}} &nbsp; on &nbsp;{{$article->updated_at}}</i></p>
+                                                                <div class="feed-person-sec">
+                                                                    <!-- <span class="clip-btn"></span> -->
+                                                                    <div class="feed-upper-sec">
+                                                                        <div class="feed-upper-banner">
+                                                                            <a class="btn follow-btn" href="#"><img src="img/blue-buzz.png" alt=""><span>Follow</span></a>
+                                                                        </div>
+                                                                        <div class="feed-banner-botsec">
+                                                                            <div class="clearfix">
+                                                                                <div class="feed-banner-botinfo">
+                                                                                    <a href="#"><img src="/uploads/avatar/{{$article->authorProfile->avatar}}" alt=""></a>
+                                                                                    <h3>{{$article->author}}<span>@mykalmorton(what's this?)</span></h3>
+                                                                                </div>
+                                                                                <div class="feed-banner-botsocial">
+                                                                                    <a href="#"><img src="img/feed_social-icon1.jpg" alt=""></a>
+                                                                                    <a href="#"><img src="img/feed_social-icon2.jpg" alt=""></a>
+                                                                                    <a href="#"><img src="img/feed_social-icon3.jpg" alt=""></a>
+                                                                                </div>
+                                                                            </div>
+                                                                            <p>{{$article->authorProfile->description}}</p>
+                                                                        </div>
+                                                                        <div class="follow-sec clearfix">
+                                                                            <div class="follow-left-sec">
+                                                                                <span>200</span><i>Connections</i>
+                                                                            </div>
+                                                                            <div class="follow-right-sec">
+                                                                                <span>1.9M</span><i>Followers</i>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="feed-lower-sec">
+                                                                        <h3><i>- Famous Recipes -</i></h3>
+                                                                        <div class="feed-inner-sec clearfix">
+                                                                            <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                            <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                            <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                            <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                        </div>
+                                                                        <a class="more-btn" href="#">more</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="feed-top-right">
+                                                                <span><i class="material-icons" style="vertical-align: bottom;">transform</i></span>
+                                                                <mydiv style="vertical-align: bottom;">0</mydiv>                                                                
+                                                                <a class="btn follow-btn" href="#"><img src="img/blue-buzz.png" alt=""><span>Follow</span></a>
+                                                                <a class="lock-btn" href="#"><i class="material-icons">https</i></a>
+                                                                <i class="dropdown-toggle material-icons pen-btn">sort</i>
+                                                                <ul class="dropdown-menu">
+                                                                    <li class="hide-block"><a  class="hide-block"><i class="material-icons">visibility_off</i><span>I don't want to see this</span></a></li>
+                                                                    <li><a href="#"><i class="material-icons">subject</i><span>Hide all for Chris Beek</span></a></li>
+                                                                    <li><a href="#"><i class="material-icons">flag</i><span>Report abuse</span></a></li>
+                                                                    <li><a href="#"><i class="material-icons">remove_circle</i><span>Remove connection</span></a></li>
+                                                                </ul>
+                                                            </div>
+                                                            <!-- <div class="feed-top-right">
+                                                                <i class="dropdown-toggle material-icons pin-btn">keyboard_arrow_down</i>
+                                                                <ul class="dropdown-menu"> <li><a href="#">Action</a></li> <li><a href="#">Another action</a></li> <li><a href="#">Something else here</a></li> <li role="separator" class="divider"></li> <li><a href="#">Separated link</a></li> </ul>
+                                                            </div> -->
+                                            </div> 
+                                            @if(($article->filetype)=='video')
                                             <div class="video-wrap active">
                                                 <span class="outer-shadow"></span><span class="top-left-shadow"></span>
                                                 <div class="video-sec">
@@ -1749,6 +1833,11 @@ label.star:before {
                                                     <span class="play_btn"></span>
                                                 </div>
                                             </div>
+                                            @elseif(($article->filetype)=='image')
+                                            <div class="rating-left-sec">
+                                                <p><img src="{{env('APP_URL')}}/uploads/{{$article->file_encname}}" alt=""></p>
+                                            </div>
+                                            @endif
                                             <div class="feed-heading-wrap clearfix">
                                                 <div class="feed-heading-left">
                                                     <h2 class="feed-title"><div class="cart-outer"><a class="box-cart-btn" href="#">$425</a>
@@ -1780,9 +1869,9 @@ label.star:before {
                                                 <div class="feed-heading-right">
                                                     <span class="star-sec">
                                                     <div class="stars">
-                                                        <input class="star star-5" id="star-{{$article->id}}-5"  onclick="javascript:updateMark({{$article->id}},5)" @if( $article->mark ==5 ) checked @endif   type="radio" name="star-{{$article->id}}"/>
+                                                        <input class="star star-5" id="star-{{$article->id}}-5"  onclick="javascript:updateMark({{$article->id}},5)" @if( $article->mark >=5 ) checked @endif   type="radio" name="star-{{$article->id}}"/>
                                                         <label class="star star-5" for="star-{{$article->id}}-5"></label>
-                                                        <input class="star star-4" id="star-{{$article->id}}-4" type="radio"  onclick="javascript:updateMark({{$article->id}},4)" @if( $article->mark ==4 ) checked @endif name="star-{{$article->id}}"/>
+                                                        <input class="star star-4" id="star-{{$article->id}}-4" onclick="javascript:updateMark({{$article->id}},4)" type="radio" @if( $article->mark ==4 ) checked @endif name="star-{{$article->id}}"/>
                                                         <label class="star star-4" for="star-{{$article->id}}-4"></label>
                                                         <input class="star star-3" id="star-{{$article->id}}-3" onclick="javascript:updateMark({{$article->id}},3)" type="radio" @if( $article->mark ==3 ) checked @endif name="star-{{$article->id}}"/>
                                                         <label class="star star-3" for="star-{{$article->id}}-3"></label>
@@ -1799,8 +1888,9 @@ label.star:before {
                                             </div>
                                             <div class="block-info-sec">
                                                 <h4>Description</h4>
+                                                <p>{{$article->content}}</p>
                                                 <p>I bet you didn't think you could make cookies using the Anova Precision Cooker. Sous vide cookies might look a little different than the typical oven recipe — here I've cooked the batter in small canning jars and then cut the results into round bars — but they're far more fun to make. You can't just use any dough recipe</p>
-                                                <div class="expand-sec">
+                                                <!--<div class="expand-sec">
                                                     <div class="comment-bar">
                                                         <span>{{count($article->comments)}} Comments</span>
                                                     </div>
@@ -1827,6 +1917,34 @@ label.star:before {
                                                                 </i></span>
                                                             @endif
                                                             <mydiv id="like_count_{{$article->id}}">{{$article->like_count}}</mydiv>
+                                                        </div>
+                                                    </div>
+                                                </div>-->
+                                                <div class="expand-sec">
+                                                    <div class="expand-left-sec">
+                                                        <div class="visible-active">
+                                                            <span class="chat-btn active"><i class="material-icons">chat</i></span><span><i class="equalizerBtn material-icons">equalizer</i></span>
+                                                        </div>
+                                                        <div class="hide-active">
+                                                            <span class="chat-btn"><i class="material-icons">chat</i> <span>{{count($article->comments)}} Comment</span></span>                                              
+                                                            <span><i class="material-icons">email</i></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="expand-right-sec">
+                                                        <div class="visible-active">
+                                                            <a class="dropdown-toggle" href="#">Sort by Best <i class="material-icons">arrow_drop_down</i></a>
+                                                            <ul class="dropdown-menu"> <li><a href="#">Action</a></li> <li><a href="#">Another action</a></li> <li><a href="#">Something else here</a></li> <li role="separator" class="divider"></li> <li><a href="#">Separated link</a></li> </ul>
+                                                        </div>
+                                                        <div class="hide-active">                                                            
+                                                            @if($article->like=='0')
+                                                                <span class="heart-sec" ><i  id="heart_icon_{{$article->id}}" class="anim-icon heart"onclick="javascript:updateLike({{$article->id}})">
+                                                                </i></span>
+                                                            @else
+                                                                <span class="heart-sec red" ><i id="heart_icon_{{$article->id}}" class="anim-icon heart active" onclick="javascript:updateLike({{$article->id}})">
+                                                                </i></span>
+                                                            @endif
+                                                            <mydiv id="like_count_{{$article->id}}">{{$article->like_count}}</mydiv>
+                                                            <span><i class="equalizerBtn material-icons">equalizer</i></span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -2221,16 +2339,13 @@ label.star:before {
                                         </div>
                                     </div>
                                     <div class="block-outer">
+                                        @if($article->file_encname=='')
                                         <div class="block-post block-person-info">
                                             <div class="rating-sec">
-                                                <div class="clearfix">
-                                                    <div class="rating-left-sec">
-                                                        <p><img src="uploads/{{$article->file_encname}}" alt=""></p>
-                                                    </div>
-                                                    <div class="rating-right-sec">
-                                                        <div class="feed-top-sec clearfix">
+                                                <div class="clearfix">  
+                                                    <div class="feed-top-sec clearfix">
                                                             <div class="feed-top-left">
-                                                                <p><em class="feed-person-btn"><strong>{{$article->author}}</strong></em> <span>{{$article->title}}<b class="clip-marker"><img src="img/clip-icon.png" alt=""></b></span><i>{{$article->updated_at}}</i></p>
+                                                                <p><em class="feed-person-btn"><img src="/uploads/avatar/{{$article->authorProfile->avatar}}" alt=""></em> <span>{{$article->title}}</span><i>by &nbsp;{{$article->author}} &nbsp; on &nbsp;{{$article->updated_at}}</i></p>
                                                                 <div class="feed-person-sec">
                                                                     <!-- <span class="clip-btn"></span> -->
                                                                     <div class="feed-upper-sec">
@@ -2273,6 +2388,8 @@ label.star:before {
                                                                 </div>
                                                             </div>
                                                             <div class="feed-top-right">
+                                                                <a class="btn follow-btn" href="#"><img src="img/blue-buzz.png" alt=""><span>Follow</span></a>
+                                                                <a class="lock-btn" href="#"><i class="material-icons">https</i></a>
                                                                 <i class="dropdown-toggle material-icons pen-btn">sort</i>
                                                                 <ul class="dropdown-menu">
                                                                     <li class="hide-block"><a  class="hide-block"><i class="material-icons">visibility_off</i><span>I don't want to see this</span></a></li>
@@ -2285,27 +2402,444 @@ label.star:before {
                                                                 <i class="dropdown-toggle material-icons pin-btn">keyboard_arrow_down</i>
                                                                 <ul class="dropdown-menu"> <li><a href="#">Action</a></li> <li><a href="#">Another action</a></li> <li><a href="#">Something else here</a></li> <li role="separator" class="divider"></li> <li><a href="#">Separated link</a></li> </ul>
                                                             </div> -->
-                                                        </div>
+                                                        </div>                                                                                                     
+                                                    <div class="rating-right-sec" style="width: 100%">
+                                                        
                                                         <p>{{$article->content}}</p>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="block-info-sec">
                                                 <div class="expand-sec">
-                                                    <div class="expand-right-sec" >
-                                                        <span></span>
-                                                        @if($article->like=='0')
+                                                    <div class="comment-bar">
+                                                        <span>{{count($article->comments)}} Comments</span>
+                                                    </div>
+                                                    <div class="expand-left-sec">
+                                                        <div class="visible-active">
+                                                            <span class="chat-btn active"><i class="material-icons">chat</i></span><span><i class="equalizerBtn material-icons">equalizer</i></span>
+                                                        </div>
+                                                        <div class="hide-active">
+                                                            <span class="chat-btn"><i class="material-icons">chat</i> <span>{{count($article->comments)}} Comment</span></span>
+                                                            <span><i class="material-icons">transform</i></span><mydiv>0</mydiv>
+                                                            @if($article->like=='0')
                                                             <span class="heart-sec" ><i  id="heart_icon_{{$article->id}}" class="anim-icon heart"onclick="javascript:updateLike({{$article->id}})">
                                                             </i></span>
-                                                        @else
-                                                            <span class="heart-sec red" ><i id="heart_icon_{{$article->id}}" class="anim-icon heart active" onclick="javascript:updateLike({{$article->id}})">
-                                                            </i></span>
-                                                        @endif
-                                                        <mydiv id="like_count_{{$article->id}}">{{$article->like_count}}</mydiv>
+                                                            @else
+                                                                <span class="heart-sec red" ><i id="heart_icon_{{$article->id}}" class="anim-icon heart active" onclick="javascript:updateLike({{$article->id}})">
+                                                                </i></span>
+                                                            @endif
+                                                            <mydiv id="like_count_{{$article->id}}">{{$article->like_count}}</mydiv>
+                                                            <span><i class="material-icons">email</i></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="expand-right-sec">
+                                                        <div class="visible-active">
+                                                            <a class="dropdown-toggle" href="#">Sort by Best <i class="material-icons">arrow_drop_down</i></a>
+                                                            <ul class="dropdown-menu"> <li><a href="#">Action</a></li> <li><a href="#">Another action</a></li> <li><a href="#">Something else here</a></li> <li role="separator" class="divider"></li> <li><a href="#">Separated link</a></li> </ul>
+                                                        </div>
+                                                        <div class="hide-active">
+                                                            <span><i class="equalizerBtn material-icons">equalizer</i></span>                                                            
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="comment-chat-wrap">                                                
+                                                <div class="comment-chat-bar">
+                                                    <form class="pushing-form">
+                                                        <a href="#"><img src="img/jeff.jpg" alt=""></a>
+                                                        <span><i class="anim-icon camera"></i><textarea id="comment_{{$article->id}}" placeholder="What do you want to share?"></textarea></span>
+                                                        <div class="icon-sec clearfix">
+                                                            <button onclick="javascript:sendComment({{Session::get('cur_user')->id}},{{$article->user_id}},{{$article->id}},'{{Session::get('cur_user')->username}}','{{Session::get('cur_user')->fullname}}')" type="button">Send</button>
+                                                            <div class="icon-sec-right">
+                                                                <em href="#"><span class="anim-icon camera"></span> media</em>
+                                                                <em href="#"><i class="material-icons">location_on</i> <b>Location</b></em>
+                                                                <em href="#"><i class="material-icons">unarchive</i> <b>Poll</b></em>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                
+                                                @if(($comment = $article->latestComment)!=null)
+                                                <div class="comment-chat-sec">
+                                                    <div class="comment-chat-fig">
+                                                        <a href="#"><img src="img/chat-icon1.jpg" alt=""></a>
+                                                        <div class="feed-person-sec">
+                                                            <!-- <span class="clip-btn"></span> -->
+                                                            <div class="feed-upper-sec">
+                                                                <div class="feed-upper-banner">
+                                                                    <a class="btn follow-btn" href="#"><img src="img/blue-buzz.png" alt=""><span>Follow</span></a>
+                                                                </div>
+                                                                <div class="feed-banner-botsec">
+                                                                    <div class="clearfix">
+                                                                        <div class="feed-banner-botinfo">
+                                                                            <a href="#"><img src="img/profile-img2.png" alt=""></a>
+                                                                            <h3>{{$comment->author->fullname}}<span>@ {{$comment->author->username}}</span></h3>
+                                                                        </div>
+                                                                        <div class="feed-banner-botsocial">
+                                                                            <a href="#"><img src="img/feed_social-icon1.jpg" alt=""></a>
+                                                                            <a href="#"><img src="img/feed_social-icon2.jpg" alt=""></a>
+                                                                            <a href="#"><img src="img/feed_social-icon3.jpg" alt=""></a>
+                                                                        </div>
+                                                                    </div>
+                                                                    <p>{{$comment->author->description}}</p>
+                                                                </div>
+                                                                <div class="follow-sec clearfix">
+                                                                    <div class="follow-left-sec">
+                                                                        <span>200</span><i>Connections</i>
+                                                                    </div>
+                                                                    <div class="follow-right-sec">
+                                                                        <span>1.9M</span><i>Followers</i>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="feed-lower-sec">
+                                                                <h3><i>- Famous Recipes -</i></h3>
+                                                                <div class="feed-inner-sec clearfix">
+                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                </div>
+                                                                <a class="more-btn" href="#">more</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="comment-chat-info">
+                                                        <h4 class="clearfix"><a href="#">{{$comment->author->fullname}}</a> . {{$comment->period}} Hours ago <span><i id="favourite_icon_{{$comment->id}}" class="material-icons @if($comment->favourite!=0) red @endif" onclick="javascript:updateFavourite({{$comment->id}})">favorite</i><mydiv id="favourite_count_{{$comment->id}}">{{$comment->favourite_count}}</mydiv></span></h4>
+                                                        <p><a href="#">{{$comment->content}}</a></p>
+                                                        <div class="clearfix">
+                                                            <div class="share-reply share-reply-left">
+                                                                <a href="#"><span>9</span><span><i class="fa fa-angle-down"></i></span>|<span><i class="fa fa-angle-up"></i></span></a> <a href="#">Share <i class="fa fa-angle-right"></i></a>
+                                                            </div>
+                                                            <div class="share-reply">
+                                                                <a href="#">Reply</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="newest_chat_sec">
+                                                </div>
+                                                <a onclick="javascript:showDetailComment('{{$article->id}}')" id="showHideBtn_{{$article->id}}" href="#" class="show-btn">Show More</a>  
+                                                @else
+                                                <div class="newest_chat_sec">
+                                                </div>                                                
+                                                @endif
+                                                
+                                                <div class="chat_sec" id="chat_sec_{{$article->id}}" style="display: none;">
+                                                @foreach ($article->comments as $comment)
+                                                <div class="comment-chat-sec">
+                                                    <div class="comment-chat-fig">
+                                                        <a href="#"><img src="img/chat-icon1.jpg" alt=""></a>
+                                                        <div class="feed-person-sec">
+                                                            <!-- <span class="clip-btn"></span> -->
+                                                            <div class="feed-upper-sec">
+                                                                <div class="feed-upper-banner">
+                                                                    <a class="btn follow-btn" href="#"><img src="img/blue-buzz.png" alt=""><span>Follow</span></a>
+                                                                </div>
+                                                                <div class="feed-banner-botsec">
+                                                                    <div class="clearfix">
+                                                                        <div class="feed-banner-botinfo">
+                                                                            <a href="#"><img src="img/profile-img2.png" alt=""></a>
+                                                                            <h3>{{$comment->author->fullname}}<span>@ {{$comment->author->username}}</span></h3>
+                                                                        </div>
+                                                                        <div class="feed-banner-botsocial">
+                                                                            <a href="#"><img src="img/feed_social-icon1.jpg" alt=""></a>
+                                                                            <a href="#"><img src="img/feed_social-icon2.jpg" alt=""></a>
+                                                                            <a href="#"><img src="img/feed_social-icon3.jpg" alt=""></a>
+                                                                        </div>
+                                                                    </div>
+                                                                    <p>{{$comment->author->description}}</p>
+                                                                </div>
+                                                                <div class="follow-sec clearfix">
+                                                                    <div class="follow-left-sec">
+                                                                        <span>200</span><i>Connections</i>
+                                                                    </div>
+                                                                    <div class="follow-right-sec">
+                                                                        <span>1.9M</span><i>Followers</i>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="feed-lower-sec">
+                                                                <h3><i>- Famous Recipes -</i></h3>
+                                                                <div class="feed-inner-sec clearfix">
+                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                </div>
+                                                                <a class="more-btn" href="#">more</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="comment-chat-info">
+                                                        <h4 class="clearfix"><a href="#">{{$comment->author->fullname}}</a> . {{$comment->period}} Hours ago <span><i id="favourite_icon_{{$comment->id}}" class="material-icons @if($comment->favourite!=0) red @endif" onclick="javascript:updateFavourite({{$comment->id}})">favorite</i><mydiv id="favourite_count_{{$comment->id}}">{{$comment->favourite_count}}</mydiv></span></h4>
+                                                        <p><a href="#">{{$comment->content}}</a></p>
+                                                        <div class="clearfix">
+                                                            <div class="share-reply share-reply-left">
+                                                                <a href="#"><span>9</span><span><i class="fa fa-angle-down"></i></span>|<span><i class="fa fa-angle-up"></i></span></a> <a href="#">Share <i class="fa fa-angle-right"></i></a>
+                                                            </div>
+                                                            <div class="share-reply">
+                                                                <a href="#">Reply</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                @endforeach
+                                                </div>                                        
+                                                <a href="#" class="home-link"><img src="img/header-logo.png" alt=""></a>
+                                            </div>
                                         </div>
+                                        @else
+                                        <div class="block-post block-person-info">
+                                            <div class="rating-sec">
+                                                <div class="clearfix">
+                                                    <div class="feed-top-sec clearfix">
+                                                            <div class="feed-top-left">
+                                                                <p><em class="feed-person-btn"><img src="/uploads/avatar/{{$article->authorProfile->avatar}}" alt=""></em> <span>{{$article->title}}</span><i>by &nbsp;{{$article->author}} &nbsp; on &nbsp;{{$article->updated_at}}</i></p>
+                                                                <div class="feed-person-sec">
+                                                                    <!-- <span class="clip-btn"></span> -->
+                                                                    <div class="feed-upper-sec">
+                                                                        <div class="feed-upper-banner">
+                                                                            <a class="btn follow-btn" href="#"><img src="img/blue-buzz.png" alt=""><span>Follow</span></a>
+                                                                        </div>
+                                                                        <div class="feed-banner-botsec">
+                                                                            <div class="clearfix">
+                                                                                <div class="feed-banner-botinfo">
+                                                                                    <a href="#"><img src="/uploads/avatar/{{$article->authorProfile->avatar}}" alt=""></a>
+                                                                                    <h3>{{$article->author}}<span>@mykalmorton(what's this?)</span></h3>
+                                                                                </div>
+                                                                                <div class="feed-banner-botsocial">
+                                                                                    <a href="#"><img src="img/feed_social-icon1.jpg" alt=""></a>
+                                                                                    <a href="#"><img src="img/feed_social-icon2.jpg" alt=""></a>
+                                                                                    <a href="#"><img src="img/feed_social-icon3.jpg" alt=""></a>
+                                                                                </div>
+                                                                            </div>
+                                                                            <p>{{$article->authorProfile->description}}</p>
+                                                                        </div>
+                                                                        <div class="follow-sec clearfix">
+                                                                            <div class="follow-left-sec">
+                                                                                <span>200</span><i>Connections</i>
+                                                                            </div>
+                                                                            <div class="follow-right-sec">
+                                                                                <span>1.9M</span><i>Followers</i>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="feed-lower-sec">
+                                                                        <h3><i>- Famous Recipes -</i></h3>
+                                                                        <div class="feed-inner-sec clearfix">
+                                                                            <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                            <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                            <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                            <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                        </div>
+                                                                        <a class="more-btn" href="#">more</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="feed-top-right">
+                                                                <span><i class="material-icons" style="vertical-align: bottom;">transform</i></span>
+                                                                <mydiv style="vertical-align: bottom;">0</mydiv>                                                                
+                                                                <a class="btn follow-btn" href="#"><img src="img/blue-buzz.png" alt=""><span>Follow</span></a>
+                                                                <a class="lock-btn" href="#"><i class="material-icons">https</i></a>
+                                                                <i class="dropdown-toggle material-icons pen-btn">sort</i>
+                                                                <ul class="dropdown-menu">
+                                                                    <li class="hide-block"><a  class="hide-block"><i class="material-icons">visibility_off</i><span>I don't want to see this</span></a></li>
+                                                                    <li><a href="#"><i class="material-icons">subject</i><span>Hide all for Chris Beek</span></a></li>
+                                                                    <li><a href="#"><i class="material-icons">flag</i><span>Report abuse</span></a></li>
+                                                                    <li><a href="#"><i class="material-icons">remove_circle</i><span>Remove connection</span></a></li>
+                                                                </ul>
+                                                            </div>
+                                                            <!-- <div class="feed-top-right">
+                                                                <i class="dropdown-toggle material-icons pin-btn">keyboard_arrow_down</i>
+                                                                <ul class="dropdown-menu"> <li><a href="#">Action</a></li> <li><a href="#">Another action</a></li> <li><a href="#">Something else here</a></li> <li role="separator" class="divider"></li> <li><a href="#">Separated link</a></li> </ul>
+                                                            </div> -->
+                                                    </div>                                                    
+                                                    <div class="rating-left-sec" style="width: 100%">
+                                                        <p><img src="uploads/{{$article->file_encname}}" alt=""></p>
+                                                    </div>
+                                                    <div class="rating-right-sec" style="width: 100%">                                                        
+                                                        <p>{{$article->content}}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="block-info-sec">
+                                                <div class="expand-sec">
+                                                    <div class="expand-left-sec">
+                                                        <div class="visible-active">
+                                                            <span class="chat-btn active"><i class="material-icons">chat</i></span><span><i class="equalizerBtn material-icons">equalizer</i></span>
+                                                        </div>
+                                                        <div class="hide-active">
+                                                            <span class="chat-btn"><i class="material-icons">chat</i> <span>{{count($article->comments)}} Comment</span></span>                                              
+                                                            <span><i class="material-icons">email</i></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="expand-right-sec">
+                                                        <div class="visible-active">
+                                                            <a class="dropdown-toggle" href="#">Sort by Best <i class="material-icons">arrow_drop_down</i></a>
+                                                            <ul class="dropdown-menu"> <li><a href="#">Action</a></li> <li><a href="#">Another action</a></li> <li><a href="#">Something else here</a></li> <li role="separator" class="divider"></li> <li><a href="#">Separated link</a></li> </ul>
+                                                        </div>
+                                                        <div class="hide-active">                                                            
+                                                            @if($article->like=='0')
+                                                                <span class="heart-sec" ><i  id="heart_icon_{{$article->id}}" class="anim-icon heart"onclick="javascript:updateLike({{$article->id}})">
+                                                                </i></span>
+                                                            @else
+                                                                <span class="heart-sec red" ><i id="heart_icon_{{$article->id}}" class="anim-icon heart active" onclick="javascript:updateLike({{$article->id}})">
+                                                                </i></span>
+                                                            @endif
+                                                            <mydiv id="like_count_{{$article->id}}">{{$article->like_count}}</mydiv>
+                                                            <span><i class="equalizerBtn material-icons">equalizer</i></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="comment-chat-wrap">                                                
+                                                <div class="comment-chat-bar">
+                                                    <form class="pushing-form">
+                                                        <a href="#"><img src="img/jeff.jpg" alt=""></a>
+                                                        <span><i class="anim-icon camera"></i><textarea id="comment_{{$article->id}}" placeholder="What do you want to share?"></textarea></span>
+                                                        <div class="icon-sec clearfix">
+                                                            <button onclick="javascript:sendComment({{Session::get('cur_user')->id}},{{$article->user_id}},{{$article->id}},'{{Session::get('cur_user')->username}}','{{Session::get('cur_user')->fullname}}')" type="button">Send</button>
+                                                            <div class="icon-sec-right">
+                                                                <em href="#"><span class="anim-icon camera"></span> media</em>
+                                                                <em href="#"><i class="material-icons">location_on</i> <b>Location</b></em>
+                                                                <em href="#"><i class="material-icons">unarchive</i> <b>Poll</b></em>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                
+                                                @if(($comment = $article->latestComment)!=null)
+                                                <div class="comment-chat-sec">
+                                                    <div class="comment-chat-fig">
+                                                        <a href="#"><img src="img/chat-icon1.jpg" alt=""></a>
+                                                        <div class="feed-person-sec">
+                                                            <!-- <span class="clip-btn"></span> -->
+                                                            <div class="feed-upper-sec">
+                                                                <div class="feed-upper-banner">
+                                                                    <a class="btn follow-btn" href="#"><img src="img/blue-buzz.png" alt=""><span>Follow</span></a>
+                                                                </div>
+                                                                <div class="feed-banner-botsec">
+                                                                    <div class="clearfix">
+                                                                        <div class="feed-banner-botinfo">
+                                                                            <a href="#"><img src="img/profile-img2.png" alt=""></a>
+                                                                            <h3>{{$comment->author->fullname}}<span>@ {{$comment->author->username}}</span></h3>
+                                                                        </div>
+                                                                        <div class="feed-banner-botsocial">
+                                                                            <a href="#"><img src="img/feed_social-icon1.jpg" alt=""></a>
+                                                                            <a href="#"><img src="img/feed_social-icon2.jpg" alt=""></a>
+                                                                            <a href="#"><img src="img/feed_social-icon3.jpg" alt=""></a>
+                                                                        </div>
+                                                                    </div>
+                                                                    <p>{{$comment->author->description}}</p>
+                                                                </div>
+                                                                <div class="follow-sec clearfix">
+                                                                    <div class="follow-left-sec">
+                                                                        <span>200</span><i>Connections</i>
+                                                                    </div>
+                                                                    <div class="follow-right-sec">
+                                                                        <span>1.9M</span><i>Followers</i>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="feed-lower-sec">
+                                                                <h3><i>- Famous Recipes -</i></h3>
+                                                                <div class="feed-inner-sec clearfix">
+                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                </div>
+                                                                <a class="more-btn" href="#">more</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="comment-chat-info">
+                                                        <h4 class="clearfix"><a href="#">{{$comment->author->fullname}}</a> . {{$comment->period}} Hours ago <span><i id="favourite_icon_{{$comment->id}}" class="material-icons @if($comment->favourite!=0) red @endif" onclick="javascript:updateFavourite({{$comment->id}})">favorite</i><mydiv id="favourite_count_{{$comment->id}}">{{$comment->favourite_count}}</mydiv></span></h4>
+                                                        <p><a href="#">{{$comment->content}}</a></p>
+                                                        <div class="clearfix">
+                                                            <div class="share-reply share-reply-left">
+                                                                <a href="#"><span>9</span><span><i class="fa fa-angle-down"></i></span>|<span><i class="fa fa-angle-up"></i></span></a> <a href="#">Share <i class="fa fa-angle-right"></i></a>
+                                                            </div>
+                                                            <div class="share-reply">
+                                                                <a href="#">Reply</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="newest_chat_sec">
+                                                </div>
+                                                <a onclick="javascript:showDetailComment('{{$article->id}}')" id="showHideBtn_{{$article->id}}" href="#" class="show-btn">Show More</a>  
+                                                @else
+                                                <div class="newest_chat_sec">
+                                                </div>                                                
+                                                @endif
+                                                
+                                                <div class="chat_sec" id="chat_sec_{{$article->id}}" style="display: none;">
+                                                @foreach ($article->comments as $comment)
+                                                <div class="comment-chat-sec">
+                                                    <div class="comment-chat-fig">
+                                                        <a href="#"><img src="img/chat-icon1.jpg" alt=""></a>
+                                                        <div class="feed-person-sec">
+                                                            <!-- <span class="clip-btn"></span> -->
+                                                            <div class="feed-upper-sec">
+                                                                <div class="feed-upper-banner">
+                                                                    <a class="btn follow-btn" href="#"><img src="img/blue-buzz.png" alt=""><span>Follow</span></a>
+                                                                </div>
+                                                                <div class="feed-banner-botsec">
+                                                                    <div class="clearfix">
+                                                                        <div class="feed-banner-botinfo">
+                                                                            <a href="#"><img src="img/profile-img2.png" alt=""></a>
+                                                                            <h3>{{$comment->author->fullname}}<span>@ {{$comment->author->username}}</span></h3>
+                                                                        </div>
+                                                                        <div class="feed-banner-botsocial">
+                                                                            <a href="#"><img src="img/feed_social-icon1.jpg" alt=""></a>
+                                                                            <a href="#"><img src="img/feed_social-icon2.jpg" alt=""></a>
+                                                                            <a href="#"><img src="img/feed_social-icon3.jpg" alt=""></a>
+                                                                        </div>
+                                                                    </div>
+                                                                    <p>{{$comment->author->description}}</p>
+                                                                </div>
+                                                                <div class="follow-sec clearfix">
+                                                                    <div class="follow-left-sec">
+                                                                        <span>200</span><i>Connections</i>
+                                                                    </div>
+                                                                    <div class="follow-right-sec">
+                                                                        <span>1.9M</span><i>Followers</i>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="feed-lower-sec">
+                                                                <h3><i>- Famous Recipes -</i></h3>
+                                                                <div class="feed-inner-sec clearfix">
+                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                    <a href="#"><img src="img/famous-img12.jpg" alt=""></a>
+                                                                </div>
+                                                                <a class="more-btn" href="#">more</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="comment-chat-info">
+                                                        <h4 class="clearfix"><a href="#">{{$comment->author->fullname}}</a> . {{$comment->period}} Hours ago <span><i id="favourite_icon_{{$comment->id}}" class="material-icons @if($comment->favourite!=0) red @endif" onclick="javascript:updateFavourite({{$comment->id}})">favorite</i><mydiv id="favourite_count_{{$comment->id}}">{{$comment->favourite_count}}</mydiv></span></h4>
+                                                        <p><a href="#">{{$comment->content}}</a></p>
+                                                        <div class="clearfix">
+                                                            <div class="share-reply share-reply-left">
+                                                                <a href="#"><span>9</span><span><i class="fa fa-angle-down"></i></span>|<span><i class="fa fa-angle-up"></i></span></a> <a href="#">Share <i class="fa fa-angle-right"></i></a>
+                                                            </div>
+                                                            <div class="share-reply">
+                                                                <a href="#">Reply</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                @endforeach
+                                                </div>                                        
+                                                <a href="#" class="home-link"><img src="img/header-logo.png" alt=""></a>
+                                            </div>
+                                        </div>
+                                        @endif
                                     </div>
                                 </div>
                                 @endif
@@ -7117,12 +7651,22 @@ label.star:before {
             <div class="photo-gallary-right"><a href="#">Done</a><span>Done</span></div>
         </div>
         <div class="photo-gallary-bot clearfix">
-            <a <div class="photo-gallary-img">
-                <input type="file" name="upload_image" id="upload_image"/>
-                <a 
-                <img src="img/up-img.jpg" alt=""></a></div>
-            <div class="photo-gallary-img"><i class="material-icons material-icons1">panorama_fish_eye</i><i class="material-icons material-icons2">check_circle</i><img src="img/block-img3.jpg" alt=""></div>
-            <div class="photo-gallary-img"><i class="material-icons material-icons1">panorama_fish_eye</i><i class="material-icons material-icons2">check_circle</i><img src="img/block-img3.jpg" alt=""></div>
+            <div id="dropzonediv">
+                <form action="{{ url('dragdrop/upload')}}" class="dropzone" id="dropzone">
+                    <div class="btn btn-primary btn-jumbo new-jumbo" onclick="var e = document.getElementById('dropzone');e.click();">
+                        <i class="fa fa-cloud-upload" aria-hidden="true"></i><!-- react-text: 1447 --> <!-- /react-text -->
+                        <span>Upload Media file</span>
+                    </div>
+                    <!--<input type="file" name="upload_image" id="upload_image">
+                    <div class="photo-gallary-img">
+                        <a href="#">
+                            <input type="file" name="upload_image" id="upload_image">
+                        <img src="img/up-img.jpg" alt=""></a></div>
+                    <div class="photo-gallary-img"><i class="material-icons material-icons1">panorama_fish_eye</i><i class="material-icons material-icons2">check_circle</i><img src="img/block-img3.jpg" alt=""></div>
+                    <div class="photo-gallary-img"><i class="material-icons material-icons1">panorama_fish_eye</i><i class="material-icons material-icons2">check_circle</i><img src="img/block-img3.jpg" alt=""></div>
+                    -->
+                </form>
+            </div>            
         </div>
     </div>
 </div>
@@ -7414,14 +7958,37 @@ label.star:before {
 <script src="js/scripts.js"></script>
 <script src="js/out_scripts.js"></script>
 <script src="js/feed.js"></script>
+<script type="text/javascript" src="js/lazy/jquery.lazy.min.js"></script>
+<script type="text/javascript" src="js/dropzone/dropzone.js"></script>
 
 <script type="text/javascript" src="http://www.statcounter.com/counter/counter.js"></script>
 
  <script>
-                      
+                    //$(function() {
+
+                    //});
+                    // "myAwesomeDropzone" is the camelized version of the HTML element's ID
+                                        
+                    Dropzone.options.dropzone = {
+                      paramName: "file", // The name that will be used to transfer the file
+                      maxFilesize: 2, // MB
+                      addRemoveLinks: true,
+                      maxFiles: 1,
+                      //hiddenInputContainer: '#dropzonediv',
+                      previewsContainer: '#previewdropzone',
+                      accept: function(file, done) {
+                        if (file.name == "justinbieber.jpg") {
+                          done("Naha, you don't.");
+                        }
+                        else { done();document.getElementById("previewdropzone").style.display= 'block';}
+                      }
+                    };
+                    var myDropzone = new Dropzone("#dropzone");
+                    myDropzone.on("maxfilesexceeded", function(file) { this.removeFile(file); });                    
                     function uploadFile() {
                       var fd = new FormData();
-                      fd.append("video", document.getElementById('upload_image').files[0]);
+                      
+                      fd.append("video", myDropzone.files[0]);
                       
                       var xhr = new XMLHttpRequest();
                       xhr.addEventListener("load", uploadComplete, false);
@@ -7429,11 +7996,15 @@ label.star:before {
                       xhr.addEventListener("abort", uploadCanceled, false);
                       xhr.open("POST", "post/video_upload");
                       xhr.send(fd);
+                      document.getElementById("previewdropzone").style.display= 'none';            
+                      eleminate();
                     }
 
                     function uploadComplete(evt) {
-                        var file = document.getElementById('upload_image').files[0];
-                        uploadPost(file.name,evt.target.responseText,"feed");
+                        var file = myDropzone.files[0];
+                        var fname = file?file.name:null;
+                        uploadPost(fname,evt.target.responseText,"feed");
+                        if(file)myDropzone.removeFile(myDropzone.files[0]);                        
                         $(document).click();
                       //uploadPost(evt.target.responseText)
                       //alert(evt.target.responseText);

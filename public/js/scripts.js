@@ -209,12 +209,12 @@ $('.block-right textarea, #contents > .block-textarea-outer textarea').not('.ico
             //click_elem.val("");
             $(this).addClass('expand');
             click_elem.parents('.block-textarea-outer').find('.block-textarea-left i.material-icons').text('public');
-            click_elem.attr("placeholder", "Add a description");
+            //click_elem.attr("placeholder", "Add a description");
             click_elem.parents('.block-textarea-outer').find(".icon-swicher").removeClass('expander').addClass('dropdown-toggle');
         }
     });
 });
-$(document).click(function() {
+function eleminate() {
     $('.block-right, #contents > .block-textarea-outer').removeClass('expand');
     var outer_elem = $('.block-right textarea, #contents > .block-textarea-outer textarea').not('.icon-sec ,.icon-sec-right').parents('.block-textarea-outer');
     $('.block-right textarea, #contents > .block-textarea-outer textarea').not('.icon-sec ,.icon-sec-right')
@@ -227,7 +227,7 @@ $(document).click(function() {
     outer_elem.find('.block-textarea-left .uploader-select-inner .dropdown-menu').hide();
     outer_elem.find('.icon-swicher').removeClass('dropdown-toggle').addClass('expander');
 
-});
+}
 
 $('.morphsearch-form .magnify').click(function () {
     $('.morphsearch-form .morphsearch-input').focus();

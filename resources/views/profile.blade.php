@@ -28,6 +28,11 @@
         <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
         <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
     <![endif]-->    
+    <style type="text/css">
+        .btn-create {
+            margin-left: 25px;
+        }
+    </style>
 </head>
 
 <body class="feed-page noselect">
@@ -55,8 +60,10 @@
                 <div class="clearfix">
                     <div class="header-btn-sec">
                         <span class="off-canvas-btn anim-icon gamburger"></span>
-                        <a class="knoop-logo" href="feed.html"><img src="img/knv3.png" alt=""></a>
+                        <a class="knoop-logo" href="feed"><img src="img/knv3.png" alt=""></a>
                         <a href="#" class="btn-create">CREATE</a>
+                        <a href="home" class="btn-create">HOME</a>
+                        <a href="feed" class="btn-create">FEED</a>
                     </div>
                 </div>
             </div>

@@ -26,6 +26,7 @@ class CreatePostTable extends Migration
             $table->string('type');
             $table->string('note');
             $table->integer('like');
+            $table->string('filetype')->default('image');
             $table->timestamps();
         });
     }

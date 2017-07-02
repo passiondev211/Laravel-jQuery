@@ -93,17 +93,18 @@ class AuthController extends Controller
     public function handleProviderCallback($provider)
     {
         //echo phpinfo();exit(0);
-        return redirect("/feed/");
-        // try {
-        //     $user = Socialite::driver($provider)->user();
-        //     var_dump($user);exit(0);
-        // } catch (Exception $e) {
-        //     return redirect('auth/'.$provider);
-        // }
+        //return redirect("/feed/");
+         try { 
+             $user = Socialite::driver($provider)->user();
+             var_dump("ok");exit(0);
+         } catch (Exception $e) {
+             return redirect('auth/'.$provider);
+         }
         
-        // $authUser = $this->findOrCreateUser($user, $provider);
-        // Auth::login($authUser, true);
-        return redirect($this->redirectTo);
+         $authUser = $this->findOrCreateUser($user, $provider);
+         Auth::login($authUser, true);
+         return redirect("feed");
+        //return redirect($this->redirectTo);
     }
     
     

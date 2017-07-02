@@ -13,6 +13,7 @@
 
 Route::post('/post/register', 'PostController@store');
 Route::post('/post/video_upload', 'PostController@video_upload');
+Route::post('/dragdrop/upload', 'PostController@dragupload');
 Route::post('/adver/register','Advers@store');
 Route::get('/adver/show','Advers@getArticles');
 Route::get('/post/show', 'PostController@getArticles');

@@ -10282,7 +10282,7 @@ ______________________*/
   margin-top: -5px;
   line-height: 30px;
   font-weight: 600;
-  background: #337ab7;
+  background: #b7dbe9;
   color: #fff;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
@@ -11217,7 +11217,8 @@ ______________________*/
 .block-info .block-post .rating-right-sec p {
   font-size: 12.65px;
   line-height: 1.735;
-  margin: 0;
+  margin-top: 10px;
+  margin-bottom: 20px;
 }
 .block-info .block-post .rating-right-sec p em, .block-info .block-post .rating-right-sec p span {
   display: inline-block;
@@ -11609,7 +11610,7 @@ ______________________*/
   float: left;
 }
 .expand-sec .expand-left-sec span:first-child {
-  margin-right: 70px;
+  margin-right: 30px;
 }
 .expand-sec .expand-left-sec .chat-btn {
   padding: 5px 10px;
@@ -11632,7 +11633,7 @@ ______________________*/
   color: lightgreen;
 }
 .expand-sec .expand-right-sec span:first-child {
-  margin-right: 70px;
+  margin-right: 10px;
 }
 .expand-sec .expand-right-sec span.record-btn {
   margin-left: 70px;
@@ -14050,24 +14051,6 @@ textarea:focus {
   /* Support for IE. */
   -moz-font-feature-settings: 'liga';
   font-feature-settings: 'liga';
-}
-
-.feed-page .comment-chat-wrap .material-icons:hover {
-    opacity: 1;
-    color: #f33;
-}
-.feed-page .comment-chat-wrap .material-icons{
-    opacity: 0.5;
-}
-
-
-.feed-page .comment-chat-wrap .material-icons.red:hover {
-    opacity: 1;
-    color: #f33;
-}
-.feed-page .comment-chat-wrap .material-icons.red{
-    opacity: 0.5;
-    color: #f33;
 }
 
 .outer-shadow-sec {
@@ -17443,10 +17426,10 @@ body.alter {
 }
 
 
-.expand-left-sec .hide-active {
+/*.expand-left-sec .hide-active {
     width: 32%;
     float: left;
-}
+}*/
 
 label.comm-count {
     background: lightgrey;
@@ -17512,8 +17495,8 @@ span.favorite-count {
   visibility: visible;
 }
 .feed-page .feed-top-sec1 .feed-top-left p span, .feed-page .feed-top-sec1 .feed-top-left p i {
-  opacity: 0;
-  visibility: hidden;
+  opacity: 100;
+  visibility: visible;
 }
 .feed-page .feed-top-sec1 .feed-top-right .pen-btn {
   /* visibility: hidden;
@@ -19941,4 +19924,31 @@ hr {
   .cart-popup:before {
     margin-left: 10px;
   }
+}
+a.follow-btn {
+    width: 77px;
+    position: relative;
+    top: 10px;
+    right: 10px;
+    border: 1px solid #1da1f2;
+    color: #55a1f3;
+    background: #fff;
+    border-radius: 3px;
+    text-align: center;
+    display: inline-block;
+}
+mydiv{
+  margin-right: 30px;
+  margin-left: 10px;
+}
+.feed-top-right a.lock-btn{
+  vertical-align: bottom;
+  margin-right: 20px;
+  margin-left: 10px;
+}
+.feed-top-right a.lock-btn i{
+  vertical-align: bottom;
+}
+.block-info .block-post .rating-left-sec p img {
+    max-width: 100%;
 }
