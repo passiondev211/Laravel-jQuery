@@ -219,7 +219,7 @@ var sc_project = 3967696;
           txt = txt.substring(0, txt.length-1);
           $( "#content" ).val(txt);
        }
-       if(event.keyCode==13)$( "#content" ).val($( "#content" ).val()+' ')
+       if(event.keyCode==13 && lastChar!=' ')$( "#content" ).val($( "#content" ).val()+' ')
        //alert(lastChar);
     };
     function uploadPost(filename,file_encname,type){
@@ -248,6 +248,7 @@ var sc_project = 3967696;
       formData=formData+'&category=' + category;
       formData=formData+'&filename=' + filename;
       formData=formData+'&file_encname=' + file_encname;
+      formData=formData+'&filetype=image';
       formData=formData+'&price=' + price;
       formData=formData+'&type=' + type;
       formData=formData+'&note=' + "testnotes`+newcontent.author+`";
@@ -256,7 +257,7 @@ var sc_project = 3967696;
           type:'POST',
           data:formData,
           success:function(data){
-              var newcontent = data;alert(newcontent.file_encname);
+              var newcontent = data;
               var xx;
               if(newcontent.file_encname==''){
                 xx = `
@@ -322,7 +323,7 @@ var sc_project = 3967696;
                                                   <a class="lock-btn" href="#"><i class="material-icons">https</i></a>
                                                   <i class="dropdown-toggle material-icons pen-btn">sort</i>
                                                   <ul class="dropdown-menu">
-                                                      <li class="hide-block"><a  class="hide-block"><i class="material-icons">visibility_off</i><span>I dont want to see this</span></a></li>
+                                                      <li class="hide-block"><a  class="hide-block" onclick="hide"><i class="material-icons">visibility_off</i><span>I dont want to see this</span></a></li>
                                                       <li><a href="#"><i class="material-icons">subject</i><span>Hide all for Chris Beek</span></a></li>
                                                       <li><a href="#"><i class="material-icons">flag</i><span>Report abuse</span></a></li>
                                                       <li><a href="#"><i class="material-icons">remove_circle</i><span>Remove connection</span></a></li>

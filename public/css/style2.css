@@ -14157,11 +14157,11 @@ textarea:focus {
   background: #f1f1f1;
 }
 #feed-page #footer-wrap {
-  bottom: 0;
-  left: 0;
-  right: 0;
-  /* position: fixed;
-  z-index: -12; */
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  position: relative;
+  z-index: -12;
 }
 #feed-page .footer-outer {
   /* height: 219px;
@@ -15269,7 +15269,9 @@ textarea:focus {
   box-shadow: -1px -1px 5px rgba(0, 0, 0, 0.6), 1px 1px 5px rgba(0, 0, 0, 0.6);
 }
 .photo-gallary-popup.in {
-  display: block !important;
+    display: block !important;
+    position: absolute;
+    left: 60%;
 }
 .photo-gallary-popup.gallary-popup2.active .photo-gallary-right span {
   display: none;
@@ -17823,8 +17825,11 @@ span.favorite-count {
   visibility: hidden;
 }
 .feed-page .morphsearch.fixed {
-  opacity: 1;
-  visibility: visible;
+    opacity: 1;
+    visibility: visible;
+    position: absolute;
+    margin-left: 60px;
+    width: 45%;
 }
 .feed-page .app-menu.active {
   top: 68px;

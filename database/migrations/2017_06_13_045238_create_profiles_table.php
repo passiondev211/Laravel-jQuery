@@ -20,6 +20,7 @@ class CreateProfilesTable extends Migration
             $table->string('birthYear');
             $table->string('birthMonth');
             $table->string('birthDate');
+            $table->string('location');
             $table->timestamps();
         });
     }

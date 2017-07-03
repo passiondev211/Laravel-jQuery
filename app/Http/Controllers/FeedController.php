@@ -124,13 +124,12 @@ class FeedController extends Controller
                 else
                     $data[$i]->mark='0';
             }
+            $avgMark = Feed::where('post_id', $post->id)->avg('mark');
             //$cntMark = Feed::where('post_id' ,$post->id)->count();
             //$sumMark = Feed::where('post_id' ,$post->id)->sum('mark');
                         
-            //$t_sum = (int)($sumMark);
-            //$cnt = (int)($cntMark);
-            //var_dump($t_sum);var_dump($cnt);exit;
-            //$data[$i]->mark=($t_sum/$cnt);
+            
+            $data[$i]->mark=intval($avgMark);
             //if($cntMark>0){
               //  $data[$i]->mark = $t_sum/$cnt;
             //}

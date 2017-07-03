@@ -84,25 +84,11 @@
 
 <body id="feed-page" class="feed-page noselect">
 
-<span class="tweet-active-btn"><i class="active material-icons">arrow_back</i><i class="material-icons">arrow_forward</i></span>
 
 
 <div id="container-fluid">
-
-<div id="morphsearch" class="morphsearch container-fluid fixed">
-    <form class="morphsearch-form">
-        <span class="magnify"></span>
-        <input class="morphsearch-input" type="search" placeholder="Search">
-        <button class="morphsearch-submit" type="submit">SEARCH</button>
-    </form>
-    <!-- /morphsearch-content -->
-    <span class="morphsearch-close"></span>
-    
-</div><!-- /morphsearch --><!-- /container -->
-<div class="overlay"></div>
-
 <!--header start -->
-<div id="header-wrap">
+<div id="header-wrap" class="fixed">
     <div class="container">
         <header id="header">
             <div class="header-left">
@@ -116,6 +102,20 @@
                     </div>
                 </div>
             </div>
+            
+            <div id="morphsearch" class="morphsearch container-fluid fixed">
+                <form class="morphsearch-form">
+                    <span class="magnify"></span>
+                    <input class="morphsearch-input" type="search" placeholder="Search">
+                    <button class="morphsearch-submit" type="submit">SEARCH</button>
+                </form>
+                <!-- /morphsearch-content -->
+                <span class="morphsearch-close"></span>
+                
+            </div><!-- /morphsearch --><!-- /container -->
+            <div class="overlay"></div>
+
+            
             <div class="header-right">
                 <div class="clearfix">
                     <div class="ship_cart-outer">
@@ -2338,7 +2338,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="block-outer">
+                                    <div class="block-outer">                                        
                                         @if($article->file_encname=='')
                                         <div class="block-post block-person-info">
                                             <div class="rating-sec">
@@ -7987,8 +7987,8 @@
                     myDropzone.on("maxfilesexceeded", function(file) { this.removeFile(file); });                    
                     function uploadFile() {
                       var fd = new FormData();
-                      
-                      fd.append("video", myDropzone.files[0]);
+                      var file = myDropzone.files[0];
+                      if(file) fd.append("video", myDropzone.files[0]); else fd.append("video", null);
                       
                       var xhr = new XMLHttpRequest();
                       xhr.addEventListener("load", uploadComplete, false);

@@ -36,6 +36,7 @@ class PostController extends Controller
     }
     public function video_upload(Request $request){
         $fileInfo="";
+        $file=null;
         if($request->hasFile('video')){
             $file = $request->video;
         }else if($request->hasFile('file')){
