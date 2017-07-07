@@ -9,6 +9,7 @@ use Validator;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
@@ -92,18 +93,18 @@ class AuthController extends Controller
      */
     public function handleProviderCallback($provider)
     {
-        //echo phpinfo();exit(0);
-        //return redirect("/feed/");
-         try { 
+         try {
              $user = Socialite::driver($provider)->user();
-             var_dump("ok");exit(0);
+             
          } catch (Exception $e) {
              return redirect('auth/'.$provider);
          }
-        
+        //var_dump("ok");exit;
          $authUser = $this->findOrCreateUser($user, $provider);
-         Auth::login($authUser, true);
-         return redirect("feed");
+         //Auth::login($authUser, true);
+         \Session::set('cur_user', $authUser);
+         ProfileController::getProfile();
+         return redirect()->action('FeedController@getArticles');
         //return redirect($this->redirectTo);
     }
     
@@ -118,10 +119,13 @@ class AuthController extends Controller
             return $authUser;
         }
         return User::create([
-            'name'     => $user->name,
+            'fullname'     => $user->name,
+            'username' => $user->nickname,
             'email'    => $user->email,
+            'avatar'    => $user->avatar,
             'provider' => $provider,
-            'provider_id' => $user->id
+            'provider_id' => $user->id,
+            'state'     => '1'
         ]);
     }
 

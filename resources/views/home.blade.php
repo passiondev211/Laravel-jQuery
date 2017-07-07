@@ -95,7 +95,7 @@
                                 <h2><b>Log In</b></h2>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore dolorum aliquid nihil adipisci qui officiis non fugit.</p>
                                 <div class="social-link">
-                                    <a href="#"><img src="img/flat-icon1.png" alt=""></a><a href="#"><img src="img/flat-icon2.png" alt=""></a><a href="#"><img src="img/flat-icon3.png" alt=""></a><a href="{{"/auth/google"}}"><img src="img/flat-icon4.png" alt=""></a>
+                                    <a href="#"><img src="img/flat-icon1.png" alt=""></a><a href="#"><img src="img/flat-icon2.png" alt=""></a><a href="#"><img src="img/flat-icon3.png" alt=""></a><a href="{{url('auth/google')}}"><img src="img/flat-icon4.png" alt=""></a>
                                 </div>
                                 <form id="loginForm">
                                     <fieldset class="email-frm">
