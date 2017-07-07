@@ -41,18 +41,18 @@ return [
         'redirect' => env('GITHUB_REDIRECT'),
     ],
     'twitter' => [
-        'client_id'     => env('TWITTER_ID'),
-        'client_secret' => env('TWITTER_SECRET'),
-        'redirect'      => env('TWITTER_URL'),
+        'client_id'     => 'eGZ55RAeAvMfUYjy7T1ChJvIC',
+        'client_secret' => 'zGbqxWows40paOw9IlLsBlwZpdMWzgfFx8HQH7SIM2rwaaAmsn',
+        'redirect'      => "http://ec2-35-164-11-119.us-west-2.compute.amazonaws.com:83/auth/twitter/callback",
     ],
     'facebook' => [
         'client_id'     => "1471869312887506",
         'client_secret' => "d3d36f3f63e925547a70f03c0432b56f",
-        'redirect'      => env('FACEBOOK_URL'),
+        'redirect'      => "http://ec2-35-164-11-119.us-west-2.compute.amazonaws.com:83/auth/facebook/callback",
     ],
     'google' => [
-        'client_id'     => "611795058461-sug2crd0ka0jadgccm7jb8rg2rj57nkc.apps.googleusercontent.com",
-        'client_secret' => "dyYIqV8su1ryTew2NHu56rmP",
+        'client_id'     => "124755301532-b3mli8a57elgqeuqc8nd17q7st9jdnvd.apps.googleusercontent.com",
+        'client_secret' => "tXiCk0iAxbxi_ynmvVRVZ8tC",
         'redirect'      => "http://ec2-35-164-11-119.us-west-2.compute.amazonaws.com:83/auth/google/callback",
     ],
 ];
