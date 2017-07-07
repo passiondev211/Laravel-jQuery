@@ -52,7 +52,7 @@ return [
     ],
     'google' => [
         'client_id'     => "611795058461-sug2crd0ka0jadgccm7jb8rg2rj57nkc.apps.googleusercontent.com",
-        'client_secret' => "yJuZXaYwcNt-hH5wLZ8DY7LN",
-        'redirect'      => "http://localhost:83/auth/google/callback",
+        'client_secret' => "dyYIqV8su1ryTew2NHu56rmP",
+        'redirect'      => "http://ec2-35-164-11-119.us-west-2.compute.amazonaws.com:83/auth/google/callback",
     ],
 ];
